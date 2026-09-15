@@ -1,7 +1,8 @@
 "use client";
 
+import { categoryColor, inkColor } from "#/lib/palette";
+
 import { burstConfetti } from "./confetti";
-import { categoryColor, inkColor } from "./palette";
 
 import type { RuleIndexEntry } from "#/lib/rules";
 

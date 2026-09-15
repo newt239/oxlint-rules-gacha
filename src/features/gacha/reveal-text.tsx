@@ -5,9 +5,8 @@ import { useEffect, useRef, ViewTransition } from "react";
 import * as stylex from "@stylexjs/stylex";
 import ShuffleText from "shuffle-text";
 
+import { categoryColor } from "#/lib/palette";
 import { font, text } from "#/styles/tokens.stylex";
-
-import { categoryColor } from "./palette";
 
 import type { Category } from "#/lib/rules";
 

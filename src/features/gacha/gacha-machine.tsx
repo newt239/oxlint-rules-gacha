@@ -24,7 +24,7 @@ import type { RuleIndexEntry } from "#/lib/rules";
 
 const CapsuleCanvas = dynamic(
   async () => {
-    const loaded = await import("./capsule-canvas");
+    const loaded = await import("#/components/capsule-canvas");
 
     return loaded.CapsuleCanvas;
   },
