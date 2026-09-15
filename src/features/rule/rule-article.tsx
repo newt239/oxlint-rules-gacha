@@ -40,11 +40,6 @@ const styles = stylex.create({
     paddingBlock: "2.5rem 4rem",
     paddingInline: layout.gutter,
   },
-  note: {
-    color: color.inkDim,
-    fontSize: "0.8125rem",
-    marginBlockStart: "2rem",
-  },
   section: {
     marginBlockStart: "2rem",
   },
@@ -89,7 +84,6 @@ export const RuleArticle = ({ detail }: RuleArticleProps) => (
       <a href={detail.docsUrl} rel="noreferrer" target="_blank" {...stylex.props(styles.docsLink)}>
         Read the original docs on oxc.rs
       </a>
-      <p {...stylex.props(styles.note)}>Source: the oxc project (MIT)</p>
     </article>
     <div {...stylex.props(styles.actions)}>
       <RuleActions />

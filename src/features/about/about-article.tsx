@@ -1,11 +1,10 @@
 import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
-import { ABOUT_INTRO, SITE_NAME } from "#/lib/site";
+import { ABOUT_INTRO, OXC_LICENSE_URL, SITE_NAME } from "#/lib/site";
 import { color, layout } from "#/styles/tokens.stylex";
 
 const OXC_REPO_URL = "https://github.com/oxc-project/oxc";
-const OXC_LICENSE_URL = "https://github.com/oxc-project/oxc/blob/main/LICENSE";
 const OXC_RULES_URL = "https://oxc.rs/docs/guide/usage/linter/rules.html";
 
 const styles = stylex.create({
