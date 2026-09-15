@@ -4,6 +4,10 @@ import Link from "next/link";
 import { ABOUT_INTRO, OXC_LICENSE_URL, SITE_NAME } from "#/lib/site";
 import { color, layout, text } from "#/styles/tokens.stylex";
 
+const AUTHOR_GITHUB_URL = "https://github.com/newt239";
+const AUTHOR_NAME = "newt239";
+const AUTHOR_WEBSITE_URL = "https://newt239.dev";
+const AUTHOR_X_URL = "https://x.com/newt239";
 const OXC_REPO_URL = "https://github.com/oxc-project/oxc";
 const OXC_RULES_URL = "https://oxc.rs/docs/guide/usage/linter/rules.html";
 
@@ -107,6 +111,37 @@ export const AboutArticle = () => (
               {...stylex.props(styles.link)}
             >
               Source: the oxc project (MIT)
+            </a>
+          </li>
+        </ul>
+      </section>
+      <section {...stylex.props(styles.section)}>
+        <h2 {...stylex.props(styles.heading)}>Author</h2>
+        <p {...stylex.props(styles.body)}>Built by {AUTHOR_NAME}.</p>
+        <ul {...stylex.props(styles.linkList)}>
+          <li>
+            <a
+              href={AUTHOR_WEBSITE_URL}
+              rel="noreferrer"
+              target="_blank"
+              {...stylex.props(styles.link)}
+            >
+              Website
+            </a>
+          </li>
+          <li>
+            <a
+              href={AUTHOR_GITHUB_URL}
+              rel="noreferrer"
+              target="_blank"
+              {...stylex.props(styles.link)}
+            >
+              GitHub
+            </a>
+          </li>
+          <li>
+            <a href={AUTHOR_X_URL} rel="noreferrer" target="_blank" {...stylex.props(styles.link)}>
+              X
             </a>
           </li>
         </ul>
