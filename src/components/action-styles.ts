@@ -8,7 +8,6 @@ export const actionStyles = stylex.create({
   base: {
     backgroundColor: {
       ":disabled": color.cabinet2,
-      ":hover": color.ink,
       default: color.ink,
     },
     borderColor: "transparent",
@@ -19,11 +18,14 @@ export const actionStyles = stylex.create({
       ":disabled": color.inkDim,
       default: color.cabinet,
     },
-    cursor: { ":disabled": "progress", default: "pointer" },
+    cursor: { ":disabled": "not-allowed", default: "pointer" },
     fontFamily: font.display,
     fontSize: text.md,
     fontWeight: 700,
     padding: "0.75rem 1.5rem",
+  },
+  busy: {
+    cursor: "progress",
   },
   link: {
     display: "inline-block",

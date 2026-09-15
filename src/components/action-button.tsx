@@ -24,7 +24,7 @@ export const ActionButton = ({
     disabled={busy || disabled}
     onClick={onClick}
     type="button"
-    {...stylex.props(actionStyles.base, actionStyles[variant])}
+    {...stylex.props(actionStyles.base, actionStyles[variant], busy && actionStyles.busy)}
   >
     {children}
   </button>
