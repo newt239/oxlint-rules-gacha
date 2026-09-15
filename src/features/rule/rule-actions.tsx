@@ -6,6 +6,8 @@ import * as stylex from "@stylexjs/stylex";
 import { useRouter } from "next/navigation";
 
 import { ActionButton } from "#/components/action-button";
+import { CopyButton } from "#/components/copy-button";
+import { buildOxlintrc } from "#/lib/oxlintrc";
 import { drawAndRecord, useCollection, useFilter } from "#/lib/use-draw";
 
 import type { Dictionary } from "#/i18n";
@@ -30,7 +32,6 @@ export const RuleActions = ({ detail, dictionary, lang }: RuleActionsProps) => {
   const collection = useCollection();
   const filter = useFilter();
   const [drawing, setDrawing] = useState(false);
-  const [copied, setCopied] = useState(false);
 
   const handleDraw = () => {
     setDrawing(true);
@@ -50,25 +51,16 @@ export const RuleActions = ({ detail, dictionary, lang }: RuleActionsProps) => {
       });
   };
 
-  const handleCopy = () => {
-    navigator.clipboard
-      .writeText(`${JSON.stringify({ rules: { [detail.id]: "error" } }, null, 2)}\n`)
-      .then(() => {
-        setCopied(true);
-      })
-      .catch((error: unknown) => {
-        console.error(error);
-      });
-  };
-
   return (
     <div {...stylex.props(styles.group)}>
       <ActionButton busy={drawing} onClick={handleDraw} variant="primary">
         {dictionary.drawAgain}
       </ActionButton>
-      <ActionButton onClick={handleCopy} variant="secondary">
-        {copied ? dictionary.copied : dictionary.copyConfig}
-      </ActionButton>
+      <CopyButton
+        copiedLabel={dictionary.copied}
+        label={dictionary.copyConfig}
+        text={buildOxlintrc([detail])}
+      />
     </div>
   );
 };
