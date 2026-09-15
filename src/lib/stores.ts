@@ -1,3 +1,5 @@
+import { type Lang, LANGS } from "#/i18n";
+
 import { type Collection, EMPTY_COLLECTION, reviveCollection } from "./collection";
 import { DEFAULT_FILTER, type Filter } from "./draw";
 import { createPersistedStore } from "./persisted-store";
@@ -42,6 +44,12 @@ export const filterStore = createPersistedStore<Filter>(
   "oxlint-gacha:filter",
   DEFAULT_FILTER,
   reviveFilter,
+);
+
+export const langStore = createPersistedStore<Lang>(
+  "oxlint-gacha:lang",
+  "en",
+  (value) => LANGS.find((lang) => lang === value) ?? null,
 );
 
 export const skipHintStore = createPersistedStore<boolean>(

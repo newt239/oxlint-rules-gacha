@@ -40,7 +40,6 @@ const nextConfig: NextConfig = {
   ],
   output: "standalone",
   poweredByHeader: false,
-  redirects: () => [{ destination: "/en", permanent: false, source: "/" }],
   typedRoutes: true,
 };
 

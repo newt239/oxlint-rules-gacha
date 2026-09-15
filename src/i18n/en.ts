@@ -24,6 +24,7 @@ export const en = {
   fixNone: "no fix",
   fixSuggestion: "suggestion",
   incorrectExample: "Incorrect",
+  languageLabel: "Language",
   loadingRules: "Loading rules",
   lockedRule: "Not collected yet",
   lockedSection: "Not collected yet",

@@ -26,6 +26,7 @@ export const ja: Dictionary = {
   fixNone: "自動修正なし",
   fixSuggestion: "修正候補あり",
   incorrectExample: "悪い例",
+  languageLabel: "言語",
   loadingRules: "ルールを読み込んでいます",
   lockedRule: "未所持",
   lockedSection: "未所持",

@@ -12,3 +12,5 @@ const DICTIONARIES: Record<Lang, Dictionary> = { en, ja };
 const isLang = (value: string): value is Lang => LANGS.some((lang) => lang === value);
 
 export const getDictionary = (lang: string): Dictionary => (isLang(lang) ? DICTIONARIES[lang] : en);
+
+export const toLang = (value: string): Lang => (isLang(value) ? value : "en");

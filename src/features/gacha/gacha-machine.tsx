@@ -8,15 +8,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { ActionButton } from "#/components/action-button";
+import { type Dictionary, toLang } from "#/i18n";
 import { obtainedIds } from "#/lib/collection";
-import { skipHintStore } from "#/lib/stores";
+import { langStore, skipHintStore } from "#/lib/stores";
 import { drawAndRecord, useCollection, useFilter, useSkipHintSeen } from "#/lib/use-draw";
 import { color, font, layout } from "#/styles/tokens.stylex";
 
 import { FilterPanel } from "./filter-panel";
 import { playSequence } from "./sequence";
-
-import type { Dictionary } from "#/i18n";
 
 const styles = stylex.create({
   cabinet: {
@@ -94,6 +93,11 @@ export const GachaMachine = ({ dictionary, lang }: GachaMachineProps) => {
   const [scope, animate] = useAnimate();
   const [drawing, setDrawing] = useState(false);
   const skippedRef = useRef(false);
+
+  // LocalStorage への書き込みはブラウザでしか行えない
+  useEffect(() => {
+    langStore.set(toLang(lang));
+  }, [lang]);
 
   useEffect(() => {
     const skip = () => {
