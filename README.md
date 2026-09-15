@@ -16,6 +16,8 @@ npm run dev
 
 Node.js 22.12.0 or later. Use **npm**; other package managers are not supported.
 
+See `.env.example` for the environment variables. `NEXT_PUBLIC_*` values are inlined at build time, so set them on the host before the build runs. Analytics stays off unless `NEXT_PUBLIC_GA_ID` is set, and never sends hits from `localhost`.
+
 ## Scripts
 
 | Command               | What it does                                             |
