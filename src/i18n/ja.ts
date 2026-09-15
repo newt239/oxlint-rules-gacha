@@ -1,0 +1,27 @@
+import type { Dictionary } from "./en";
+
+export const ja: Dictionary = {
+  backToGacha: "ガチャに戻る",
+  categoryLabel: "カテゴリ",
+  copied: "コピーしました",
+  copyConfig: "設定をコピー",
+  correctExample: "良い例",
+  defaultOff: "既定では無効",
+  defaultOn: "既定で有効",
+  drawAgain: "もう一度引く",
+  drawButton: "ルールを引く",
+  drawing: "ルールを抽選しています",
+  drawnCount: "{count} 件引いた",
+  filters: "抽選対象",
+  fixDangerous: "危険な自動修正",
+  fixFix: "自動修正あり",
+  fixNone: "自動修正なし",
+  fixSuggestion: "修正候補あり",
+  incorrectExample: "悪い例",
+  originalDocs: "oxc.rs の原典を読む",
+  plugins: "プラグイン",
+  ruleTextInEnglish: "ルールの説明は英語の原文をそのまま表示しています。",
+  skipHint: "画面タップ、Esc、Space で演出をスキップできます。",
+  tagline: "oxlint のルールを 1 回 1 件ずつ引く。",
+  typeAware: "型情報が必要",
+};

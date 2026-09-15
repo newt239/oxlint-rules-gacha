@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import * as stylex from "@stylexjs/stylex";
 import { Baloo_2, Geist_Mono } from "next/font/google";
 
+import { LANGS } from "#/i18n";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "#/lib/site";
 import { color, font } from "#/styles/tokens.stylex";
 import "#/styles/globals.css";
@@ -21,7 +22,9 @@ const geistMono = Geist_Mono({
   weight: ["500"],
 });
 
-export const generateStaticParams = () => [{ lang: "en" }, { lang: "ja" }];
+export const dynamicParams = false;
+
+export const generateStaticParams = () => LANGS.map((lang) => ({ lang }));
 
 export const metadata: Metadata = {
   description: SITE_DESCRIPTION,

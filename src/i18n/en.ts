@@ -1,0 +1,27 @@
+export const en = {
+  backToGacha: "Back to the gacha",
+  categoryLabel: "Category",
+  copied: "Copied",
+  copyConfig: "Copy config",
+  correctExample: "Correct",
+  defaultOff: "off by default",
+  defaultOn: "on by default",
+  drawAgain: "Draw again",
+  drawButton: "Draw a rule",
+  drawing: "Drawing a rule",
+  drawnCount: "{count} rules drawn",
+  filters: "Filters",
+  fixDangerous: "dangerous fix",
+  fixFix: "auto-fix",
+  fixNone: "no fix",
+  fixSuggestion: "suggestion",
+  incorrectExample: "Incorrect",
+  originalDocs: "Read the original docs on oxc.rs",
+  plugins: "Plugins",
+  ruleTextInEnglish: "Rule descriptions are shown in the original English.",
+  skipHint: "Tap, or press Esc or Space, to skip the animation.",
+  tagline: "Draw one oxlint rule at a time.",
+  typeAware: "needs type information",
+};
+
+export type Dictionary = typeof en;
