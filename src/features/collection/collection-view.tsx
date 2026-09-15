@@ -1,17 +1,10 @@
 "use client";
 
-import { useState } from "react";
-
 import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
 import { obtainedIds } from "#/lib/collection";
-import {
-  COLLECTION_SORTS,
-  type CollectionSort,
-  collectionProgress,
-  collectionSections,
-} from "#/lib/collection-progress";
+import { collectionProgress, obtainedEntries } from "#/lib/collection-progress";
 import { COLLECTION_DESCRIPTION } from "#/lib/site";
 import { useCollection } from "#/lib/use-draw";
 import { useRuleIndex } from "#/lib/use-rule-index";
@@ -21,12 +14,6 @@ import { CollectionClear } from "./collection-clear";
 import { CollectionExport } from "./collection-export";
 import { ProgressSummary } from "./progress-summary";
 import { RuleGrid } from "./rule-grid";
-
-const SORT_LABELS: Record<CollectionSort, string> = {
-  category: "By category",
-  obtained: "Newest first",
-  plugin: "By plugin",
-};
 
 const styles = stylex.create({
   backLink: {
@@ -41,30 +28,10 @@ const styles = stylex.create({
     marginBlockStart: "2rem",
     textWrap: "balance",
   },
-  fieldset: {
-    borderStyle: "none",
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "0.5rem 1rem",
-    margin: 0,
-    padding: "0.5rem 0 0",
-  },
   heading: {
     fontSize: text.xl,
     marginBlock: "0 0.5rem",
     textWrap: "balance",
-  },
-  label: {
-    alignItems: "center",
-    color: color.ink,
-    display: "flex",
-    fontSize: text.md,
-    gap: "0.25rem",
-  },
-  legend: {
-    color: color.inkDim,
-    fontSize: text.md,
-    padding: 0,
   },
   main: {
     marginInline: "auto",
@@ -93,9 +60,6 @@ const styles = stylex.create({
   section: {
     marginBlockStart: "3rem",
   },
-  sortGroup: {
-    marginBlockStart: "2rem",
-  },
   title: {
     fontSize: text.display,
     marginBlock: "0 0.5rem",
@@ -106,7 +70,6 @@ const styles = stylex.create({
 export const CollectionView = () => {
   const collection = useCollection();
   const index = useRuleIndex();
-  const [sort, setSort] = useState<CollectionSort>("obtained");
 
   if (index === null) {
     return (
@@ -118,7 +81,7 @@ export const CollectionView = () => {
   }
 
   const progress = collectionProgress(index.rules, collection);
-  const sections = collectionSections(index.rules, collection, sort);
+  const entries = obtainedEntries(index.rules, collection);
   const owned = index.rules.filter((rule) => Object.hasOwn(collection.obtained, rule.id));
   const obtainedCount = obtainedIds(collection).length;
 
@@ -127,26 +90,10 @@ export const CollectionView = () => {
       <h1 {...stylex.props(styles.title)}>Collection</h1>
       <p {...stylex.props(styles.note)}>{COLLECTION_DESCRIPTION}</p>
       <ProgressSummary progress={progress} />
-      <fieldset {...stylex.props(styles.fieldset, styles.sortGroup)}>
-        <legend {...stylex.props(styles.legend)}>Sort</legend>
-        {COLLECTION_SORTS.map((value) => (
-          <label key={value} {...stylex.props(styles.label)}>
-            <input
-              checked={sort === value}
-              name="collection-sort"
-              onChange={() => {
-                setSort(value);
-              }}
-              type="radio"
-            />
-            {SORT_LABELS[value]}
-          </label>
-        ))}
-      </fieldset>
-      {sections.length === 0 ? (
+      {entries.length === 0 ? (
         <p {...stylex.props(styles.empty)}>No rules yet. Draw one to start your collection.</p>
       ) : (
-        <RuleGrid sections={sections} />
+        <RuleGrid entries={entries} />
       )}
       {progress.retired.length > 0 && (
         <section {...stylex.props(styles.section)}>

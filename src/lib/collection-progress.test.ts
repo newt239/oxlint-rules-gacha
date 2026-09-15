@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { collectionProgress, collectionSections } from "./collection-progress";
+import { collectionProgress, obtainedEntries } from "./collection-progress";
 
 import type { Collection } from "./collection";
 import type { RuleIndexEntry } from "./rules";
@@ -72,55 +72,20 @@ describe("collectionProgress", () => {
   });
 });
 
-describe("collectionSections", () => {
-  it("入手順は firstAt の降順に並べ未所持を含めない", () => {
-    const sections = collectionSections(
+describe("obtainedEntries", () => {
+  it("firstAt の降順に並べ未所持を含めない", () => {
+    const entries = obtainedEntries(
       RULES,
       collection({
         "eslint/eqeqeq": { count: 1, firstAt: 100 },
         "react/jsx-key": { count: 1, firstAt: 200 },
       }),
-      "obtained",
     );
 
-    expect(sections.map((section) => section.kind)).toStrictEqual(["obtained"]);
-    expect(sections[0].entries.map((entry) => entry.id)).toStrictEqual([
-      "react/jsx-key",
-      "eslint/eqeqeq",
-    ]);
+    expect(entries.map((entry) => entry.id)).toStrictEqual(["react/jsx-key", "eslint/eqeqeq"]);
   });
 
-  it("プラグイン順は所持ルールだけを残しプラグイン名昇順で並べる", () => {
-    const sections = collectionSections(
-      RULES,
-      collection({ "eslint/no-console": { count: 1, firstAt: 1 } }),
-      "plugin",
-    );
-
-    expect(
-      sections.map((section) => (section.kind === "plugin" ? section.plugin : "")),
-    ).toStrictEqual(["eslint"]);
-    expect(sections[0].entries.map((entry) => entry.name)).toStrictEqual(["no-console"]);
-  });
-
-  it("カテゴリ順は所持ルールのカテゴリを CATEGORIES 順で返す", () => {
-    const sections = collectionSections(
-      RULES,
-      collection({
-        "eslint/eqeqeq": { count: 1, firstAt: 1 },
-        "eslint/no-console": { count: 1, firstAt: 2 },
-      }),
-      "category",
-    );
-
-    expect(
-      sections.map((section) => (section.kind === "category" ? section.category : "")),
-    ).toStrictEqual(["correctness", "pedantic"]);
-  });
-
-  it("何も所持していなければセクションを返さない", () => {
-    expect(collectionSections(RULES, collection({}), "obtained")).toStrictEqual([]);
-    expect(collectionSections(RULES, collection({}), "plugin")).toStrictEqual([]);
-    expect(collectionSections(RULES, collection({}), "category")).toStrictEqual([]);
+  it("何も所持していなければ空になる", () => {
+    expect(obtainedEntries(RULES, collection({}))).toStrictEqual([]);
   });
 });

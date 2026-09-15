@@ -2,10 +2,6 @@ import { CATEGORIES, type Category, type RuleIndexEntry } from "./rules";
 
 import type { Collection } from "./collection";
 
-export const COLLECTION_SORTS = ["obtained", "plugin", "category"] as const;
-
-export type CollectionSort = (typeof COLLECTION_SORTS)[number];
-
 type ProgressItem = {
   key: string;
   obtained: number;
@@ -20,7 +16,7 @@ export type CollectionProgress = {
   total: number;
 };
 
-type CollectionEntry = {
+export type CollectionEntry = {
   category: Category;
   count: number;
   firstAt: number;
@@ -28,19 +24,6 @@ type CollectionEntry = {
   name: string;
   obtained: boolean;
   plugin: string;
-};
-
-export type CollectionSection =
-  | { category: Category; entries: CollectionEntry[]; kind: "category" }
-  | { entries: CollectionEntry[]; kind: "obtained" }
-  | { entries: CollectionEntry[]; kind: "plugin"; plugin: string };
-
-const compare = (left: string, right: string): number => {
-  if (left === right) {
-    return 0;
-  }
-
-  return left < right ? -1 : 1;
 };
 
 const toEntry = (rule: RuleIndexEntry, collection: Collection): CollectionEntry => {
@@ -95,41 +78,11 @@ export const collectionProgress = (
   };
 };
 
-export const collectionSections = (
+export const obtainedEntries = (
   rules: readonly RuleIndexEntry[],
   collection: Collection,
-  sort: CollectionSort,
-): CollectionSection[] => {
-  const entries = rules.map((rule) => toEntry(rule, collection)).filter((entry) => entry.obtained);
-
-  const sections = ((): CollectionSection[] => {
-    if (sort === "plugin") {
-      return pluginNames(rules).map((plugin): CollectionSection => ({
-        entries: entries
-          .filter((entry) => entry.plugin === plugin)
-          .toSorted((left, right) => compare(left.name, right.name)),
-        kind: "plugin",
-        plugin,
-      }));
-    }
-
-    if (sort === "category") {
-      return CATEGORIES.map((category): CollectionSection => ({
-        category,
-        entries: entries
-          .filter((entry) => entry.category === category)
-          .toSorted((left, right) => compare(left.id, right.id)),
-        kind: "category",
-      }));
-    }
-
-    return [
-      {
-        entries: entries.toSorted((left, right) => right.firstAt - left.firstAt),
-        kind: "obtained",
-      },
-    ];
-  })();
-
-  return sections.filter((section) => section.entries.length > 0);
-};
+): CollectionEntry[] =>
+  rules
+    .map((rule) => toEntry(rule, collection))
+    .filter((entry) => entry.obtained)
+    .toSorted((left, right) => right.firstAt - left.firstAt);

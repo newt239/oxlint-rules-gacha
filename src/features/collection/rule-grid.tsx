@@ -7,7 +7,7 @@ import { CategoryBadge } from "#/components/category-badge";
 import { ruleHref } from "#/lib/rule-href";
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
-import type { CollectionSection } from "#/lib/collection-progress";
+import type { CollectionEntry } from "#/lib/collection-progress";
 
 const styles = stylex.create({
   count: {
@@ -56,52 +56,24 @@ const styles = stylex.create({
 });
 
 type RuleGridProps = {
-  sections: CollectionSection[];
+  entries: CollectionEntry[];
 };
 
-const sectionKey = (section: CollectionSection): string => {
-  if (section.kind === "plugin") {
-    return `plugin:${section.plugin}`;
-  }
-
-  if (section.kind === "category") {
-    return `category:${section.category}`;
-  }
-
-  return section.kind;
-};
-
-const sectionTitle = (section: CollectionSection): React.ReactNode => {
-  if (section.kind === "plugin") {
-    return section.plugin;
-  }
-
-  if (section.kind === "category") {
-    return <CategoryBadge category={section.category} size="sm" />;
-  }
-
-  return "Recently collected";
-};
-
-export const RuleGrid = ({ sections }: RuleGridProps) => (
-  <div>
-    {sections.map((section) => (
-      <section key={sectionKey(section)} {...stylex.props(styles.section)}>
-        <h2 {...stylex.props(styles.heading)}>{sectionTitle(section)}</h2>
-        <ul {...stylex.props(styles.list)}>
-          {section.entries.map((entry) => (
-            <li key={entry.id} {...stylex.props(styles.item)}>
-              <Link href={ruleHref(entry.plugin, entry.name)} {...stylex.props(styles.link)}>
-                {entry.name}
-                <CategoryBadge category={entry.category} size="sm" />
-                {entry.count > 1 && (
-                  <span {...stylex.props(styles.count)}>drawn {entry.count} times</span>
-                )}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-    ))}
-  </div>
+export const RuleGrid = ({ entries }: RuleGridProps) => (
+  <section {...stylex.props(styles.section)}>
+    <h2 {...stylex.props(styles.heading)}>Recently collected</h2>
+    <ul {...stylex.props(styles.list)}>
+      {entries.map((entry) => (
+        <li key={entry.id} {...stylex.props(styles.item)}>
+          <Link href={ruleHref(entry.plugin, entry.name)} {...stylex.props(styles.link)}>
+            {entry.name}
+            <CategoryBadge category={entry.category} size="sm" />
+            {entry.count > 1 && (
+              <span {...stylex.props(styles.count)}>drawn {entry.count} times</span>
+            )}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </section>
 );
