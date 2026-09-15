@@ -33,7 +33,7 @@ export const ShareButton = ({ title, url }: ShareButtonProps) => {
       onClick={handleClick}
       rel="noreferrer"
       target="_blank"
-      {...stylex.props(actionStyles.base, actionStyles.secondaryLarge, actionStyles.link)}
+      {...stylex.props(actionStyles.base, actionStyles.secondary, actionStyles.link)}
     >
       Share this rule
     </a>

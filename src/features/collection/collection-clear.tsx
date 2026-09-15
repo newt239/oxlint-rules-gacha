@@ -98,7 +98,7 @@ export const CollectionClear = ({ count }: CollectionClearProps) => {
           >
             Cancel
           </ActionButton>
-          <ActionButton onClick={handleDelete} variant="primary">
+          <ActionButton onClick={handleDelete}>
             Delete
           </ActionButton>
         </div>

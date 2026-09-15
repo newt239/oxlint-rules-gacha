@@ -9,14 +9,18 @@ type ActionLinkProps = {
   children: React.ReactNode;
   href: Route;
   onClick?: () => void;
-  variant: ActionVariant;
+  variant?: ActionVariant;
 };
 
 export const ActionLink = ({ children, href, onClick, variant }: ActionLinkProps) => (
   <Link
     href={href}
     onClick={onClick}
-    {...stylex.props(actionStyles.base, actionStyles[variant], actionStyles.link)}
+    {...stylex.props(
+      actionStyles.base,
+      variant === undefined ? null : actionStyles[variant],
+      actionStyles.link,
+    )}
   >
     {children}
   </Link>

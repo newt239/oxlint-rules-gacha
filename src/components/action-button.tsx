@@ -9,7 +9,7 @@ type ActionButtonProps = {
   children: React.ReactNode;
   disabled?: boolean;
   onClick: () => void;
-  variant: ActionVariant;
+  variant?: ActionVariant;
 };
 
 export const ActionButton = ({
@@ -24,7 +24,11 @@ export const ActionButton = ({
     disabled={busy || disabled}
     onClick={onClick}
     type="button"
-    {...stylex.props(actionStyles.base, actionStyles[variant], busy && actionStyles.busy)}
+    {...stylex.props(
+      actionStyles.base,
+      variant === undefined ? null : actionStyles[variant],
+      busy && actionStyles.busy,
+    )}
   >
     {children}
   </button>

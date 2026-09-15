@@ -146,7 +146,7 @@ export const RuleActions = ({ category, ruleId, shareUrl }: RuleActionsProps) =>
           <>
             <p {...stylex.props(styles.lead)}>Someone shared this rule with you.</p>
             <div {...stylex.props(styles.claimAction)}>
-              <ActionButton busy={claiming} onClick={handleClaim} variant="tonalLarge">
+              <ActionButton busy={claiming} onClick={handleClaim} variant="tonal">
                 Add to my collection
               </ActionButton>
             </div>
@@ -157,7 +157,7 @@ export const RuleActions = ({ category, ruleId, shareUrl }: RuleActionsProps) =>
       <div {...stylex.props(styles.footer)}>
         <div {...stylex.props(styles.buttons)}>
           <ShareButton title={ruleId} url={shareUrl} />
-          <ActionLink href="/" onClick={requestAutoDraw} variant="primary">
+          <ActionLink href="/" onClick={requestAutoDraw}>
             Draw again
           </ActionLink>
         </div>
