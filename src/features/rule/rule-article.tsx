@@ -1,5 +1,4 @@
 import * as stylex from "@stylexjs/stylex";
-import Link from "next/link";
 
 import { RuleBadges } from "#/components/rule-badges";
 import { color, font, layout } from "#/styles/tokens.stylex";
@@ -16,10 +15,6 @@ const styles = stylex.create({
     flexWrap: "wrap",
     gap: "1rem",
     marginBlockStart: "2.5rem",
-  },
-  backLink: {
-    color: color.inkDim,
-    fontSize: "0.875rem",
   },
   docsLink: {
     color: color.catStyle,
@@ -87,9 +82,6 @@ export const RuleArticle = ({ detail }: RuleArticleProps) => (
     </article>
     <div {...stylex.props(styles.actions)}>
       <RuleActions />
-      <Link href="/" {...stylex.props(styles.backLink)}>
-        Back to the gacha
-      </Link>
     </div>
   </main>
 );
