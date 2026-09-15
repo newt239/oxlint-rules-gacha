@@ -11,7 +11,7 @@ import type { RuleIndexEntry } from "#/lib/rules";
 
 const styles = stylex.create({
   heading: {
-    fontSize: text.lg,
+    fontSize: text.xl,
     marginBlock: "0 1rem",
     textWrap: "balance",
   },

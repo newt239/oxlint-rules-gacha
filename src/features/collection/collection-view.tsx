@@ -50,7 +50,7 @@ const styles = stylex.create({
     padding: "0.5rem 0 0",
   },
   heading: {
-    fontSize: text.lg,
+    fontSize: text.xl,
     marginBlock: "0 0.5rem",
     textWrap: "balance",
   },

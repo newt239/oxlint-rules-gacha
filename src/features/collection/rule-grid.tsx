@@ -17,7 +17,7 @@ const styles = stylex.create({
   heading: {
     color: color.inkDim,
     fontFamily: font.mono,
-    fontSize: text.md,
+    fontSize: text.lg,
     marginBlock: "0 0.75rem",
   },
   item: {

@@ -29,7 +29,7 @@ const styles = stylex.create({
     justifyContent: "flex-end",
   },
   heading: {
-    fontSize: text.lg,
+    fontSize: text.xl,
     marginBlock: "0 0.75rem",
     textWrap: "balance",
   },

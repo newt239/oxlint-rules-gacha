@@ -19,7 +19,7 @@ const styles = stylex.create({
   },
   heading: {
     color: color.inkDim,
-    fontSize: text.md,
+    fontSize: text.lg,
     marginBlock: "0 0.5rem",
   },
   main: {
