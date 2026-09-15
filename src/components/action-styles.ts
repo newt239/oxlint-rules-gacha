@@ -2,7 +2,7 @@ import * as stylex from "@stylexjs/stylex";
 
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
-export type ActionVariant = "primary" | "secondary" | "tonal";
+export type ActionVariant = "danger" | "dangerSolid" | "primary" | "secondary" | "tonal";
 
 export const actionStyles = stylex.create({
   base: {
@@ -26,6 +26,15 @@ export const actionStyles = stylex.create({
   },
   busy: {
     cursor: "progress",
+  },
+  danger: {
+    backgroundColor: { ":disabled": color.cabinet2, default: "transparent" },
+    borderColor: { ":disabled": color.inkDim, default: color.danger },
+    color: { ":disabled": color.inkDim, default: color.danger },
+  },
+  dangerSolid: {
+    backgroundColor: { ":disabled": color.cabinet2, default: color.danger },
+    color: { ":disabled": color.inkDim, default: color.cabinet },
   },
   link: {
     display: "inline-block",

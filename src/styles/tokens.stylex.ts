@@ -10,6 +10,7 @@ export const color = stylex.defineVars({
   catRestriction: "#F5C14E",
   catStyle: "#35D0D6",
   catSuspicious: "#FFC53D",
+  danger: "#FF5A6E",
   ink: "#FFF6E8",
   inkDim: "#A8A2C4",
   scrim: "#14131FCC",
