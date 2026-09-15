@@ -18,6 +18,7 @@ const styles = stylex.create({
     lineHeight: 1.9,
     margin: 0,
     maxWidth: "70ch",
+    textWrap: "pretty",
   },
   heading: {
     color: color.inkDim,
@@ -30,6 +31,7 @@ const styles = stylex.create({
     lineHeight: 1.9,
     marginBlock: "1.5rem 0",
     maxWidth: "70ch",
+    textWrap: "pretty",
   },
   link: {
     color: color.catStyle,

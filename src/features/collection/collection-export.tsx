@@ -13,10 +13,12 @@ const styles = stylex.create({
   heading: {
     fontSize: text.lg,
     marginBlock: "0 1rem",
+    textWrap: "balance",
   },
   note: {
     color: color.inkDim,
     fontSize: text.md,
+    textWrap: "pretty",
   },
   section: {
     marginBlockStart: "3rem",

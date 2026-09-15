@@ -39,6 +39,7 @@ const styles = stylex.create({
     color: color.inkDim,
     fontSize: text.md,
     marginBlockStart: "2rem",
+    textWrap: "balance",
   },
   fieldset: {
     borderStyle: "none",
@@ -51,6 +52,7 @@ const styles = stylex.create({
   heading: {
     fontSize: text.lg,
     marginBlock: "0 0.5rem",
+    textWrap: "balance",
   },
   label: {
     alignItems: "center",
@@ -75,6 +77,7 @@ const styles = stylex.create({
   note: {
     color: color.inkDim,
     fontSize: text.md,
+    textWrap: "pretty",
   },
   retiredItem: {
     color: color.inkDim,
@@ -98,6 +101,7 @@ const styles = stylex.create({
   title: {
     fontSize: text.display,
     marginBlock: "0 0.5rem",
+    textWrap: "balance",
   },
 });
 

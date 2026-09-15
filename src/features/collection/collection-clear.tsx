@@ -31,11 +31,13 @@ const styles = stylex.create({
   heading: {
     fontSize: text.lg,
     marginBlock: "0 0.75rem",
+    textWrap: "balance",
   },
   note: {
     color: color.inkDim,
     fontSize: text.md,
     margin: 0,
+    textWrap: "pretty",
   },
   section: {
     marginBlockStart: "3rem",

@@ -70,6 +70,7 @@ const styles = stylex.create({
     fontSize: text.md,
     margin: 0,
     textAlign: "center",
+    textWrap: "balance",
   },
   main: {
     marginInline: "auto",
@@ -98,6 +99,7 @@ const styles = stylex.create({
     lineHeight: 1.4,
     margin: 0,
     textAlign: "center",
+    textWrap: "balance",
   },
 });
 

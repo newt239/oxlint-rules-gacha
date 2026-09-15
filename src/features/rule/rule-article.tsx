@@ -38,6 +38,7 @@ const styles = stylex.create({
     lineHeight: 1.8,
     marginBlock: "1.5rem 0",
     maxWidth: "70ch",
+    textWrap: "pretty",
   },
   title: {
     fontFamily: font.mono,
