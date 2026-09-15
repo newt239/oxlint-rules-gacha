@@ -1,10 +1,10 @@
 import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
-import { CodeBlock } from "#/components/code-block";
 import { RuleBadges } from "#/components/rule-badges";
 import { color, font, layout } from "#/styles/tokens.stylex";
 
+import { HighlightedCode } from "./highlighted-code";
 import { RuleActions } from "./rule-actions";
 
 import type { RuleDetail } from "#/lib/rules";
@@ -72,13 +72,13 @@ export const RuleArticle = ({ detail }: RuleArticleProps) => (
       {detail.incorrect.length > 0 && (
         <section {...stylex.props(styles.section)}>
           <h2 {...stylex.props(styles.heading)}>Incorrect</h2>
-          <CodeBlock example={detail.incorrect[0]} />
+          <HighlightedCode example={detail.incorrect[0]} />
         </section>
       )}
       {detail.correct.length > 0 && (
         <section {...stylex.props(styles.section)}>
           <h2 {...stylex.props(styles.heading)}>Correct</h2>
-          <CodeBlock example={detail.correct[0]} />
+          <HighlightedCode example={detail.correct[0]} />
         </section>
       )}
       <a href={detail.docsUrl} rel="noreferrer" target="_blank" {...stylex.props(styles.docsLink)}>
