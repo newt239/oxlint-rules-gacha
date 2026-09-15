@@ -33,6 +33,11 @@ const styles = stylex.create({
     fontSize: "0.875rem",
     marginBlockStart: "3rem",
   },
+  empty: {
+    color: color.inkDim,
+    fontSize: "0.8125rem",
+    marginBlockStart: "2rem",
+  },
   fieldset: {
     borderStyle: "none",
     display: "flex",
@@ -133,7 +138,11 @@ export const CollectionView = () => {
           </label>
         ))}
       </fieldset>
-      <RuleGrid sections={sections} />
+      {sections.length === 0 ? (
+        <p {...stylex.props(styles.empty)}>No rules yet. Draw one to start your collection.</p>
+      ) : (
+        <RuleGrid sections={sections} />
+      )}
       {progress.retired.length > 0 && (
         <section {...stylex.props(styles.section)}>
           <h2 {...stylex.props(styles.heading)}>Retired rules</h2>

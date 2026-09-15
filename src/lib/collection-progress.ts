@@ -32,7 +32,6 @@ type CollectionEntry = {
 
 export type CollectionSection =
   | { category: Category; entries: CollectionEntry[]; kind: "category" }
-  | { entries: CollectionEntry[]; kind: "locked" }
   | { entries: CollectionEntry[]; kind: "obtained" }
   | { entries: CollectionEntry[]; kind: "plugin"; plugin: string };
 
@@ -101,7 +100,7 @@ export const collectionSections = (
   collection: Collection,
   sort: CollectionSort,
 ): CollectionSection[] => {
-  const entries = rules.map((rule) => toEntry(rule, collection));
+  const entries = rules.map((rule) => toEntry(rule, collection)).filter((entry) => entry.obtained);
 
   const sections = ((): CollectionSection[] => {
     if (sort === "plugin") {
@@ -126,12 +125,9 @@ export const collectionSections = (
 
     return [
       {
-        entries: entries
-          .filter((entry) => entry.obtained)
-          .toSorted((left, right) => right.firstAt - left.firstAt),
+        entries: entries.toSorted((left, right) => right.firstAt - left.firstAt),
         kind: "obtained",
       },
-      { entries: entries.filter((entry) => !entry.obtained), kind: "locked" },
     ];
   })();
 

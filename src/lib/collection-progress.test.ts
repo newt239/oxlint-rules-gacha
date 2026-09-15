@@ -73,7 +73,7 @@ describe("collectionProgress", () => {
 });
 
 describe("collectionSections", () => {
-  it("入手順は firstAt の降順に並べ未所持を別セクションにする", () => {
+  it("入手順は firstAt の降順に並べ未所持を含めない", () => {
     const sections = collectionSections(
       RULES,
       collection({
@@ -83,15 +83,14 @@ describe("collectionSections", () => {
       "obtained",
     );
 
-    expect(sections.map((section) => section.kind)).toStrictEqual(["obtained", "locked"]);
+    expect(sections.map((section) => section.kind)).toStrictEqual(["obtained"]);
     expect(sections[0].entries.map((entry) => entry.id)).toStrictEqual([
       "react/jsx-key",
       "eslint/eqeqeq",
     ]);
-    expect(sections[1].entries.map((entry) => entry.id)).toStrictEqual(["eslint/no-console"]);
   });
 
-  it("プラグイン順はプラグイン名昇順で所持と未所持を混ぜて並べる", () => {
+  it("プラグイン順は所持ルールだけを残しプラグイン名昇順で並べる", () => {
     const sections = collectionSections(
       RULES,
       collection({ "eslint/no-console": { count: 1, firstAt: 1 } }),
@@ -100,21 +99,28 @@ describe("collectionSections", () => {
 
     expect(
       sections.map((section) => (section.kind === "plugin" ? section.plugin : "")),
-    ).toStrictEqual(["eslint", "react"]);
-    expect(sections[0].entries.map((entry) => entry.name)).toStrictEqual(["eqeqeq", "no-console"]);
+    ).toStrictEqual(["eslint"]);
+    expect(sections[0].entries.map((entry) => entry.name)).toStrictEqual(["no-console"]);
   });
 
-  it("カテゴリ順は CATEGORIES 順のセクションを返す", () => {
-    const sections = collectionSections(RULES, collection({}), "category");
+  it("カテゴリ順は所持ルールのカテゴリを CATEGORIES 順で返す", () => {
+    const sections = collectionSections(
+      RULES,
+      collection({
+        "eslint/eqeqeq": { count: 1, firstAt: 1 },
+        "eslint/no-console": { count: 1, firstAt: 2 },
+      }),
+      "category",
+    );
 
     expect(
       sections.map((section) => (section.kind === "category" ? section.category : "")),
-    ).toStrictEqual(["correctness", "suspicious", "pedantic"]);
+    ).toStrictEqual(["correctness", "pedantic"]);
   });
 
-  it("空のセクションを返さない", () => {
-    const sections = collectionSections(RULES, collection({}), "obtained");
-
-    expect(sections.map((section) => section.kind)).toStrictEqual(["locked"]);
+  it("何も所持していなければセクションを返さない", () => {
+    expect(collectionSections(RULES, collection({}), "obtained")).toStrictEqual([]);
+    expect(collectionSections(RULES, collection({}), "plugin")).toStrictEqual([]);
+    expect(collectionSections(RULES, collection({}), "category")).toStrictEqual([]);
   });
 });

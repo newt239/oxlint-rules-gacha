@@ -48,24 +48,10 @@ const styles = stylex.create({
     margin: 0,
     padding: 0,
   },
-  locked: {
-    backgroundColor: color.cabinet2,
-    borderRadius: layout.radius,
-    opacity: 0.45,
-    paddingBlock: "0.35rem",
-    paddingInline: "0.6rem",
-  },
   section: {
     containIntrinsicSize: "auto 320px",
     contentVisibility: "auto",
     marginBlockStart: "2rem",
-  },
-  silhouette: {
-    backgroundColor: color.inkDim,
-    borderRadius: "4px",
-    display: "block",
-    height: "0.75rem",
-    width: "5rem",
   },
 });
 
@@ -94,11 +80,7 @@ const sectionTitle = (section: CollectionSection): React.ReactNode => {
     return <CategoryBadge category={section.category} />;
   }
 
-  if (section.kind === "obtained") {
-    return "Recently collected";
-  }
-
-  return "Not collected yet";
+  return "Recently collected";
 };
 
 export const RuleGrid = ({ sections }: RuleGridProps) => (
@@ -107,23 +89,17 @@ export const RuleGrid = ({ sections }: RuleGridProps) => (
       <section key={sectionKey(section)} {...stylex.props(styles.section)}>
         <h2 {...stylex.props(styles.heading)}>{sectionTitle(section)}</h2>
         <ul {...stylex.props(styles.list)}>
-          {section.entries.map((entry) =>
-            entry.obtained ? (
-              <li key={entry.id} {...stylex.props(styles.item)}>
-                <Link href={ruleHref(entry.plugin, entry.name)} {...stylex.props(styles.link)}>
-                  {entry.name}
-                  <CategoryBadge category={entry.category} />
-                  {entry.count > 1 && (
-                    <span {...stylex.props(styles.count)}>drawn {entry.count} times</span>
-                  )}
-                </Link>
-              </li>
-            ) : (
-              <li key={entry.id} aria-label="Not collected yet" {...stylex.props(styles.locked)}>
-                <span aria-hidden {...stylex.props(styles.silhouette)} />
-              </li>
-            ),
-          )}
+          {section.entries.map((entry) => (
+            <li key={entry.id} {...stylex.props(styles.item)}>
+              <Link href={ruleHref(entry.plugin, entry.name)} {...stylex.props(styles.link)}>
+                {entry.name}
+                <CategoryBadge category={entry.category} />
+                {entry.count > 1 && (
+                  <span {...stylex.props(styles.count)}>drawn {entry.count} times</span>
+                )}
+              </Link>
+            </li>
+          ))}
         </ul>
       </section>
     ))}
