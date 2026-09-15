@@ -62,7 +62,3 @@ lolipop env create NEXT_PUBLIC_SITE_URL https://<発行されたドメイン>
 - `.env` は読まれません。環境変数はダッシュボードか `lolipop env` で設定します
 - `NEXT_PUBLIC_SITE_URL` が未設定だと `metadataBase` が `http://localhost:3000` になり、OGP と `canonical` の絶対 URL が壊れます
 - GitHub 連携の「デプロイするブランチ」を `main` にします。`main` への push で自動デプロイされます
-
-### 週次のルール更新
-
-デプロイナウに Deploy Hook は無いため、`.github/workflows/refresh-rules.yml` が毎週月曜 08:00 JST に `main` へ空コミットを push し、GitHub 連携の自動デプロイを起こします。
