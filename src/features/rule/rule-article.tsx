@@ -9,13 +9,6 @@ import { RuleActions } from "./rule-actions";
 import type { RuleDetail } from "#/lib/rules";
 
 const styles = stylex.create({
-  actions: {
-    alignItems: "center",
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "1rem",
-    marginBlockStart: "2.5rem",
-  },
   docsLink: {
     color: color.catStyle,
     display: "inline-block",
@@ -80,8 +73,6 @@ export const RuleArticle = ({ detail }: RuleArticleProps) => (
         Read the original docs on oxc.rs
       </a>
     </article>
-    <div {...stylex.props(styles.actions)}>
-      <RuleActions />
-    </div>
+    <RuleActions />
   </main>
 );
