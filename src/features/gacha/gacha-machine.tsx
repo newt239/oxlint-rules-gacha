@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { ActionButton } from "#/components/action-button";
 import { consumeAutoDraw } from "#/lib/auto-draw";
 import { ruleHref, type RuleIndexEntry } from "#/lib/rules";
-import { collectionStore, filterStore, skipHintStore, usePersistedStore } from "#/lib/stores";
+import { collectionStore, filterStore, usePersistedStore } from "#/lib/stores";
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 import { drawAndRecord, type DrawTrigger } from "./draw-and-record";
@@ -58,16 +58,31 @@ const styles = stylex.create({
   },
   hint: {
     color: color.inkDim,
+    fontFamily: font.mono,
     fontSize: text.md,
     margin: 0,
     textAlign: "center",
     textWrap: "balance",
+  },
+  hintHidden: {
+    visibility: "hidden",
   },
   main: {
     marginInline: "auto",
     maxWidth: layout.maxWidth,
     paddingBlock: "3rem 2rem",
     paddingInline: layout.gutter,
+  },
+  srOnly: {
+    borderWidth: 0,
+    clipPath: "inset(50%)",
+    height: "1px",
+    margin: "-1px",
+    overflow: "hidden",
+    padding: 0,
+    position: "absolute",
+    whiteSpace: "nowrap",
+    width: "1px",
   },
   stage: {
     alignItems: "center",
@@ -76,14 +91,6 @@ const styles = stylex.create({
     gap: "0.75rem",
     justifyContent: "center",
     minHeight: "240px",
-  },
-  status: {
-    color: color.inkDim,
-    fontFamily: font.mono,
-    fontSize: text.md,
-    minHeight: "1.5em",
-    overflowWrap: "anywhere",
-    textAlign: "center",
   },
   tagline: {
     fontSize: text.display,
@@ -98,7 +105,6 @@ export const GachaMachine = () => {
   const router = useRouter();
   const collection = usePersistedStore(collectionStore);
   const filter = usePersistedStore(filterStore);
-  const skipHintSeen = usePersistedStore(skipHintStore);
   const reducedMotion = useReducedMotion() ?? false;
   const [scope, animate] = useAnimate();
   const [drawing, setDrawing] = useState(false);
@@ -131,7 +137,6 @@ export const GachaMachine = () => {
     setDrawing(true);
     setPicked(null);
     setAnnounced("");
-    skipHintStore.set(true);
 
     const skip = Promise.withResolvers<boolean>();
 
@@ -199,8 +204,6 @@ export const GachaMachine = () => {
     };
   }, []);
 
-  const status = announced === "" && drawing ? "Drawing a rule" : announced;
-
   return (
     <main {...stylex.props(styles.main)}>
       <h1 {...stylex.props(styles.tagline)}>Draw one oxlint rule at a time.</h1>
@@ -237,11 +240,11 @@ export const GachaMachine = () => {
         >
           Draw a rule
         </ActionButton>
-        <output {...stylex.props(styles.status)}>{status}</output>
+        <p {...stylex.props(styles.hint, !drawing && styles.hintHidden)}>
+          Tap, or press Esc or Space, to skip the animation.
+        </p>
+        <output {...stylex.props(styles.srOnly)}>{announced}</output>
       </div>
-      {!skipHintSeen && (
-        <p {...stylex.props(styles.hint)}>Tap, or press Esc or Space, to skip the animation.</p>
-      )}
       <FilterPanel />
     </main>
   );

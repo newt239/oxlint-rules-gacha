@@ -46,12 +46,6 @@ export const filterStore = createPersistedStore<Filter>(
   reviveFilter,
 );
 
-export const skipHintStore = createPersistedStore<boolean>(
-  "oxlint-gacha:skip-hint-seen",
-  false,
-  (value) => (typeof value === "boolean" ? value : null),
-);
-
 export const usePersistedStore = <T>(store: PersistedStore<T>): T =>
   useSyncExternalStore(store.subscribe, store.getSnapshot, store.getServerSnapshot);
 
