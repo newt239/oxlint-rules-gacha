@@ -26,23 +26,18 @@ const toObtainedEntry = (value: unknown): ObtainedEntry | null => {
   return { count, firstAt };
 };
 
-const fromRuleIds = (value: readonly unknown[]): Collection => {
-  const obtained: Record<string, ObtainedEntry> = {};
-
-  for (const id of value) {
-    if (typeof id === "string") {
-      obtained[id] = { count: 1, firstAt: 0 };
-    }
-  }
-
-  return { obtained, rulesetVersion: "", version: 1 };
-};
-
 export const reviveCollection = (value: unknown): Collection | null => {
   if (Array.isArray(value)) {
     const ids: unknown[] = value;
+    const restored: Record<string, ObtainedEntry> = {};
 
-    return fromRuleIds(ids);
+    for (const id of ids) {
+      if (typeof id === "string") {
+        restored[id] = { count: 1, firstAt: 0 };
+      }
+    }
+
+    return { obtained: restored, rulesetVersion: "", version: 1 };
   }
 
   if (typeof value !== "object" || value === null) {

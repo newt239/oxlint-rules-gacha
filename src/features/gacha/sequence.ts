@@ -41,16 +41,17 @@ const wait = async (ms: number): Promise<void> => {
   });
 };
 
-const settled = async (controls: Controls): Promise<void> => {
-  await new Promise<void>((resolve) => {
-    controls.then(resolve).catch(() => {
-      resolve();
-    });
-  });
-};
-
 const race = async (controls: Controls, skipped: Promise<boolean>): Promise<boolean> => {
-  const skippedFirst = await Promise.race([settled(controls).then(() => false), skipped]);
+  const finished = new Promise<boolean>((resolve) => {
+    controls
+      .then(() => {
+        resolve(false);
+      })
+      .catch(() => {
+        resolve(false);
+      });
+  });
+  const skippedFirst = await Promise.race([finished, skipped]);
 
   if (skippedFirst) {
     controls.stop();
