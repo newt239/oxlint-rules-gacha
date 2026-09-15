@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import * as stylex from "@stylexjs/stylex";
 import { useAnimate, useReducedMotion } from "motion/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { ActionButton } from "#/components/action-button";
@@ -41,6 +42,12 @@ const styles = stylex.create({
     display: "flex",
     height: "88px",
     justifyContent: "center",
+  },
+  collectionLink: {
+    color: color.inkDim,
+    display: "inline-block",
+    fontSize: "0.875rem",
+    marginBlockStart: "2rem",
   },
   count: {
     color: color.inkDim,
@@ -160,6 +167,9 @@ export const GachaMachine = ({ dictionary, lang }: GachaMachineProps) => {
       </div>
       {!skipHintSeen && <p {...stylex.props(styles.hint)}>{dictionary.skipHint}</p>}
       <FilterPanel dictionary={dictionary} />
+      <Link href={`/${lang}/collection`} {...stylex.props(styles.collectionLink)}>
+        {dictionary.viewCollection}
+      </Link>
     </main>
   );
 };
