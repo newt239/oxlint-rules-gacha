@@ -9,14 +9,19 @@ import { cabinetColor, categoryColor, inkColor } from "./palette";
 
 import type { Category } from "#/lib/rules";
 
-const SIZE = 168;
+const ZOOM = 1.5;
+const WIDTH = 168;
+const OVERDRAW = 96;
+const HEIGHT = WIDTH + OVERDRAW;
 const RADIUS = 34;
+const CAPSULE_OFFSET_Y = OVERDRAW / 2 / ZOOM;
 
 const styles = stylex.create({
   canvas: {
     display: "block",
-    height: `${SIZE}px`,
-    width: `${SIZE}px`,
+    height: `${HEIGHT}px`,
+    marginBlockStart: `-${OVERDRAW}px`,
+    width: `${WIDTH}px`,
   },
 });
 
@@ -51,8 +56,12 @@ export const CapsuleCanvas = ({ category, open, spinning }: CapsuleCanvasProps) 
 
     if (element !== null) {
       const shell = cabinetColor();
-      const illustration = new Illustration({ element, zoom: 1.5 });
-      const capsule = new Anchor({ addTo: illustration, rotate: { x: -0.32 } });
+      const illustration = new Illustration({ element, zoom: ZOOM });
+      const capsule = new Anchor({
+        addTo: illustration,
+        rotate: { x: -0.32 },
+        translate: { y: CAPSULE_OFFSET_Y },
+      });
       const top = new Anchor({ addTo: capsule });
       const bottom = new Anchor({ addTo: capsule });
       const dome = new Hemisphere({
@@ -106,8 +115,8 @@ export const CapsuleCanvas = ({ category, open, spinning }: CapsuleCanvasProps) 
     <canvas
       ref={canvasRef}
       aria-hidden
-      height={SIZE}
-      width={SIZE}
+      height={HEIGHT}
+      width={WIDTH}
       {...stylex.props(styles.canvas)}
     />
   );
