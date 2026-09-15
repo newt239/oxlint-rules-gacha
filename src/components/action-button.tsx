@@ -2,14 +2,14 @@
 
 import * as stylex from "@stylexjs/stylex";
 
-import { actionStyles } from "./action-styles";
+import { actionStyles, type ActionVariant } from "./action-styles";
 
 type ActionButtonProps = {
   busy?: boolean;
   children: React.ReactNode;
   disabled?: boolean;
   onClick: () => void;
-  variant: "primary" | "secondary";
+  variant: ActionVariant;
 };
 
 export const ActionButton = ({

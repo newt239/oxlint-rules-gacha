@@ -21,9 +21,9 @@ const styles = stylex.create({
     display: "flex",
     flexWrap: "wrap",
     gap: "0.75rem",
+    justifyContent: "space-between",
   },
   claim: {
-    alignItems: "flex-start",
     borderColor: color.inkDim,
     borderRadius: layout.radius,
     borderStyle: "solid",
@@ -32,6 +32,15 @@ const styles = stylex.create({
     flexDirection: "column",
     gap: "1rem",
     padding: "1.5rem",
+  },
+  claimAction: {
+    display: "flex",
+    justifyContent: "flex-end",
+  },
+  footer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.75rem",
   },
   group: {
     display: "flex",
@@ -95,18 +104,22 @@ export const RuleActions = ({ ruleId, shareUrl }: RuleActionsProps) => {
         ) : (
           <>
             <p {...stylex.props(styles.lead)}>Someone shared this rule with you.</p>
-            <ActionButton busy={claiming} onClick={handleClaim} variant="primary">
-              Add to my collection
-            </ActionButton>
+            <div {...stylex.props(styles.claimAction)}>
+              <ActionButton busy={claiming} onClick={handleClaim} variant="tonalLarge">
+                Add to my collection
+              </ActionButton>
+            </div>
           </>
         )}
         <output {...stylex.props(styles.meta)}>{announced}</output>
       </section>
-      <div {...stylex.props(styles.buttons)}>
-        <ActionLink href="/" onClick={requestAutoDraw} variant={owned ? "primary" : "secondary"}>
-          Draw again
-        </ActionLink>
-        <ShareButton title={ruleId} url={shareUrl} />
+      <div {...stylex.props(styles.footer)}>
+        <div {...stylex.props(styles.buttons)}>
+          <ShareButton title={ruleId} url={shareUrl} />
+          <ActionLink href="/" onClick={requestAutoDraw} variant="primary">
+            Draw again
+          </ActionLink>
+        </div>
         <p {...stylex.props(styles.meta)}>{totalLabel(obtainedIds(collection).length)}</p>
       </div>
     </div>

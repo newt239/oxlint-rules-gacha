@@ -32,7 +32,7 @@ export const ShareButton = ({ title, url }: ShareButtonProps) => {
   };
 
   return (
-    <ActionButton onClick={handleClick} variant="secondary">
+    <ActionButton onClick={handleClick} variant="secondaryLarge">
       {copied ? "Link copied" : "Share this rule"}
     </ActionButton>
   );
