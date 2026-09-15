@@ -7,7 +7,7 @@ import { color, layout } from "#/styles/tokens.stylex";
 const styles = stylex.create({
   brand: {
     color: color.ink,
-    fontSize: "0.9375rem",
+    fontSize: "0.75rem",
     fontWeight: 700,
     textDecoration: "none",
   },
@@ -24,7 +24,7 @@ const styles = stylex.create({
   },
   link: {
     color: color.inkDim,
-    fontSize: "0.8125rem",
+    fontSize: "0.75rem",
   },
   right: {
     alignItems: "center",

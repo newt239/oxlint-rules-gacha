@@ -32,8 +32,8 @@ const styles = stylex.create({
     color: color.ink,
     display: "flex",
     fontFamily: font.mono,
-    fontSize: "0.8125rem",
-    gap: "0.35rem",
+    fontSize: "0.75rem",
+    gap: "0.25rem",
   },
   legend: {
     color: color.inkDim,
@@ -45,7 +45,7 @@ const styles = stylex.create({
   summary: {
     color: color.inkDim,
     cursor: "pointer",
-    fontSize: "0.875rem",
+    fontSize: "0.75rem",
   },
 });
 

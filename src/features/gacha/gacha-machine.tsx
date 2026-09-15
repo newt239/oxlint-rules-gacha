@@ -48,7 +48,7 @@ const styles = stylex.create({
   collectionLink: {
     color: color.inkDim,
     display: "inline-block",
-    fontSize: "0.875rem",
+    fontSize: "0.75rem",
     marginBlockStart: "2rem",
   },
   controls: {
@@ -88,7 +88,7 @@ const styles = stylex.create({
   status: {
     color: color.inkDim,
     fontFamily: font.mono,
-    fontSize: "0.8125rem",
+    fontSize: "0.75rem",
     minHeight: "1.5em",
     overflowWrap: "anywhere",
     textAlign: "center",

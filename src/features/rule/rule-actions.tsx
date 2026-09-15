@@ -15,7 +15,7 @@ const styles = stylex.create({
   count: {
     color: color.inkDim,
     fontFamily: font.mono,
-    fontSize: "0.8125rem",
+    fontSize: "0.75rem",
     margin: 0,
   },
   group: {

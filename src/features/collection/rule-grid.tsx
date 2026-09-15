@@ -12,12 +12,12 @@ import type { CollectionSection } from "#/lib/collection-progress";
 const styles = stylex.create({
   count: {
     color: color.inkDim,
-    fontSize: "0.6875rem",
+    fontSize: "0.75rem",
   },
   heading: {
     color: color.inkDim,
     fontFamily: font.mono,
-    fontSize: "0.8125rem",
+    fontSize: "0.75rem",
     marginBlock: "0 0.75rem",
   },
   item: {
@@ -26,9 +26,9 @@ const styles = stylex.create({
     borderRadius: layout.radius,
     display: "flex",
     flexWrap: "wrap",
-    gap: "0.4rem",
-    paddingBlock: "0.35rem",
-    paddingInline: "0.6rem",
+    gap: "0.25rem",
+    paddingBlock: "0.25rem",
+    paddingInline: "0.75rem",
   },
   link: {
     alignItems: "center",
@@ -37,13 +37,13 @@ const styles = stylex.create({
     flexWrap: "wrap",
     fontFamily: font.mono,
     fontSize: "0.75rem",
-    gap: "0.4rem",
+    gap: "0.25rem",
     textDecoration: "none",
   },
   list: {
     display: "flex",
     flexWrap: "wrap",
-    gap: "0.4rem",
+    gap: "0.25rem",
     listStyle: "none",
     margin: 0,
     padding: 0,

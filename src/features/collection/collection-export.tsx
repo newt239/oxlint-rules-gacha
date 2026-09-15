@@ -11,12 +11,12 @@ import type { RuleIndexEntry } from "#/lib/rules";
 
 const styles = stylex.create({
   heading: {
-    fontSize: "1.125rem",
+    fontSize: "1.25rem",
     marginBlock: "0 1rem",
   },
   note: {
     color: color.inkDim,
-    fontSize: "0.8125rem",
+    fontSize: "0.75rem",
   },
   section: {
     marginBlockStart: "3rem",
@@ -24,7 +24,7 @@ const styles = stylex.create({
   summary: {
     color: color.inkDim,
     cursor: "pointer",
-    fontSize: "0.875rem",
+    fontSize: "0.75rem",
     marginBlockStart: "1rem",
   },
 });

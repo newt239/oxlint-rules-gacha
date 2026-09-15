@@ -23,9 +23,9 @@ const styles = stylex.create({
     display: "flex",
     fontFamily: font.mono,
     fontSize: "0.75rem",
-    gap: "0.4rem",
-    paddingBlock: "0.3rem",
-    paddingInline: "0.6rem",
+    gap: "0.25rem",
+    paddingBlock: "0.25rem",
+    paddingInline: "0.75rem",
   },
   count: {
     color: color.inkDim,

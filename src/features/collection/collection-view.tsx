@@ -30,12 +30,12 @@ const styles = stylex.create({
   backLink: {
     color: color.inkDim,
     display: "inline-block",
-    fontSize: "0.875rem",
+    fontSize: "0.75rem",
     marginBlockStart: "3rem",
   },
   empty: {
     color: color.inkDim,
-    fontSize: "0.8125rem",
+    fontSize: "0.75rem",
     marginBlockStart: "2rem",
   },
   fieldset: {
@@ -47,15 +47,15 @@ const styles = stylex.create({
     padding: "0.5rem 0 0",
   },
   heading: {
-    fontSize: "1.125rem",
+    fontSize: "1.25rem",
     marginBlock: "0 0.5rem",
   },
   label: {
     alignItems: "center",
     color: color.ink,
     display: "flex",
-    fontSize: "0.8125rem",
-    gap: "0.35rem",
+    fontSize: "0.75rem",
+    gap: "0.25rem",
   },
   legend: {
     color: color.inkDim,
@@ -72,7 +72,7 @@ const styles = stylex.create({
   },
   note: {
     color: color.inkDim,
-    fontSize: "0.8125rem",
+    fontSize: "0.75rem",
   },
   retiredItem: {
     color: color.inkDim,
@@ -82,7 +82,7 @@ const styles = stylex.create({
   retiredList: {
     display: "flex",
     flexWrap: "wrap",
-    gap: "0.4rem 0.8rem",
+    gap: "0.25rem 0.75rem",
     listStyle: "none",
     margin: 0,
     padding: 0,

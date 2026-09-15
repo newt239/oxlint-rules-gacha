@@ -21,11 +21,11 @@ const styles = stylex.create({
     fontFamily: font.display,
     fontSize: "1rem",
     fontWeight: 700,
-    padding: "0.7rem 1.4rem",
+    padding: "0.75rem 1.5rem",
   },
   primary: {
     fontSize: "1.25rem",
-    padding: "1rem 2.4rem",
+    padding: "1rem 2.5rem",
   },
   secondary: {
     backgroundColor: { ":disabled": color.cabinet2, default: "transparent" },

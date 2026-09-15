@@ -19,12 +19,12 @@ const styles = stylex.create({
   docsLink: {
     color: color.catStyle,
     display: "inline-block",
-    fontSize: "0.875rem",
+    fontSize: "0.75rem",
     marginBlockStart: "1.5rem",
   },
   heading: {
     color: color.inkDim,
-    fontSize: "0.8125rem",
+    fontSize: "0.75rem",
     letterSpacing: "0.08em",
     marginBlock: "0 0.5rem",
     textTransform: "uppercase",
