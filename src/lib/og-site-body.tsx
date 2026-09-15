@@ -46,9 +46,9 @@ export const OgSiteBody = () => (
           bottom: 60,
           color: INK_DIM,
           fontSize: 28,
-          left: 70,
           letterSpacing: 1,
           position: "absolute",
+          right: 70,
         }}
       >
         {SITE_URL.host}

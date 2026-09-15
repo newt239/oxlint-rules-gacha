@@ -50,9 +50,9 @@ export const OgRuleBody = ({ category, name, plugin }: OgRuleBodyProps) => (
         bottom: 60,
         color: ON_TINT,
         fontSize: 28,
-        left: 70,
         letterSpacing: 1,
         position: "absolute",
+        right: 70,
       }}
     >
       {SITE_URL.host}

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 import { OG_ALT, OG_CONTENT_TYPE, OG_IMAGE_OPTIONS, OG_SIZE } from "#/lib/og-image";
-import { OgRuleBody } from "#/lib/og-image-body";
+import { OgRuleBody } from "#/lib/og-rule-body";
 import { OgSiteBody } from "#/lib/og-site-body";
 import { findRuleDetail, RULE_IDS } from "#/lib/rule-catalog";
 
