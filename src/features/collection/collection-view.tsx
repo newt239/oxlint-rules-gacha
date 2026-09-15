@@ -11,6 +11,7 @@ import {
   collectionProgress,
   collectionSections,
 } from "#/lib/collection-progress";
+import { COLLECTION_DESCRIPTION } from "#/lib/site";
 import { useCollection } from "#/lib/use-draw";
 import { useRuleIndex } from "#/lib/use-rule-index";
 import { color, font, layout } from "#/styles/tokens.stylex";
@@ -19,12 +20,10 @@ import { CollectionExport } from "./collection-export";
 import { ProgressSummary } from "./progress-summary";
 import { RuleGrid } from "./rule-grid";
 
-import type { Dictionary } from "#/i18n";
-
-const SORT_LABELS: Record<CollectionSort, keyof Dictionary> = {
-  category: "sortByCategory",
-  obtained: "sortByObtained",
-  plugin: "sortByPlugin",
+const SORT_LABELS: Record<CollectionSort, string> = {
+  category: "By category",
+  obtained: "Newest first",
+  plugin: "By plugin",
 };
 
 const styles = stylex.create({
@@ -95,12 +94,7 @@ const styles = stylex.create({
   },
 });
 
-type CollectionViewProps = {
-  dictionary: Dictionary;
-  lang: string;
-};
-
-export const CollectionView = ({ dictionary, lang }: CollectionViewProps) => {
+export const CollectionView = () => {
   const collection = useCollection();
   const index = useRuleIndex();
   const [sort, setSort] = useState<CollectionSort>("obtained");
@@ -108,8 +102,8 @@ export const CollectionView = ({ dictionary, lang }: CollectionViewProps) => {
   if (index === null) {
     return (
       <main {...stylex.props(styles.main)}>
-        <h1 {...stylex.props(styles.title)}>{dictionary.collection}</h1>
-        <output {...stylex.props(styles.note)}>{dictionary.loadingRules}</output>
+        <h1 {...stylex.props(styles.title)}>Collection</h1>
+        <output {...stylex.props(styles.note)}>Loading rules</output>
       </main>
     );
   }
@@ -120,11 +114,11 @@ export const CollectionView = ({ dictionary, lang }: CollectionViewProps) => {
 
   return (
     <main {...stylex.props(styles.main)}>
-      <h1 {...stylex.props(styles.title)}>{dictionary.collection}</h1>
-      <p {...stylex.props(styles.note)}>{dictionary.collectionDescription}</p>
-      <ProgressSummary dictionary={dictionary} progress={progress} />
+      <h1 {...stylex.props(styles.title)}>Collection</h1>
+      <p {...stylex.props(styles.note)}>{COLLECTION_DESCRIPTION}</p>
+      <ProgressSummary progress={progress} />
       <fieldset {...stylex.props(styles.fieldset, styles.sortGroup)}>
-        <legend {...stylex.props(styles.legend)}>{dictionary.sortLabel}</legend>
+        <legend {...stylex.props(styles.legend)}>Sort</legend>
         {COLLECTION_SORTS.map((value) => (
           <label key={value} {...stylex.props(styles.label)}>
             <input
@@ -135,16 +129,16 @@ export const CollectionView = ({ dictionary, lang }: CollectionViewProps) => {
               }}
               type="radio"
             />
-            {dictionary[SORT_LABELS[value]]}
+            {SORT_LABELS[value]}
           </label>
         ))}
       </fieldset>
-      <RuleGrid dictionary={dictionary} lang={lang} sections={sections} />
+      <RuleGrid sections={sections} />
       {progress.retired.length > 0 && (
         <section {...stylex.props(styles.section)}>
-          <h2 {...stylex.props(styles.heading)}>{dictionary.retiredHeading}</h2>
+          <h2 {...stylex.props(styles.heading)}>Retired rules</h2>
           <p {...stylex.props(styles.note)}>
-            {dictionary.retiredNote.replace("{version}", index.rulesetVersion)}
+            These rules are no longer part of oxlint {index.rulesetVersion}.
           </p>
           <ul {...stylex.props(styles.retiredList)}>
             {progress.retired.map((id) => (
@@ -155,9 +149,9 @@ export const CollectionView = ({ dictionary, lang }: CollectionViewProps) => {
           </ul>
         </section>
       )}
-      <CollectionExport dictionary={dictionary} rules={owned} />
-      <Link href={`/${lang}`} {...stylex.props(styles.backLink)}>
-        {dictionary.backToGacha}
+      <CollectionExport rules={owned} />
+      <Link href="/" {...stylex.props(styles.backLink)}>
+        Back to the gacha
       </Link>
     </main>
   );

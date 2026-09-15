@@ -1,10 +1,8 @@
 import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
-import { SITE_NAME } from "#/lib/site";
+import { ABOUT_INTRO, SITE_NAME } from "#/lib/site";
 import { color, layout } from "#/styles/tokens.stylex";
-
-import type { Dictionary } from "#/i18n";
 
 const OXC_REPO_URL = "https://github.com/oxc-project/oxc";
 const OXC_LICENSE_URL = "https://github.com/oxc-project/oxc/blob/main/LICENSE";
@@ -60,29 +58,30 @@ const styles = stylex.create({
   },
 });
 
-type AboutArticleProps = {
-  dictionary: Dictionary;
-  lang: string;
-};
-
-export const AboutArticle = ({ dictionary, lang }: AboutArticleProps) => (
+export const AboutArticle = () => (
   <main {...stylex.props(styles.main)}>
     <article>
-      <h1 {...stylex.props(styles.title)}>{dictionary.about}</h1>
-      <p {...stylex.props(styles.intro)}>{dictionary.aboutIntro}</p>
+      <h1 {...stylex.props(styles.title)}>About</h1>
+      <p {...stylex.props(styles.intro)}>{ABOUT_INTRO}</p>
       <section {...stylex.props(styles.section)}>
-        <h2 {...stylex.props(styles.heading)}>{dictionary.aboutUnofficialHeading}</h2>
+        <h2 {...stylex.props(styles.heading)}>Unofficial</h2>
         <p {...stylex.props(styles.body)}>
-          <strong>{dictionary.aboutUnofficial}</strong>
+          <strong>
+            This is an unofficial fan site. It is not affiliated with, endorsed by, or maintained by
+            the oxc project.
+          </strong>
         </p>
       </section>
       <section {...stylex.props(styles.section)}>
-        <h2 {...stylex.props(styles.heading)}>{dictionary.aboutDataSourceHeading}</h2>
-        <p {...stylex.props(styles.body)}>{dictionary.aboutDataSource}</p>
+        <h2 {...stylex.props(styles.heading)}>Data source</h2>
+        <p {...stylex.props(styles.body)}>
+          Rule names, categories and descriptions are fetched from the oxc documentation at oxc.rs
+          and rebuilt every week.
+        </p>
         <ul {...stylex.props(styles.linkList)}>
           <li>
             <a href={OXC_RULES_URL} rel="noreferrer" target="_blank" {...stylex.props(styles.link)}>
-              {dictionary.originalDocs}
+              Read the original docs on oxc.rs
             </a>
           </li>
           <li>
@@ -93,8 +92,11 @@ export const AboutArticle = ({ dictionary, lang }: AboutArticleProps) => (
         </ul>
       </section>
       <section {...stylex.props(styles.section)}>
-        <h2 {...stylex.props(styles.heading)}>{dictionary.aboutLicenseHeading}</h2>
-        <p {...stylex.props(styles.body)}>{dictionary.aboutLicense}</p>
+        <h2 {...stylex.props(styles.heading)}>License</h2>
+        <p {...stylex.props(styles.body)}>
+          Rule text belongs to the oxc project and is licensed under MIT. This site is licensed
+          under MIT as well.
+        </p>
         <ul {...stylex.props(styles.linkList)}>
           <li>
             <a
@@ -103,15 +105,15 @@ export const AboutArticle = ({ dictionary, lang }: AboutArticleProps) => (
               target="_blank"
               {...stylex.props(styles.link)}
             >
-              {dictionary.sourceCredit}
+              Source: the oxc project (MIT)
             </a>
           </li>
         </ul>
       </section>
       <p {...stylex.props(styles.body)}>{SITE_NAME}</p>
     </article>
-    <Link href={`/${lang}`} {...stylex.props(styles.backLink)}>
-      {dictionary.backToGacha}
+    <Link href="/" {...stylex.props(styles.backLink)}>
+      Back to the gacha
     </Link>
   </main>
 );

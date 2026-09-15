@@ -8,9 +8,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { ActionButton } from "#/components/action-button";
-import { type Dictionary, toLang } from "#/i18n";
 import { obtainedIds } from "#/lib/collection";
-import { langStore, skipHintStore } from "#/lib/stores";
+import { ruleHref } from "#/lib/rule-href";
+import { skipHintStore } from "#/lib/stores";
 import { drawAndRecord, useCollection, useFilter, useSkipHintSeen } from "#/lib/use-draw";
 import { color, font, layout } from "#/styles/tokens.stylex";
 
@@ -79,12 +79,7 @@ const styles = stylex.create({
   },
 });
 
-type GachaMachineProps = {
-  dictionary: Dictionary;
-  lang: string;
-};
-
-export const GachaMachine = ({ dictionary, lang }: GachaMachineProps) => {
+export const GachaMachine = () => {
   const router = useRouter();
   const collection = useCollection();
   const filter = useFilter();
@@ -93,11 +88,6 @@ export const GachaMachine = ({ dictionary, lang }: GachaMachineProps) => {
   const [scope, animate] = useAnimate();
   const [drawing, setDrawing] = useState(false);
   const skippedRef = useRef(false);
-
-  // LocalStorage への書き込みはブラウザでしか行えない
-  useEffect(() => {
-    langStore.set(toLang(lang));
-  }, [lang]);
 
   useEffect(() => {
     const skip = () => {
@@ -127,24 +117,24 @@ export const GachaMachine = ({ dictionary, lang }: GachaMachineProps) => {
 
     const sequence = playSequence(animate, reducedMotion, () => skippedRef.current);
 
-    drawAndRecord(lang, collection, filter)
-      .then(async (href) => {
-        if (href !== null) {
-          router.prefetch(href);
+    drawAndRecord(collection, filter)
+      .then(async (picked) => {
+        if (picked !== null) {
+          router.prefetch(ruleHref(picked.plugin, picked.name));
         }
 
         await sequence;
 
-        return href;
+        return picked;
       })
-      .then((href) => {
-        if (href === null) {
+      .then((picked) => {
+        if (picked === null) {
           setDrawing(false);
 
           return;
         }
 
-        router.push(href);
+        router.push(ruleHref(picked.plugin, picked.name));
       })
       .catch((error: unknown) => {
         setDrawing(false);
@@ -154,25 +144,25 @@ export const GachaMachine = ({ dictionary, lang }: GachaMachineProps) => {
 
   return (
     <main {...stylex.props(styles.main)}>
-      <h1 {...stylex.props(styles.tagline)}>{dictionary.tagline}</h1>
+      <h1 {...stylex.props(styles.tagline)}>Draw one oxlint rule at a time.</h1>
       <div ref={scope}>
         <div data-cabinet {...stylex.props(styles.cabinet)}>
           <div aria-hidden {...stylex.props(styles.capsuleSlot)}>
             <div data-capsule {...stylex.props(styles.capsule)} />
           </div>
           <ActionButton busy={drawing} onClick={handleClick} variant="primary">
-            {dictionary.drawButton}
+            Draw a rule
           </ActionButton>
-          <output {...stylex.props(styles.status)}>{drawing ? dictionary.drawing : ""}</output>
-          <p {...stylex.props(styles.count)}>
-            {dictionary.drawnCount.replace("{count}", String(obtainedIds(collection).length))}
-          </p>
+          <output {...stylex.props(styles.status)}>{drawing ? "Drawing a rule" : ""}</output>
+          <p {...stylex.props(styles.count)}>{obtainedIds(collection).length} rules drawn</p>
         </div>
       </div>
-      {!skipHintSeen && <p {...stylex.props(styles.hint)}>{dictionary.skipHint}</p>}
-      <FilterPanel dictionary={dictionary} />
-      <Link href={`/${lang}/collection`} {...stylex.props(styles.collectionLink)}>
-        {dictionary.viewCollection}
+      {!skipHintSeen && (
+        <p {...stylex.props(styles.hint)}>Tap, or press Esc or Space, to skip the animation.</p>
+      )}
+      <FilterPanel />
+      <Link href="/collection" {...stylex.props(styles.collectionLink)}>
+        See your collection
       </Link>
     </main>
   );

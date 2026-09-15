@@ -8,9 +8,9 @@ import { useRouter } from "next/navigation";
 import { ActionButton } from "#/components/action-button";
 import { CopyButton } from "#/components/copy-button";
 import { buildOxlintrc } from "#/lib/oxlintrc";
+import { ruleHref } from "#/lib/rule-href";
 import { drawAndRecord, useCollection, useFilter } from "#/lib/use-draw";
 
-import type { Dictionary } from "#/i18n";
 import type { RuleDetail } from "#/lib/rules";
 
 const styles = stylex.create({
@@ -23,11 +23,9 @@ const styles = stylex.create({
 
 type RuleActionsProps = {
   detail: RuleDetail;
-  dictionary: Dictionary;
-  lang: string;
 };
 
-export const RuleActions = ({ detail, dictionary, lang }: RuleActionsProps) => {
+export const RuleActions = ({ detail }: RuleActionsProps) => {
   const router = useRouter();
   const collection = useCollection();
   const filter = useFilter();
@@ -35,15 +33,15 @@ export const RuleActions = ({ detail, dictionary, lang }: RuleActionsProps) => {
 
   const handleDraw = () => {
     setDrawing(true);
-    drawAndRecord(lang, collection, filter)
-      .then((href) => {
-        if (href === null) {
+    drawAndRecord(collection, filter)
+      .then((picked) => {
+        if (picked === null) {
           setDrawing(false);
 
           return;
         }
 
-        router.push(href);
+        router.push(ruleHref(picked.plugin, picked.name));
       })
       .catch((error: unknown) => {
         setDrawing(false);
@@ -54,13 +52,9 @@ export const RuleActions = ({ detail, dictionary, lang }: RuleActionsProps) => {
   return (
     <div {...stylex.props(styles.group)}>
       <ActionButton busy={drawing} onClick={handleDraw} variant="primary">
-        {dictionary.drawAgain}
+        Draw again
       </ActionButton>
-      <CopyButton
-        copiedLabel={dictionary.copied}
-        label={dictionary.copyConfig}
-        text={buildOxlintrc([detail])}
-      />
+      <CopyButton copiedLabel="Copied" label="Copy config" text={buildOxlintrc([detail])} />
     </div>
   );
 };

@@ -10,8 +10,6 @@ import { filterStore } from "#/lib/stores";
 import { useFilter } from "#/lib/use-draw";
 import { color, font, layout } from "#/styles/tokens.stylex";
 
-import type { Dictionary } from "#/i18n";
-
 const styles = stylex.create({
   details: {
     borderColor: color.cabinet2,
@@ -51,14 +49,10 @@ const styles = stylex.create({
   },
 });
 
-type FilterPanelProps = {
-  dictionary: Dictionary;
-};
-
 const toggle = (values: string[], value: string): string[] =>
   values.includes(value) ? values.filter((entry) => entry !== value) : [...values, value];
 
-export const FilterPanel = ({ dictionary }: FilterPanelProps) => {
+export const FilterPanel = () => {
   const filter = useFilter();
   const [plugins, setPlugins] = useState<string[]>([]);
 
@@ -87,9 +81,9 @@ export const FilterPanel = ({ dictionary }: FilterPanelProps) => {
 
   return (
     <details onToggle={handleToggleOpen} {...stylex.props(styles.details)}>
-      <summary {...stylex.props(styles.summary)}>{dictionary.filters}</summary>
+      <summary {...stylex.props(styles.summary)}>Filters</summary>
       <fieldset {...stylex.props(styles.fieldset)}>
-        <legend {...stylex.props(styles.legend)}>{dictionary.categoryLabel}</legend>
+        <legend {...stylex.props(styles.legend)}>Category</legend>
         {CATEGORIES.map((category) => (
           <label key={category} {...stylex.props(styles.label)}>
             <input
@@ -104,7 +98,7 @@ export const FilterPanel = ({ dictionary }: FilterPanelProps) => {
         ))}
       </fieldset>
       <fieldset {...stylex.props(styles.fieldset)}>
-        <legend {...stylex.props(styles.legend)}>{dictionary.plugins}</legend>
+        <legend {...stylex.props(styles.legend)}>Plugins</legend>
         {plugins.map((plugin) => (
           <label key={plugin} {...stylex.props(styles.label)}>
             <input

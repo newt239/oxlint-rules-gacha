@@ -4,9 +4,10 @@ import { useSyncExternalStore } from "react";
 
 import { type Collection, obtainedIds, recordDraw } from "./collection";
 import { applyFilter, draw, type Filter } from "./draw";
-import { ruleHref, type RuleHref } from "./rule-href";
 import { loadRuleIndex } from "./rule-index-cache";
 import { collectionStore, filterStore, skipHintStore } from "./stores";
+
+import type { RuleIndexEntry } from "./rules";
 
 export const useCollection = (): Collection =>
   useSyncExternalStore(
@@ -30,10 +31,9 @@ export const useFilter = (): Filter =>
   );
 
 export const drawAndRecord = async (
-  lang: string,
   collection: Collection,
   filter: Filter,
-): Promise<RuleHref | null> => {
+): Promise<RuleIndexEntry | null> => {
   const { rules, rulesetVersion } = await loadRuleIndex();
   const picked = draw(applyFilter(rules, filter), new Set(obtainedIds(collection)), Math.random);
 
@@ -43,5 +43,5 @@ export const drawAndRecord = async (
 
   collectionStore.set(recordDraw(collection, picked.id, { now: Date.now(), rulesetVersion }));
 
-  return ruleHref(lang, picked.plugin, picked.name);
+  return picked;
 };

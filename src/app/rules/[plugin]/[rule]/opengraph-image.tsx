@@ -33,7 +33,7 @@ const CATEGORY_COLORS: Record<Category, string> = {
 };
 
 type OpengraphImageProps = {
-  params: Promise<{ lang: string; plugin: string; rule: string }>;
+  params: Promise<{ plugin: string; rule: string }>;
 };
 
 const OpengraphImage = async ({ params }: OpengraphImageProps) => {

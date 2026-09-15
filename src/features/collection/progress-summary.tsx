@@ -6,7 +6,6 @@ import { CategoryBadge } from "#/components/category-badge";
 import { toCategory } from "#/lib/rules";
 import { color, font, layout } from "#/styles/tokens.stylex";
 
-import type { Dictionary } from "#/i18n";
 import type { CollectionProgress } from "#/lib/collection-progress";
 
 const styles = stylex.create({
@@ -62,16 +61,13 @@ const styles = stylex.create({
 });
 
 type ProgressSummaryProps = {
-  dictionary: Dictionary;
   progress: CollectionProgress;
 };
 
-export const ProgressSummary = ({ dictionary, progress }: ProgressSummaryProps) => (
+export const ProgressSummary = ({ progress }: ProgressSummaryProps) => (
   <section {...stylex.props(styles.section)}>
     <p {...stylex.props(styles.total)}>
-      {dictionary.collectionProgress
-        .replace("{obtained}", String(progress.obtained))
-        .replace("{total}", String(progress.total))}
+      {progress.obtained} of {progress.total} rules collected
     </p>
     <div aria-hidden {...stylex.props(styles.bar)}>
       <div
@@ -81,7 +77,7 @@ export const ProgressSummary = ({ dictionary, progress }: ProgressSummaryProps) 
         )}
       />
     </div>
-    <h2 {...stylex.props(styles.heading)}>{dictionary.plugins}</h2>
+    <h2 {...stylex.props(styles.heading)}>Plugins</h2>
     <ul {...stylex.props(styles.list)}>
       {progress.byPlugin.map((item) => (
         <li key={item.key} {...stylex.props(styles.chip)}>
@@ -92,7 +88,7 @@ export const ProgressSummary = ({ dictionary, progress }: ProgressSummaryProps) 
         </li>
       ))}
     </ul>
-    <h2 {...stylex.props(styles.heading)}>{dictionary.categoryLabel}</h2>
+    <h2 {...stylex.props(styles.heading)}>Category</h2>
     <ul {...stylex.props(styles.list)}>
       {progress.byCategory.map((item) => {
         const category = toCategory(item.key);

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 
 import * as stylex from "@stylexjs/stylex";
-import { Baloo_2, Geist_Mono, Zen_Maru_Gothic } from "next/font/google";
+import { Baloo_2, Geist_Mono } from "next/font/google";
 
-import { LANGS } from "#/i18n";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "#/lib/site";
 import { color, font } from "#/styles/tokens.stylex";
 import "#/styles/globals.css";
@@ -22,17 +21,6 @@ const geistMono = Geist_Mono({
   weight: ["500"],
 });
 
-const zenMaruGothic = Zen_Maru_Gothic({
-  display: "swap",
-  subsets: ["latin"],
-  variable: "--font-zen-maru-gothic",
-  weight: ["400", "700"],
-});
-
-export const dynamicParams = false;
-
-export const generateStaticParams = () => LANGS.map((lang) => ({ lang }));
-
 export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   metadataBase: SITE_URL,
@@ -48,27 +36,16 @@ const styles = stylex.create({
     fontSize: "1rem",
     lineHeight: 1.7,
   },
-  bodyJa: {
-    fontFamily: font.displayJa,
-  },
 });
 
 type RootLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ lang: string }>;
 };
 
-const RootLayout = async ({ children, params }: Readonly<RootLayoutProps>) => {
-  const { lang } = await params;
-
-  return (
-    <html
-      lang={lang}
-      className={`${baloo2.variable} ${geistMono.variable} ${zenMaruGothic.variable}`}
-    >
-      <body {...stylex.props(styles.body, lang === "ja" && styles.bodyJa)}>{children}</body>
-    </html>
-  );
-};
+const RootLayout = ({ children }: Readonly<RootLayoutProps>) => (
+  <html lang="en" className={`${baloo2.variable} ${geistMono.variable}`}>
+    <body {...stylex.props(styles.body)}>{children}</body>
+  </html>
+);
 
 export default RootLayout;

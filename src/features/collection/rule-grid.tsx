@@ -7,7 +7,6 @@ import { CategoryBadge } from "#/components/category-badge";
 import { ruleHref } from "#/lib/rule-href";
 import { color, font, layout } from "#/styles/tokens.stylex";
 
-import type { Dictionary } from "#/i18n";
 import type { CollectionSection } from "#/lib/collection-progress";
 
 const styles = stylex.create({
@@ -71,8 +70,6 @@ const styles = stylex.create({
 });
 
 type RuleGridProps = {
-  dictionary: Dictionary;
-  lang: string;
   sections: CollectionSection[];
 };
 
@@ -88,7 +85,7 @@ const sectionKey = (section: CollectionSection): string => {
   return section.kind;
 };
 
-const sectionTitle = (section: CollectionSection, dictionary: Dictionary): React.ReactNode => {
+const sectionTitle = (section: CollectionSection): React.ReactNode => {
   if (section.kind === "plugin") {
     return section.plugin;
   }
@@ -98,40 +95,31 @@ const sectionTitle = (section: CollectionSection, dictionary: Dictionary): React
   }
 
   if (section.kind === "obtained") {
-    return dictionary.obtainedSection;
+    return "Recently collected";
   }
 
-  return dictionary.lockedSection;
+  return "Not collected yet";
 };
 
-export const RuleGrid = ({ dictionary, lang, sections }: RuleGridProps) => (
+export const RuleGrid = ({ sections }: RuleGridProps) => (
   <div>
     {sections.map((section) => (
       <section key={sectionKey(section)} {...stylex.props(styles.section)}>
-        <h2 {...stylex.props(styles.heading)}>{sectionTitle(section, dictionary)}</h2>
+        <h2 {...stylex.props(styles.heading)}>{sectionTitle(section)}</h2>
         <ul {...stylex.props(styles.list)}>
           {section.entries.map((entry) =>
             entry.obtained ? (
               <li key={entry.id} {...stylex.props(styles.item)}>
-                <Link
-                  href={ruleHref(lang, entry.plugin, entry.name)}
-                  {...stylex.props(styles.link)}
-                >
+                <Link href={ruleHref(entry.plugin, entry.name)} {...stylex.props(styles.link)}>
                   {entry.name}
                   <CategoryBadge category={entry.category} />
                   {entry.count > 1 && (
-                    <span {...stylex.props(styles.count)}>
-                      {dictionary.duplicateCount.replace("{count}", String(entry.count))}
-                    </span>
+                    <span {...stylex.props(styles.count)}>drawn {entry.count} times</span>
                   )}
                 </Link>
               </li>
             ) : (
-              <li
-                key={entry.id}
-                aria-label={dictionary.lockedRule}
-                {...stylex.props(styles.locked)}
-              >
+              <li key={entry.id} aria-label="Not collected yet" {...stylex.props(styles.locked)}>
                 <span aria-hidden {...stylex.props(styles.silhouette)} />
               </li>
             ),

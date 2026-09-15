@@ -4,8 +4,6 @@ import { notFound } from "next/navigation";
 
 import { SiteHeader } from "#/components/site-header";
 import { RuleArticle } from "#/features/rule/rule-article";
-import { getDictionary } from "#/i18n";
-import { languageAlternates } from "#/lib/alternates";
 import { findRuleDetail, RULE_IDS } from "#/lib/rule-catalog";
 import { SITE_NAME } from "#/lib/site";
 
@@ -19,11 +17,11 @@ export const generateStaticParams = () =>
   });
 
 type RulePageProps = {
-  params: Promise<{ lang: string; plugin: string; rule: string }>;
+  params: Promise<{ plugin: string; rule: string }>;
 };
 
 export const generateMetadata = async ({ params }: RulePageProps): Promise<Metadata> => {
-  const { lang, plugin, rule } = await params;
+  const { plugin, rule } = await params;
   const detail = findRuleDetail(plugin, rule);
 
   if (detail === undefined) {
@@ -31,7 +29,7 @@ export const generateMetadata = async ({ params }: RulePageProps): Promise<Metad
   }
 
   return {
-    alternates: languageAlternates(lang, `/rules/${plugin}/${rule}`),
+    alternates: { canonical: `/rules/${plugin}/${rule}` },
     description: detail.summary,
     openGraph: {
       description: detail.summary,
@@ -44,19 +42,17 @@ export const generateMetadata = async ({ params }: RulePageProps): Promise<Metad
 };
 
 const RulePage = async ({ params }: RulePageProps) => {
-  const { lang, plugin, rule } = await params;
+  const { plugin, rule } = await params;
   const detail = findRuleDetail(plugin, rule);
 
   if (detail === undefined) {
     notFound();
   }
 
-  const dictionary = getDictionary(lang);
-
   return (
     <>
-      <SiteHeader dictionary={dictionary} lang={lang} path={`/rules/${plugin}/${rule}`} />
-      <RuleArticle detail={detail} dictionary={dictionary} lang={lang} />
+      <SiteHeader />
+      <RuleArticle detail={detail} />
     </>
   );
 };

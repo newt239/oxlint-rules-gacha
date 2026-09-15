@@ -7,7 +7,6 @@ import { CopyButton } from "#/components/copy-button";
 import { buildOxlintrc } from "#/lib/oxlintrc";
 import { color } from "#/styles/tokens.stylex";
 
-import type { Dictionary } from "#/i18n";
 import type { RuleIndexEntry } from "#/lib/rules";
 
 const styles = stylex.create({
@@ -31,16 +30,15 @@ const styles = stylex.create({
 });
 
 type CollectionExportProps = {
-  dictionary: Dictionary;
   rules: readonly RuleIndexEntry[];
 };
 
-export const CollectionExport = ({ dictionary, rules }: CollectionExportProps) => {
+export const CollectionExport = ({ rules }: CollectionExportProps) => {
   if (rules.length === 0) {
     return (
       <section {...stylex.props(styles.section)}>
-        <h2 {...stylex.props(styles.heading)}>{dictionary.exportHeading}</h2>
-        <p {...stylex.props(styles.note)}>{dictionary.exportEmpty}</p>
+        <h2 {...stylex.props(styles.heading)}>Take your rules home</h2>
+        <p {...stylex.props(styles.note)}>Draw a rule first, then you can take the config home.</p>
       </section>
     );
   }
@@ -49,10 +47,10 @@ export const CollectionExport = ({ dictionary, rules }: CollectionExportProps) =
 
   return (
     <section {...stylex.props(styles.section)}>
-      <h2 {...stylex.props(styles.heading)}>{dictionary.exportHeading}</h2>
-      <CopyButton copiedLabel={dictionary.copied} label={dictionary.copyAllConfig} text={config} />
+      <h2 {...stylex.props(styles.heading)}>Take your rules home</h2>
+      <CopyButton copiedLabel="Copied" label="Copy .oxlintrc.json" text={config} />
       <details>
-        <summary {...stylex.props(styles.summary)}>{dictionary.exportPreview}</summary>
+        <summary {...stylex.props(styles.summary)}>Preview</summary>
         <CodeBlock example={{ code: config, lang: "json" }} />
       </details>
     </section>

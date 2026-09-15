@@ -3,7 +3,6 @@ import * as stylex from "@stylexjs/stylex";
 import { CategoryBadge } from "#/components/category-badge";
 import { color, font, layout } from "#/styles/tokens.stylex";
 
-import type { Dictionary } from "#/i18n";
 import type { FixStatus, RuleDetail } from "#/lib/rules";
 
 const styles = stylex.create({
@@ -31,35 +30,32 @@ const styles = stylex.create({
 
 type RuleBadgesProps = {
   detail: RuleDetail;
-  dictionary: Dictionary;
 };
 
-const fixLabel = (fix: FixStatus, dictionary: Dictionary): string => {
+const fixLabel = (fix: FixStatus): string => {
   if (fix === "fix") {
-    return dictionary.fixFix;
+    return "auto-fix";
   }
 
   if (fix === "suggestion") {
-    return dictionary.fixSuggestion;
+    return "suggestion";
   }
 
   if (fix === "dangerous") {
-    return dictionary.fixDangerous;
+    return "dangerous fix";
   }
 
-  return dictionary.fixNone;
+  return "no fix";
 };
 
-export const RuleBadges = ({ detail, dictionary }: RuleBadgesProps) => (
+export const RuleBadges = ({ detail }: RuleBadgesProps) => (
   <ul {...stylex.props(styles.list)}>
     <li>
       <CategoryBadge category={detail.category} />
     </li>
     <li {...stylex.props(styles.meta)}>{detail.plugin}</li>
-    <li {...stylex.props(styles.meta)}>{fixLabel(detail.fix, dictionary)}</li>
-    <li {...stylex.props(styles.meta)}>
-      {detail.default ? dictionary.defaultOn : dictionary.defaultOff}
-    </li>
-    {detail.typeAware && <li {...stylex.props(styles.meta)}>{dictionary.typeAware}</li>}
+    <li {...stylex.props(styles.meta)}>{fixLabel(detail.fix)}</li>
+    <li {...stylex.props(styles.meta)}>{detail.default ? "on by default" : "off by default"}</li>
+    {detail.typeAware && <li {...stylex.props(styles.meta)}>needs type information</li>}
   </ul>
 );

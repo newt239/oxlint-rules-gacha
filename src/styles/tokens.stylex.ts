@@ -16,8 +16,6 @@ export const color = stylex.defineVars({
 
 export const font = stylex.defineVars({
   display: "var(--font-baloo-2), ui-sans-serif, system-ui, sans-serif",
-  displayJa:
-    "var(--font-baloo-2), var(--font-zen-maru-gothic), ui-sans-serif, system-ui, sans-serif",
   mono: "var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace",
 });
 

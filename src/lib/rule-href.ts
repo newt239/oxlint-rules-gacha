@@ -1,4 +1,5 @@
-export type RuleHref = `/${string}/rules/${string}/${string}`;
+import type { Route } from "next";
 
-export const ruleHref = (lang: string, plugin: string, name: string): RuleHref =>
-  `/${lang}/rules/${plugin}/${name}`;
+export type RuleHref = Route<`/rules/${string}/${string}`>;
+
+export const ruleHref = (plugin: string, name: string): RuleHref => `/rules/${plugin}/${name}`;
