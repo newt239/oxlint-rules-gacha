@@ -48,6 +48,16 @@ const styles = stylex.create({
   },
 });
 
+const titleTint = stylex.create({
+  correctness: { color: color.catCorrectness },
+  nursery: { color: color.catNursery },
+  pedantic: { color: color.catPedantic },
+  perf: { color: color.catPerf },
+  restriction: { color: color.catRestriction },
+  style: { color: color.catStyle },
+  suspicious: { color: color.catSuspicious },
+});
+
 type RuleArticleProps = {
   detail: RuleDetail;
 };
@@ -56,7 +66,7 @@ export const RuleArticle = ({ detail }: RuleArticleProps) => (
   <main {...stylex.props(styles.main)}>
     <article>
       <ViewTransition name="rule-title" share="morph" default="none">
-        <h1 {...stylex.props(styles.title)}>{detail.id}</h1>
+        <h1 {...stylex.props(styles.title, titleTint[detail.category])}>{detail.id}</h1>
       </ViewTransition>
       <RuleBadges detail={detail} />
       <p {...stylex.props(styles.summary)}>{detail.summary}</p>
