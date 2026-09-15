@@ -1,15 +1,40 @@
 "use client";
 
+import { burstConfetti } from "./confetti";
+import { categoryColor, inkColor } from "./palette";
+
+import type { RuleIndexEntry } from "#/lib/rules";
+
 import type { useAnimate } from "motion/react";
 
 type Animate = ReturnType<typeof useAnimate>[1];
 
+type Controls = {
+  stop: () => void;
+  then: (onResolve: VoidFunction) => Promise<void>;
+};
+
+export type Phase = "idle" | "lever" | "drop" | "rattle" | "open" | "reveal";
+
 const CABINET = "[data-cabinet]";
-const CAPSULE = "[data-capsule]";
+const FLASH = "[data-flash]";
+const REVEAL = "[data-reveal]";
+
+export const CAPSULE = "[data-capsule]";
+export const SPEED_LINES = "[data-speed-lines]";
 
 const REDUCED_CROSSFADE_SECONDS = 0.15;
 const REDUCED_TIMEOUT_MS = 600;
-const SEQUENCE_TIMEOUT_MS = 2600;
+const SEQUENCE_TIMEOUT_MS = 5000;
+
+type PlaySequenceOptions = {
+  animate: Animate;
+  picked: Promise<RuleIndexEntry | null>;
+  reducedMotion: boolean;
+  setPhase: (phase: Phase) => void;
+  setPicked: (entry: RuleIndexEntry) => void;
+  skipped: Promise<boolean>;
+};
 
 const wait = async (ms: number): Promise<void> => {
   await new Promise((resolve) => {
@@ -17,55 +42,145 @@ const wait = async (ms: number): Promise<void> => {
   });
 };
 
-const runSequence = async (
-  animate: Animate,
-  reducedMotion: boolean,
-  isSkipped: () => boolean,
-): Promise<void> => {
+const settled = async (controls: Controls): Promise<void> => {
+  await new Promise<void>((resolve) => {
+    controls.then(resolve).catch(() => {
+      resolve();
+    });
+  });
+};
+
+const race = async (controls: Controls, skipped: Promise<boolean>): Promise<boolean> => {
+  const skippedFirst = await Promise.race([settled(controls).then(() => false), skipped]);
+
+  if (skippedFirst) {
+    controls.stop();
+  }
+
+  return skippedFirst;
+};
+
+const runSequence = async ({
+  animate,
+  picked,
+  reducedMotion,
+  setPhase,
+  setPicked,
+  skipped,
+}: PlaySequenceOptions): Promise<RuleIndexEntry | null> => {
   if (reducedMotion) {
+    setPhase("drop");
     await animate(CAPSULE, { opacity: [0, 1] }, { duration: REDUCED_CROSSFADE_SECONDS });
 
-    return;
+    return picked;
   }
 
-  await animate(CABINET, { scale: [1, 0.97, 1] }, { duration: 0.12 });
+  setPhase("lever");
 
-  if (isSkipped()) {
-    return;
+  if (
+    await race(
+      animate([
+        [CABINET, { rotate: [0, -1.5, 1.5, 0], scale: [1, 0.965, 1] }, { duration: 0.28 }],
+        [CAPSULE, { opacity: [1, 0], scale: [1, 0.5] }, { at: 0, duration: 0.28 }],
+      ]),
+      skipped,
+    )
+  ) {
+    return picked;
   }
 
-  await animate(
-    CAPSULE,
-    { opacity: [0, 1], y: [-180, 0] },
-    { bounce: 0.5, duration: 0.6, type: "spring" },
+  setPhase("drop");
+  animate(SPEED_LINES, { opacity: [0, 0.28], scale: [0.65, 1] }, { duration: 0.2 });
+
+  if (
+    await race(
+      animate(
+        CAPSULE,
+        { opacity: [0, 1], scale: [0.5, 1], y: [-210, 0] },
+        { bounce: 0.55, duration: 0.7, type: "spring" },
+      ),
+      skipped,
+    )
+  ) {
+    return picked;
+  }
+
+  setPhase("rattle");
+
+  if (
+    await race(
+      animate(
+        CAPSULE,
+        {
+          filter: ["brightness(1)", "brightness(1.4)", "brightness(1)"],
+          rotate: [0, -3, 4, -6, 7, -9, 10, 0],
+          x: [0, -3, 4, -6, 7, -9, 10, 0],
+        },
+        { duration: 0.5 },
+      ),
+      skipped,
+    )
+  ) {
+    return picked;
+  }
+
+  const entry = await picked;
+
+  if (entry === null) {
+    return null;
+  }
+
+  setPicked(entry);
+  setPhase("open");
+
+  burstConfetti([categoryColor(entry.category), inkColor(), categoryColor("perf")]).catch(
+    (error: unknown) => {
+      console.error(error);
+    },
   );
 
-  if (isSkipped()) {
-    return;
+  if (
+    await race(
+      animate([
+        [FLASH, { opacity: [0, 0.85, 0] }, { duration: 0.32 }],
+        [CAPSULE, { filter: "brightness(1.6)", scale: 1.12 }, { at: 0, duration: 0.32 }],
+      ]),
+      skipped,
+    )
+  ) {
+    return entry;
   }
 
-  await animate(CAPSULE, { x: [0, -5, 5, -4, 4, 0] }, { duration: 0.3 });
+  setPhase("reveal");
 
-  if (isSkipped()) {
-    return;
+  if (
+    await race(
+      animate(
+        REVEAL,
+        { opacity: [0, 1], scale: [0.82, 1], y: [28, 0] },
+        { bounce: 0.4, duration: 0.5, type: "spring" },
+      ),
+      skipped,
+    )
+  ) {
+    return entry;
   }
 
-  await animate(CAPSULE, { opacity: [1, 1, 0], scale: [1, 1.18, 0.2] }, { duration: 0.4 });
+  await Promise.race([wait(750), skipped]);
 
-  if (isSkipped()) {
-    return;
-  }
-
-  await wait(200);
+  return entry;
 };
 
 export const playSequence = async (
-  animate: Animate,
-  reducedMotion: boolean,
-  isSkipped: () => boolean,
-): Promise<void> => {
-  await Promise.race([
-    runSequence(animate, reducedMotion, isSkipped),
-    wait(reducedMotion ? REDUCED_TIMEOUT_MS : SEQUENCE_TIMEOUT_MS),
-  ]);
+  options: PlaySequenceOptions,
+): Promise<RuleIndexEntry | null> => {
+  const timeout = options.reducedMotion ? REDUCED_TIMEOUT_MS : SEQUENCE_TIMEOUT_MS;
+  const timedOut = async (): Promise<RuleIndexEntry | null> => {
+    await wait(timeout);
+
+    return options.picked;
+  };
+  const entry = await Promise.race([runSequence(options), timedOut()]);
+
+  return entry;
 };

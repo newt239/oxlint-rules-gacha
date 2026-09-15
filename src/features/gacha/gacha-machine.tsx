@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import * as stylex from "@stylexjs/stylex";
 import { useAnimate, useReducedMotion } from "motion/react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -15,7 +16,20 @@ import { drawAndRecord, useCollection, useFilter, useSkipHintSeen } from "#/lib/
 import { color, font, layout } from "#/styles/tokens.stylex";
 
 import { FilterPanel } from "./filter-panel";
-import { playSequence } from "./sequence";
+import { RevealText } from "./reveal-text";
+import { CAPSULE, type Phase, playSequence, SPEED_LINES } from "./sequence";
+import { SpeedLines } from "./speed-lines";
+
+import type { RuleIndexEntry } from "#/lib/rules";
+
+const CapsuleCanvas = dynamic(
+  async () => {
+    const loaded = await import("./capsule-canvas");
+
+    return loaded.CapsuleCanvas;
+  },
+  { ssr: false },
+);
 
 const styles = stylex.create({
   cabinet: {
@@ -25,22 +39,12 @@ const styles = stylex.create({
     display: "flex",
     flexDirection: "column",
     gap: "1.5rem",
+    isolation: "isolate",
     marginBlockStart: "2.5rem",
+    overflow: "hidden",
     paddingBlock: "3rem",
     paddingInline: layout.gutter,
-  },
-  capsule: {
-    background: `linear-gradient(to bottom, ${color.ink} 0 50%, ${color.catSuspicious} 50% 100%)`,
-    borderRadius: "999px",
-    height: "88px",
-    opacity: 0,
-    width: "88px",
-  },
-  capsuleSlot: {
-    alignItems: "center",
-    display: "flex",
-    height: "88px",
-    justifyContent: "center",
+    position: "relative",
   },
   collectionLink: {
     color: color.inkDim,
@@ -54,6 +58,13 @@ const styles = stylex.create({
     fontSize: "0.8125rem",
     margin: 0,
   },
+  flash: {
+    backgroundColor: color.ink,
+    inset: 0,
+    opacity: 0,
+    pointerEvents: "none",
+    position: "absolute",
+  },
   hint: {
     color: color.inkDim,
     fontSize: "0.75rem",
@@ -66,10 +77,21 @@ const styles = stylex.create({
     paddingBlock: "3rem 4rem",
     paddingInline: layout.gutter,
   },
+  stage: {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.75rem",
+    justifyContent: "center",
+    minHeight: "240px",
+  },
   status: {
     color: color.inkDim,
+    fontFamily: font.mono,
     fontSize: "0.8125rem",
     minHeight: "1.5em",
+    overflowWrap: "anywhere",
+    textAlign: "center",
   },
   tagline: {
     fontSize: "clamp(1.5rem, 6vw, 2rem)",
@@ -87,13 +109,15 @@ export const GachaMachine = () => {
   const reducedMotion = useReducedMotion() ?? false;
   const [scope, animate] = useAnimate();
   const [drawing, setDrawing] = useState(false);
-  const skippedRef = useRef(false);
+  const [phase, setPhase] = useState<Phase>("idle");
+  const [picked, setPicked] = useState<RuleIndexEntry | null>(null);
+  const [announced, setAnnounced] = useState("");
+  const skipRef = useRef<((skipped: boolean) => void) | null>(null);
 
+  // スキップはページ全体のタップとキー操作で受けるため、window にリスナーを張る
   useEffect(() => {
     const skip = () => {
-      if (drawing) {
-        skippedRef.current = true;
-      }
+      skipRef.current?.(true);
     };
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape" || event.key === " ") {
@@ -108,53 +132,94 @@ export const GachaMachine = () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("pointerdown", skip);
     };
-  }, [drawing]);
+  }, []);
 
   const handleClick = () => {
     setDrawing(true);
-    skippedRef.current = false;
+    setPicked(null);
+    setAnnounced("");
     skipHintStore.set(true);
 
-    const sequence = playSequence(animate, reducedMotion, () => skippedRef.current);
+    const skip = Promise.withResolvers<boolean>();
 
-    drawAndRecord(collection, filter)
-      .then(async (picked) => {
-        if (picked !== null) {
-          router.prefetch(ruleHref(picked.plugin, picked.name));
-        }
+    skipRef.current = skip.resolve;
 
-        await sequence;
+    const pick = drawAndRecord(collection, filter);
 
-        return picked;
-      })
-      .then((picked) => {
-        if (picked === null) {
+    const run = async (): Promise<RuleIndexEntry | null> => {
+      const entry = await pick;
+
+      if (entry !== null) {
+        router.prefetch(ruleHref(entry.plugin, entry.name));
+      }
+
+      return playSequence({
+        animate,
+        picked: pick,
+        reducedMotion,
+        setPhase,
+        setPicked,
+        skipped: skip.promise,
+      });
+    };
+
+    run()
+      .then((entry) => {
+        skipRef.current = null;
+
+        if (entry === null) {
+          animate([
+            [CAPSULE, { opacity: 1, scale: 1, y: 0 }, { duration: 0.25 }],
+            [SPEED_LINES, { opacity: 0 }, { at: 0, duration: 0.25 }],
+          ]);
           setDrawing(false);
+          setPhase("idle");
 
           return;
         }
 
-        router.push(ruleHref(picked.plugin, picked.name));
+        setAnnounced(entry.id);
+        router.push(ruleHref(entry.plugin, entry.name));
       })
       .catch((error: unknown) => {
+        skipRef.current = null;
         setDrawing(false);
+        setPhase("idle");
         console.error(error);
       });
   };
+
+  const status = announced === "" && drawing ? "Drawing a rule" : announced;
 
   return (
     <main {...stylex.props(styles.main)}>
       <h1 {...stylex.props(styles.tagline)}>Draw one oxlint rule at a time.</h1>
       <div ref={scope}>
         <div data-cabinet {...stylex.props(styles.cabinet)}>
-          <div aria-hidden {...stylex.props(styles.capsuleSlot)}>
-            <div data-capsule {...stylex.props(styles.capsule)} />
+          <SpeedLines />
+          <div {...stylex.props(styles.stage)}>
+            <div aria-hidden data-capsule>
+              <CapsuleCanvas
+                category={picked === null ? null : picked.category}
+                open={phase === "open" || phase === "reveal"}
+                spinning={phase === "rattle"}
+              />
+            </div>
+            {picked !== null && (
+              <RevealText
+                key={picked.id}
+                category={picked.category}
+                ruleId={picked.id}
+                shuffle={phase === "reveal"}
+              />
+            )}
           </div>
           <ActionButton busy={drawing} onClick={handleClick} variant="primary">
             Draw a rule
           </ActionButton>
-          <output {...stylex.props(styles.status)}>{drawing ? "Drawing a rule" : ""}</output>
+          <output {...stylex.props(styles.status)}>{status}</output>
           <p {...stylex.props(styles.count)}>{obtainedIds(collection).length} rules drawn</p>
+          <div aria-hidden data-flash {...stylex.props(styles.flash)} />
         </div>
       </div>
       {!skipHintSeen && (
