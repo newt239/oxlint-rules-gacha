@@ -37,9 +37,7 @@ const styles = stylex.create({
   heading: {
     color: color.inkDim,
     fontSize: text.md,
-    letterSpacing: "0.08em",
     marginBlock: "1.5rem 0.5rem",
-    textTransform: "uppercase",
   },
   list: {
     display: "flex",

@@ -27,9 +27,7 @@ const styles = stylex.create({
   heading: {
     color: color.inkDim,
     fontSize: text.md,
-    letterSpacing: "0.08em",
     marginBlock: "0 0.5rem",
-    textTransform: "uppercase",
   },
   intro: {
     lineHeight: 1.9,

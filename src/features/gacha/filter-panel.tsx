@@ -42,10 +42,8 @@ const styles = stylex.create({
   legend: {
     color: color.inkDim,
     fontSize: text.md,
-    letterSpacing: "0.08em",
     marginBlockEnd: "0.5rem",
     padding: 0,
-    textTransform: "uppercase",
   },
   summary: {
     color: color.inkDim,
