@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 
 import * as stylex from "@stylexjs/stylex";
 import { useAnimate, useReducedMotion } from "motion/react";
@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { ActionButton } from "#/components/action-button";
-import { obtainedIds } from "#/lib/collection";
+import { consumeAutoDraw } from "#/lib/auto-draw";
 import { ruleHref } from "#/lib/rule-href";
 import { skipHintStore } from "#/lib/stores";
 import { drawAndRecord, useCollection, useFilter, useSkipHintSeen } from "#/lib/use-draw";
@@ -51,12 +51,6 @@ const styles = stylex.create({
     display: "inline-block",
     fontSize: "0.875rem",
     marginBlockStart: "2rem",
-  },
-  count: {
-    color: color.inkDim,
-    fontFamily: font.mono,
-    fontSize: "0.8125rem",
-    margin: 0,
   },
   flash: {
     backgroundColor: color.ink,
@@ -189,6 +183,23 @@ export const GachaMachine = () => {
       });
   };
 
+  const startAutoDraw = useEffectEvent(() => {
+    handleClick();
+  });
+
+  // ルールページからの再抽選の合図は sessionStorage にあり、マウント後にしか読めない
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (consumeAutoDraw()) {
+        startAutoDraw();
+      }
+    }, 0);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   const status = announced === "" && drawing ? "Drawing a rule" : announced;
 
   return (
@@ -218,7 +229,6 @@ export const GachaMachine = () => {
             Draw a rule
           </ActionButton>
           <output {...stylex.props(styles.status)}>{status}</output>
-          <p {...stylex.props(styles.count)}>{obtainedIds(collection).length} rules drawn</p>
           <div aria-hidden data-flash {...stylex.props(styles.flash)} />
         </div>
       </div>

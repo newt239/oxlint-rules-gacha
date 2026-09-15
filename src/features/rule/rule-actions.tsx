@@ -1,16 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useTransition } from "react";
 
 import * as stylex from "@stylexjs/stylex";
 import { useRouter } from "next/navigation";
 
 import { ActionButton } from "#/components/action-button";
-import { ruleHref } from "#/lib/rule-href";
-import { drawAndRecord, useCollection, useFilter } from "#/lib/use-draw";
+import { requestAutoDraw } from "#/lib/auto-draw";
+import { obtainedIds } from "#/lib/collection";
+import { useCollection } from "#/lib/use-draw";
+import { color, font } from "#/styles/tokens.stylex";
 
 const styles = stylex.create({
+  count: {
+    color: color.inkDim,
+    fontFamily: font.mono,
+    fontSize: "0.8125rem",
+    margin: 0,
+  },
   group: {
+    alignItems: "center",
     display: "flex",
     flexWrap: "wrap",
     gap: "0.75rem",
@@ -20,25 +29,13 @@ const styles = stylex.create({
 export const RuleActions = () => {
   const router = useRouter();
   const collection = useCollection();
-  const filter = useFilter();
-  const [drawing, setDrawing] = useState(false);
+  const [drawing, startDrawing] = useTransition();
 
   const handleDraw = () => {
-    setDrawing(true);
-    drawAndRecord(collection, filter)
-      .then((picked) => {
-        if (picked === null) {
-          setDrawing(false);
-
-          return;
-        }
-
-        router.push(ruleHref(picked.plugin, picked.name));
-      })
-      .catch((error: unknown) => {
-        setDrawing(false);
-        console.error(error);
-      });
+    requestAutoDraw();
+    startDrawing(() => {
+      router.push("/");
+    });
   };
 
   return (
@@ -46,6 +43,7 @@ export const RuleActions = () => {
       <ActionButton busy={drawing} onClick={handleDraw} variant="primary">
         Draw again
       </ActionButton>
+      <p {...stylex.props(styles.count)}>{obtainedIds(collection).length} rules drawn</p>
     </div>
   );
 };
