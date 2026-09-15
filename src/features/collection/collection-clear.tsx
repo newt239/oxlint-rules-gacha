@@ -25,6 +25,9 @@ const styles = stylex.create({
     maxWidth: "24rem",
     padding: "1.5rem",
   },
+  dialogButtons: {
+    justifyContent: "flex-end",
+  },
   heading: {
     fontSize: text.lg,
     marginBlock: "0 0.75rem",
@@ -59,6 +62,7 @@ export const CollectionClear = ({ count }: CollectionClearProps) => {
       </p>
       <div {...stylex.props(styles.buttons)}>
         <ActionButton
+          disabled={count === 0}
           onClick={() => {
             dialogRef.current?.showModal();
           }}
@@ -69,6 +73,7 @@ export const CollectionClear = ({ count }: CollectionClearProps) => {
       </div>
       <dialog
         aria-labelledby="clear-collection-title"
+        closedby="any"
         ref={dialogRef}
         {...stylex.props(styles.dialog)}
       >
@@ -78,10 +83,7 @@ export const CollectionClear = ({ count }: CollectionClearProps) => {
         <p {...stylex.props(styles.note)}>
           Delete all {count} rules from your collection? This cannot be undone.
         </p>
-        <div {...stylex.props(styles.buttons)}>
-          <ActionButton onClick={handleDelete} variant="primary">
-            Delete
-          </ActionButton>
+        <div {...stylex.props(styles.buttons, styles.dialogButtons)}>
           <ActionButton
             onClick={() => {
               dialogRef.current?.close();
@@ -89,6 +91,9 @@ export const CollectionClear = ({ count }: CollectionClearProps) => {
             variant="secondary"
           >
             Cancel
+          </ActionButton>
+          <ActionButton onClick={handleDelete} variant="primary">
+            Delete
           </ActionButton>
         </div>
       </dialog>

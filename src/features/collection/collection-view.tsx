@@ -162,7 +162,7 @@ export const CollectionView = () => {
         </section>
       )}
       <CollectionExport rules={owned} />
-      {obtainedCount > 0 && <CollectionClear count={obtainedCount} />}
+      <CollectionClear count={obtainedCount} />
       <Link href="/" {...stylex.props(styles.backLink)}>
         Back to the gacha
       </Link>
