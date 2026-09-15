@@ -37,7 +37,7 @@ npm approve-scripts <pkg>
 
 - **Next.js 16**（App Router / Turbopack / `output: 'standalone'`）
 - **StyleX** — 変換は `@stylexswc/nextjs-plugin` の `/turbopack`、CSS の抽出は `postcss.config.mjs` の `@stylexswc/postcss-plugin` が担当します。どちらかが欠けるとスタイルが当たりません
-- **i18n** — `[lang]` セグメント（`en` / `ja`）。UI 文言のみ翻訳し、ルールの説明文は英語原文のまま表示します
+- **英語のみ** — 多言語対応は行いません。UI 文言もルールの説明文も英語です
 - 全ルートをビルド時に静的生成します。サーバー側に状態を持ちません
 
 ## デプロイ
