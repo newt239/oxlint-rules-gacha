@@ -13,7 +13,6 @@
     "lint": "oxlint --type-aware --deny-warnings",
     "lint:fix": "oxlint --fix",
     "rules:build": "tsx scripts/build-rules.ts",
-    "setup:repo": "bash scripts/setup-repo.sh",
     "start": "next start",
     "test": "vitest run",
     "typecheck": "next typegen && tsc --noEmit"

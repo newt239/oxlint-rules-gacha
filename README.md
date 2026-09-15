@@ -66,15 +66,3 @@ lolipop env create NEXT_PUBLIC_SITE_URL https://<発行されたドメイン>
 ### 週次のルール更新
 
 デプロイナウに Deploy Hook は無いため、`.github/workflows/refresh-rules.yml` が毎週月曜 08:00 JST に `main` へ空コミットを push し、GitHub 連携の自動デプロイを起こします。
-
-<!-- setup-repo:start -->
-
-## リポジトリの初期設定
-
-GitHub にリポジトリを作成したあと、1 度だけ次を実行するとブランチ保護などを設定できます。
-
-```bash
-npm run setup:repo
-```
-
-<!-- setup-repo:end -->
