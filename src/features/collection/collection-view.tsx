@@ -18,9 +18,11 @@ import { useRuleIndex } from "./use-rule-index";
 const styles = stylex.create({
   backLink: {
     color: color.inkDim,
-    display: "inline-block",
+    display: "block",
     fontSize: text.md,
     marginBlockStart: "3rem",
+    marginInline: "auto",
+    width: "fit-content",
   },
   empty: {
     color: color.inkDim,

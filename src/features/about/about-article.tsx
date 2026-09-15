@@ -16,9 +16,11 @@ const REPO_URL = "https://github.com/newt239/oxlint-rules-gacha";
 const styles = stylex.create({
   backLink: {
     color: color.inkDim,
-    display: "inline-block",
+    display: "block",
     fontSize: text.md,
     marginBlockStart: "3rem",
+    marginInline: "auto",
+    width: "fit-content",
   },
   body: {
     lineHeight: 1.9,
