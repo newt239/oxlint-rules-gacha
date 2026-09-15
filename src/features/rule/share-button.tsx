@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import * as stylex from "@stylexjs/stylex";
 
-import { ActionButton } from "#/components/action-button";
+import { actionStyles } from "#/components/action-styles";
+import { SITE_NAME } from "#/lib/site";
 
 type ShareButtonProps = {
   title: string;
@@ -10,30 +11,31 @@ type ShareButtonProps = {
 };
 
 export const ShareButton = ({ title, url }: ShareButtonProps) => {
-  const [copied, setCopied] = useState(false);
+  const text = `I drew ${title} on ${SITE_NAME}!`;
+  const intentUrl = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
 
-  const handleClick = () => {
-    if (typeof navigator.share === "function") {
-      navigator.share({ title, url }).catch(() => {
-        setCopied(false);
-      });
-
+  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (typeof navigator.share !== "function") {
       return;
     }
 
-    navigator.clipboard
-      .writeText(url)
-      .then(() => {
-        setCopied(true);
-      })
-      .catch((error: unknown) => {
-        console.error(error);
-      });
+    if (!window.matchMedia("(pointer: coarse)").matches) {
+      return;
+    }
+
+    event.preventDefault();
+    navigator.share({ text, title, url }).catch(() => {});
   };
 
   return (
-    <ActionButton onClick={handleClick} variant="secondaryLarge">
-      {copied ? "Link copied" : "Share this rule"}
-    </ActionButton>
+    <a
+      href={intentUrl}
+      onClick={handleClick}
+      rel="noreferrer"
+      target="_blank"
+      {...stylex.props(actionStyles.base, actionStyles.secondaryLarge, actionStyles.link)}
+    >
+      Share this rule
+    </a>
   );
 };
