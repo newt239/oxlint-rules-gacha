@@ -1,3 +1,5 @@
+import { ViewTransition } from "react";
+
 import * as stylex from "@stylexjs/stylex";
 
 import { RuleBadges } from "#/components/rule-badges";
@@ -54,7 +56,9 @@ type RuleArticleProps = {
 export const RuleArticle = ({ detail }: RuleArticleProps) => (
   <main {...stylex.props(styles.main)}>
     <article>
-      <h1 {...stylex.props(styles.title)}>{detail.id}</h1>
+      <ViewTransition name="rule-title" share="morph" default="none">
+        <h1 {...stylex.props(styles.title)}>{detail.id}</h1>
+      </ViewTransition>
       <RuleBadges detail={detail} />
       <p {...stylex.props(styles.summary)}>{detail.summary}</p>
       {detail.incorrect.length > 0 && (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, ViewTransition } from "react";
 
 import * as stylex from "@stylexjs/stylex";
 import ShuffleText from "shuffle-text";
@@ -54,13 +54,15 @@ export const RevealText = ({ category, ruleId, shuffle }: RevealTextProps) => {
   }, [ruleId, shuffle]);
 
   return (
-    <p
-      ref={textRef}
-      aria-hidden
-      data-reveal
-      {...stylex.props(styles.text, styles.tint(categoryColor(category)))}
-    >
-      {ruleId}
-    </p>
+    <ViewTransition name="rule-title" share="morph" default="none">
+      <p
+        ref={textRef}
+        aria-hidden
+        data-reveal
+        {...stylex.props(styles.text, styles.tint(categoryColor(category)))}
+      >
+        {ruleId}
+      </p>
+    </ViewTransition>
   );
 };
