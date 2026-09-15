@@ -4,7 +4,7 @@ import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
 import { CategoryBadge } from "#/components/category-badge";
-import { ruleHref } from "#/lib/rule-href";
+import { ruleHref } from "#/lib/rules";
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 import type { CollectionEntry } from "#/lib/collection-progress";

@@ -2,9 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 
-import { loadRuleIndex } from "./rule-index-cache";
-
-import type { RuleIndex } from "./rules";
+import { loadRuleIndex, type RuleIndex } from "./rules";
 
 const listeners = new Set<() => void>();
 

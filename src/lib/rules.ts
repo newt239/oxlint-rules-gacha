@@ -1,3 +1,5 @@
+import type { Route } from "next";
+
 export const CATEGORIES = [
   "correctness",
   "suspicious",
@@ -75,7 +77,10 @@ const toRuleIndexEntry = (row: unknown): RuleIndexEntry | null => {
   return { category, enabledByDefault: rawDefault === 1, fix, id, name, plugin };
 };
 
-export const fetchRuleIndex = async (): Promise<RuleIndex> => {
+export const ruleHref = (plugin: string, name: string): Route<`/rules/${string}/${string}`> =>
+  `/rules/${plugin}/${name}`;
+
+const fetchRuleIndex = async (): Promise<RuleIndex> => {
   const response = await fetch(RULE_INDEX_URL);
 
   if (!response.ok) {
@@ -103,4 +108,13 @@ export const fetchRuleIndex = async (): Promise<RuleIndex> => {
   }
 
   return { rules, rulesetVersion: typeof rawVersion === "string" ? rawVersion : "" };
+};
+
+let cachedIndex: Promise<RuleIndex> | null = null;
+
+export const loadRuleIndex = async (): Promise<RuleIndex> => {
+  cachedIndex ??= fetchRuleIndex();
+  const index = await cachedIndex;
+
+  return index;
 };

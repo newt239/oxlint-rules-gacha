@@ -10,17 +10,16 @@ import { useRouter } from "next/navigation";
 
 import { ActionButton } from "#/components/action-button";
 import { consumeAutoDraw } from "#/lib/auto-draw";
-import { ruleHref } from "#/lib/rule-href";
+import { ruleHref, type RuleIndexEntry } from "#/lib/rules";
 import { skipHintStore } from "#/lib/stores";
-import { drawAndRecord, useCollection, useFilter, useSkipHintSeen } from "#/lib/use-draw";
+import { useCollection, useFilter, useSkipHintSeen } from "#/lib/use-stores";
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
+import { drawAndRecord, type DrawTrigger } from "./draw-and-record";
 import { FilterPanel } from "./filter-panel";
 import { RevealText } from "./reveal-text";
 import { CAPSULE, type Phase, playSequence, SPEED_LINES } from "./sequence";
 import { SpeedLines } from "./speed-lines";
-
-import type { RuleIndexEntry } from "#/lib/rules";
 
 const CapsuleCanvas = dynamic(
   async () => {
@@ -136,7 +135,7 @@ export const GachaMachine = () => {
     };
   }, []);
 
-  const handleClick = () => {
+  const handleClick = (trigger: DrawTrigger) => {
     setDrawing(true);
     setPicked(null);
     setAnnounced("");
@@ -146,7 +145,7 @@ export const GachaMachine = () => {
 
     skipRef.current = skip.resolve;
 
-    const pick = drawAndRecord(collection, filter);
+    const pick = drawAndRecord(collection, filter, trigger);
 
     const run = async (): Promise<RuleIndexEntry | null> => {
       const entry = await pick;
@@ -192,7 +191,7 @@ export const GachaMachine = () => {
   };
 
   const startAutoDraw = useEffectEvent(() => {
-    handleClick();
+    handleClick("auto");
   });
 
   // ルールページからの再抽選の合図は sessionStorage にあり、マウント後にしか読めない
@@ -237,7 +236,13 @@ export const GachaMachine = () => {
         </div>
       </div>
       <div {...stylex.props(styles.controls)}>
-        <ActionButton busy={drawing} onClick={handleClick} variant="primary">
+        <ActionButton
+          busy={drawing}
+          onClick={() => {
+            handleClick("manual");
+          }}
+          variant="primary"
+        >
           Draw a rule
         </ActionButton>
         <output {...stylex.props(styles.status)}>{status}</output>

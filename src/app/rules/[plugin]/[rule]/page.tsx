@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { SiteHeader } from "#/components/site-header";
 import { RuleArticle } from "#/features/rule/rule-article";
 import { findRuleDetail, RULE_IDS } from "#/lib/rule-catalog";
-import { ruleHref } from "#/lib/rule-href";
+import { ruleHref } from "#/lib/rules";
 import { SITE_NAME, SITE_URL } from "#/lib/site";
 
 export const dynamicParams = false;

@@ -1,5 +1,5 @@
 import { findRuleDetail, RULE_IDS } from "#/lib/rule-catalog";
-import { ruleHref } from "#/lib/rule-href";
+import { ruleHref } from "#/lib/rules";
 import { SITE_URL } from "#/lib/site";
 
 const CORS_HEADERS = { "Access-Control-Allow-Origin": "*", "Cache-Control": "no-store" };

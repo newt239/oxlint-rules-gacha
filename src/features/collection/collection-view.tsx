@@ -6,8 +6,8 @@ import Link from "next/link";
 import { obtainedIds } from "#/lib/collection";
 import { collectionProgress, obtainedEntries } from "#/lib/collection-progress";
 import { COLLECTION_DESCRIPTION } from "#/lib/site";
-import { useCollection } from "#/lib/use-draw";
 import { useRuleIndex } from "#/lib/use-rule-index";
+import { useCollection } from "#/lib/use-stores";
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 import { CollectionClear } from "./collection-clear";

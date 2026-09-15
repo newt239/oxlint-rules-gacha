@@ -8,9 +8,9 @@ import Link from "next/link";
 import { ActionLink } from "#/components/action-link";
 import { requestAutoDraw } from "#/lib/auto-draw";
 import { hasObtained, obtainedIds, recordDraw } from "#/lib/collection";
-import { loadRuleIndex } from "#/lib/rule-index-cache";
+import { loadRuleIndex } from "#/lib/rules";
 import { collectionStore } from "#/lib/stores";
-import { useLoadedCollection } from "#/lib/use-draw";
+import { useLoadedCollection } from "#/lib/use-stores";
 import { color, font, text } from "#/styles/tokens.stylex";
 
 import { ShareButton } from "./share-button";

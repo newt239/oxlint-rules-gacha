@@ -2,12 +2,10 @@
 
 import { useSyncExternalStore } from "react";
 
-import { type Collection, obtainedIds, recordDraw } from "./collection";
-import { applyFilter, draw, type Filter } from "./draw";
-import { loadRuleIndex } from "./rule-index-cache";
 import { collectionStore, filterStore, skipHintStore } from "./stores";
 
-import type { RuleIndexEntry } from "./rules";
+import type { Collection } from "./collection";
+import type { Filter } from "./draw";
 
 export const useCollection = (): Collection =>
   useSyncExternalStore(
@@ -36,19 +34,3 @@ export const useFilter = (): Filter =>
     filterStore.getSnapshot,
     filterStore.getServerSnapshot,
   );
-
-export const drawAndRecord = async (
-  collection: Collection,
-  filter: Filter,
-): Promise<RuleIndexEntry | null> => {
-  const { rules, rulesetVersion } = await loadRuleIndex();
-  const picked = draw(applyFilter(rules, filter), new Set(obtainedIds(collection)), Math.random);
-
-  if (picked === null) {
-    return null;
-  }
-
-  collectionStore.set(recordDraw(collection, picked.id, { now: Date.now(), rulesetVersion }));
-
-  return picked;
-};

@@ -4,10 +4,10 @@ import { useState } from "react";
 
 import * as stylex from "@stylexjs/stylex";
 
-import { loadRuleIndex } from "#/lib/rule-index-cache";
-import { CATEGORIES, type Category } from "#/lib/rules";
+import { CATEGORIES, type Category, loadRuleIndex } from "#/lib/rules";
 import { filterStore } from "#/lib/stores";
-import { useFilter } from "#/lib/use-draw";
+import { trackEvent } from "#/lib/track";
+import { useFilter } from "#/lib/use-stores";
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 const styles = stylex.create({
@@ -74,11 +74,30 @@ export const FilterPanel = () => {
   };
 
   const toggleCategory = (category: Category) => {
+    trackEvent("filter_change", {
+      filter_enabled: filter.excludedCategories.includes(category),
+      filter_type: "category",
+      filter_value: category,
+    });
+
     filterStore.set({
       ...filter,
       excludedCategories: CATEGORIES.filter((value) =>
         toggle(filter.excludedCategories, category).includes(value),
       ),
+    });
+  };
+
+  const togglePlugin = (plugin: string) => {
+    trackEvent("filter_change", {
+      filter_enabled: filter.excludedPlugins.includes(plugin),
+      filter_type: "plugin",
+      filter_value: plugin,
+    });
+
+    filterStore.set({
+      ...filter,
+      excludedPlugins: toggle(filter.excludedPlugins, plugin),
     });
   };
 
@@ -107,10 +126,7 @@ export const FilterPanel = () => {
             <input
               checked={!filter.excludedPlugins.includes(plugin)}
               onChange={() => {
-                filterStore.set({
-                  ...filter,
-                  excludedPlugins: toggle(filter.excludedPlugins, plugin),
-                });
+                togglePlugin(plugin);
               }}
               type="checkbox"
             />
