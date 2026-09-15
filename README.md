@@ -38,7 +38,8 @@ npm approve-scripts <pkg>
 - **Next.js 16**（App Router / Turbopack / `output: 'standalone'`）
 - **StyleX** — 変換は `@stylexswc/nextjs-plugin` の `/turbopack`、CSS の抽出は `postcss.config.mjs` の `@stylexswc/postcss-plugin` が担当します。どちらかが欠けるとスタイルが当たりません
 - **英語のみ** — 多言語対応は行いません。UI 文言もルールの説明文も英語です
-- 全ルートをビルド時に静的生成します。サーバー側に状態を持ちません
+- ページは全てビルド時に静的生成します。例外は `/api/random`（ランダムに 1 件返すだけの読み取り専用エンドポイント）のみで、これはリクエストごとに動きます
+- サーバー側に状態を持ちません
 
 ## デプロイ
 
