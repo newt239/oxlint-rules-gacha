@@ -2,11 +2,11 @@ import { ViewTransition } from "react";
 
 import * as stylex from "@stylexjs/stylex";
 
-import { RuleBadges } from "#/components/rule-badges";
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 import { HighlightedCode } from "./highlighted-code";
 import { RuleActions } from "./rule-actions";
+import { RuleBadges } from "./rule-badges";
 
 import type { RuleDetail } from "#/lib/rules";
 
