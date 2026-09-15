@@ -22,7 +22,7 @@ const styles = stylex.create({
     borderRadius: layout.radius,
     display: "flex",
     fontFamily: font.mono,
-    fontSize: text.md,
+    fontSize: text.sm,
     gap: "0.25rem",
     paddingBlock: "0.25rem",
     paddingInline: "0.75rem",

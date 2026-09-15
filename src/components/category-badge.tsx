@@ -9,7 +9,7 @@ const styles = stylex.create({
     borderRadius: layout.radius,
     color: color.cabinet,
     display: "inline-block",
-    fontSize: text.md,
+    fontSize: text.sm,
     fontWeight: 700,
     lineHeight: 1.6,
     paddingInline: "0.75em",

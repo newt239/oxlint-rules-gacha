@@ -22,7 +22,7 @@ const styles = stylex.create({
     borderWidth: "1px",
     color: color.inkDim,
     fontFamily: font.mono,
-    fontSize: text.md,
+    fontSize: text.sm,
     lineHeight: 1.8,
     paddingInline: "0.7em",
   },

@@ -32,4 +32,5 @@ export const text = stylex.defineVars({
   md: "1rem",
   reveal: "clamp(1.25rem, 4.6vw, 1.5rem)",
   ruleId: "clamp(1.5rem, 7vw, 2.25rem)",
+  sm: "0.75rem",
 });
