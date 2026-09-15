@@ -7,6 +7,7 @@ import { useAnimate, useReducedMotion } from "motion/react";
 import { useRouter } from "next/navigation";
 
 import { ActionButton } from "#/components/action-button";
+import { obtainedIds } from "#/lib/collection";
 import { skipHintStore } from "#/lib/stores";
 import { drawAndRecord, useCollection, useFilter, useSkipHintSeen } from "#/lib/use-draw";
 import { color, font, layout } from "#/styles/tokens.stylex";
@@ -153,7 +154,7 @@ export const GachaMachine = ({ dictionary, lang }: GachaMachineProps) => {
           </ActionButton>
           <output {...stylex.props(styles.status)}>{drawing ? dictionary.drawing : ""}</output>
           <p {...stylex.props(styles.count)}>
-            {dictionary.drawnCount.replace("{count}", String(collection.length))}
+            {dictionary.drawnCount.replace("{count}", String(obtainedIds(collection).length))}
           </p>
         </div>
       </div>

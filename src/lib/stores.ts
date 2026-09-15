@@ -1,3 +1,4 @@
+import { type Collection, EMPTY_COLLECTION, reviveCollection } from "./collection";
 import { DEFAULT_FILTER, type Filter } from "./draw";
 import { createPersistedStore } from "./persisted-store";
 import { CATEGORIES } from "./rules";
@@ -31,10 +32,10 @@ const reviveFilter = (value: unknown): Filter | null => {
   };
 };
 
-export const collectionStore = createPersistedStore<string[]>(
+export const collectionStore = createPersistedStore<Collection>(
   "oxlint-gacha:collection",
-  [],
-  toStringArray,
+  EMPTY_COLLECTION,
+  reviveCollection,
 );
 
 export const filterStore = createPersistedStore<Filter>(
