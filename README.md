@@ -1,67 +1,40 @@
 # oxlint-rules-gacha
 
-oxlint の 870 あるルールを、1 回 1 件ずつ「引く」ことで知るためのサイト。
+An unofficial fan site for learning the 870 oxlint rules, one draw at a time.
 
-引くとそのルールのページへ移ります。その URL がそのまま共有先になります。引いたルールはコレクションとして貯まり、`.oxlintrc.json` のスニペットとして持ち帰れます。非公式のファンサイトで、ルールの説明文とコード例は [oxc プロジェクト](https://github.com/oxc-project/oxc)（MIT）の原文をそのまま表示します。
+Each draw takes you to that rule's page, and the URL is the thing you share. Drawn rules pile up in a collection you can take home as an `.oxlintrc.json` snippet. Rule descriptions and code samples are shown verbatim from the [oxc project](https://github.com/oxc-project/oxc) (MIT).
 
-## セットアップ
+## Setup
 
 ```bash
 npm ci
-npm run rules:build   # oxc.rs からルールデータを取得する
+npm run rules:build   # fetch rule data from oxc.rs
 npm run dev
 ```
 
-Node.js は 22.12.0 以上が必要です。パッケージマネージャは **npm** を使ってください（ホスティング先の制約）。
+Node.js 22.12.0 or later. Use **npm**; other package managers are not supported.
 
-初回の `npm install` では、インストールスクリプトを持つ依存（lefthook / @swc/core / esbuild）の承認が必要です。`package.json` の `allowScripts` にバージョン付きで記録してあるため通常は不要ですが、依存を更新して警告が出たら次を実行してください。
+## Scripts
 
-```bash
-npm approve-scripts <pkg>
-```
+| Command               | What it does                                             |
+| --------------------- | -------------------------------------------------------- |
+| `npm run dev`         | Development server                                       |
+| `npm run build`       | Fetch rule data, then build for production               |
+| `npm run start`       | Production server                                        |
+| `npm run rules:build` | Fetch rule data into `public/data/` and `src/generated/` |
+| `npm run test`        | Vitest                                                   |
+| `npm run codecheck`   | Type check, lint, format check, unused-code detection    |
 
-## スクリプト
+`public/data/` and `src/generated/` are generated and not committed.
 
-| コマンド              | 内容                                                                                        |
-| --------------------- | ------------------------------------------------------------------------------------------- |
-| `npm run dev`         | 開発サーバー                                                                                |
-| `npm run build`       | ルールデータを取得してから本番ビルド（`.next/standalone` を出力）                           |
-| `npm run start`       | 本番サーバー                                                                                |
-| `npm run rules:build` | oxc.rs からルールデータを取得して `public/data/` と `src/generated/` に書き出す（約 25 秒） |
-| `npm run test`        | Vitest                                                                                      |
-| `npm run codecheck`   | 型チェック・Lint・フォーマット・未使用コード検出                                            |
+## Stack
 
-`public/data/` と `src/generated/` は生成物で、リポジトリにはコミットしません。
+- **Next.js 16** (App Router, Turbopack, `output: 'standalone'`)
+- **StyleX** — `@stylexswc/nextjs-plugin` transforms, `@stylexswc/postcss-plugin` extracts the CSS. Both are required for styles to apply
+- English only
+- Every page is statically generated, except `/api/random`, a read-only endpoint that returns one random rule
+- No server-side state
 
-## 構成
+## License
 
-- **Next.js 16**（App Router / Turbopack / `output: 'standalone'`）
-- **StyleX** — 変換は `@stylexswc/nextjs-plugin` の `/turbopack`、CSS の抽出は `postcss.config.mjs` の `@stylexswc/postcss-plugin` が担当します。どちらかが欠けるとスタイルが当たりません
-- **英語のみ** — 多言語対応は行いません。UI 文言もルールの説明文も英語です
-- ページは全てビルド時に静的生成します。例外は `/api/random`（ランダムに 1 件返すだけの読み取り専用エンドポイント）のみで、これはリクエストごとに動きます
-- サーバー側に状態を持ちません
-
-## デプロイ
-
-[ロリポップ！デプロイナウ](https://deploy.lolipop.jp/docs) にデプロイします。フレームワークは Next.js、ビルドコマンドは `npm run build:deploy` です。
-
-```bash
-npm run build:deploy   # test → rules:build → build
-```
-
-ルールデータの取得は `npm run build` 自体に組み込んであるため、ビルドコマンドが既定の `npm run build` のままでもビルドは通ります（テストは走りません）。
-
-出力ディレクトリはデプロイナウの既定値 `.next/standalone` のままでよく、`--output` の指定は要りません。ルールデータの取得はビルド時に行うため生成物はコミットせず、取得に失敗した場合はビルドを失敗させて古いデータが公開され続けないようにしています。
-
-### 初回の設定
-
-```bash
-npm i -g lolipop
-lolipop login
-lolipop build-config update --build "npm run build:deploy"
-lolipop env create NEXT_PUBLIC_SITE_URL https://<発行されたドメイン>
-```
-
-- `.env` は読まれません。環境変数はダッシュボードか `lolipop env` で設定します
-- `NEXT_PUBLIC_SITE_URL` が未設定だと `metadataBase` が `http://localhost:3000` になり、OGP と `canonical` の絶対 URL が壊れます
-- GitHub 連携の「デプロイするブランチ」を `main` にします。`main` への push で自動デプロイされます
+MIT
