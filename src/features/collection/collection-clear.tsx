@@ -7,6 +7,7 @@ import * as stylex from "@stylexjs/stylex";
 import { ActionButton } from "#/components/action-button";
 import { EMPTY_COLLECTION } from "#/lib/collection";
 import { collectionStore } from "#/lib/stores";
+import { trackEvent } from "#/lib/track";
 import { color, layout, text } from "#/styles/tokens.stylex";
 
 const styles = stylex.create({
@@ -53,6 +54,7 @@ export const CollectionClear = ({ count }: CollectionClearProps) => {
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   const handleDelete = () => {
+    trackEvent("collection_clear", { cleared_count: count });
     collectionStore.set(EMPTY_COLLECTION);
     dialogRef.current?.close();
     headingRef.current?.focus();

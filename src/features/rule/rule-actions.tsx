@@ -10,6 +10,7 @@ import { requestAutoDraw } from "#/lib/auto-draw";
 import { hasObtained, obtainedIds, recordDraw } from "#/lib/collection";
 import { loadRuleIndex } from "#/lib/rules";
 import { collectionStore } from "#/lib/stores";
+import { trackEvent } from "#/lib/track";
 import { useLoadedCollection } from "#/lib/use-stores";
 import { color, font, text } from "#/styles/tokens.stylex";
 
@@ -60,6 +61,7 @@ export const RuleActions = ({ ruleId, shareUrl }: RuleActionsProps) => {
           const current = collectionStore.getSnapshot();
 
           if (!cancelled && !hasObtained(current, ruleId)) {
+            trackEvent("rule_obtained_from_link", { rule_id: ruleId });
             collectionStore.set(recordDraw(current, ruleId, { now: Date.now(), rulesetVersion }));
           }
         })
@@ -77,7 +79,13 @@ export const RuleActions = ({ ruleId, shareUrl }: RuleActionsProps) => {
     <div {...stylex.props(styles.group)}>
       <div {...stylex.props(styles.buttons)}>
         <ShareButton title={ruleId} url={shareUrl} />
-        <ActionLink href="/" onClick={requestAutoDraw}>
+        <ActionLink
+          href="/"
+          onClick={() => {
+            trackEvent("rule_draw_again", { rule_id: ruleId });
+            requestAutoDraw();
+          }}
+        >
           Draw again
         </ActionLink>
       </div>

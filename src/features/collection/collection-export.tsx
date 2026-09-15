@@ -5,6 +5,7 @@ import * as stylex from "@stylexjs/stylex";
 import { CodeBlock } from "#/components/code-block";
 import { CopyButton } from "#/components/copy-button";
 import { buildOxlintrc } from "#/lib/oxlintrc";
+import { trackEvent } from "#/lib/track";
 import { color, text } from "#/styles/tokens.stylex";
 
 import type { RuleIndexEntry } from "#/lib/rules";
@@ -50,7 +51,14 @@ export const CollectionExport = ({ rules }: CollectionExportProps) => {
   return (
     <section {...stylex.props(styles.section)}>
       <h2 {...stylex.props(styles.heading)}>Take your rules home</h2>
-      <CopyButton copiedLabel="Copied" label="Copy .oxlintrc.json" text={config} />
+      <CopyButton
+        copiedLabel="Copied"
+        label="Copy .oxlintrc.json"
+        onCopied={() => {
+          trackEvent("collection_export_copy", { rule_count: rules.length });
+        }}
+        text={config}
+      />
       <details>
         <summary {...stylex.props(styles.summary)}>Preview</summary>
         <CodeBlock example={{ code: config, lang: "json" }} />

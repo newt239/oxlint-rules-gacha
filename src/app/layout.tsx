@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 
+import { GoogleAnalytics } from "@next/third-parties/google";
 import * as stylex from "@stylexjs/stylex";
 import { Baloo_2, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 
+import { GA_LOCAL_DISABLE_SCRIPT, GA_MEASUREMENT_ID } from "#/lib/analytics";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "#/lib/site";
 import { color, font, text } from "#/styles/tokens.stylex";
 import "#/styles/globals.css";
@@ -49,7 +52,17 @@ type RootLayoutProps = {
 
 const RootLayout = ({ children }: Readonly<RootLayoutProps>) => (
   <html lang="en" className={`${baloo2.variable} ${geistMono.variable}`}>
-    <body {...stylex.props(styles.body)}>{children}</body>
+    <head>
+      {GA_MEASUREMENT_ID !== "" && (
+        <Script id="ga-disable-local" strategy="beforeInteractive">
+          {GA_LOCAL_DISABLE_SCRIPT}
+        </Script>
+      )}
+    </head>
+    <body {...stylex.props(styles.body)}>
+      {children}
+      {GA_MEASUREMENT_ID !== "" && <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />}
+    </body>
   </html>
 );
 

@@ -4,6 +4,7 @@ import * as stylex from "@stylexjs/stylex";
 
 import { actionStyles } from "#/components/action-styles";
 import { SITE_NAME } from "#/lib/site";
+import { trackEvent } from "#/lib/track";
 
 type ShareButtonProps = {
   title: string;
@@ -15,14 +16,13 @@ export const ShareButton = ({ title, url }: ShareButtonProps) => {
   const intentUrl = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    if (typeof navigator.share !== "function") {
+    if (typeof navigator.share !== "function" || !window.matchMedia("(pointer: coarse)").matches) {
+      trackEvent("rule_share", { rule_id: title, share_method: "x_intent" });
+
       return;
     }
 
-    if (!window.matchMedia("(pointer: coarse)").matches) {
-      return;
-    }
-
+    trackEvent("rule_share", { rule_id: title, share_method: "web_share" });
     event.preventDefault();
     navigator.share({ text, title, url }).catch(() => {});
   };

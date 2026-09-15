@@ -4,6 +4,7 @@ import * as stylex from "@stylexjs/stylex";
 
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
+import { DocsLink } from "./docs-link";
 import { HighlightedCode } from "./highlighted-code";
 import { RuleActions } from "./rule-actions";
 import { RuleBadges } from "./rule-badges";
@@ -11,12 +12,6 @@ import { RuleBadges } from "./rule-badges";
 import type { RuleDetail } from "#/lib/rules";
 
 const styles = stylex.create({
-  docsLink: {
-    color: color.catStyle,
-    display: "inline-block",
-    fontSize: text.md,
-    marginBlockStart: "1.5rem",
-  },
   heading: {
     color: color.inkDim,
     fontSize: text.lg,
@@ -83,9 +78,7 @@ export const RuleArticle = ({ detail, shareUrl }: RuleArticleProps) => (
           <HighlightedCode example={detail.correct[0]} />
         </section>
       )}
-      <a href={detail.docsUrl} rel="noreferrer" target="_blank" {...stylex.props(styles.docsLink)}>
-        Read the original docs on oxc.rs
-      </a>
+      <DocsLink ruleId={detail.id} url={detail.docsUrl} />
     </article>
     <RuleActions ruleId={detail.id} shareUrl={shareUrl} />
   </main>

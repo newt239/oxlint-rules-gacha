@@ -7,10 +7,11 @@ import { ActionButton } from "./action-button";
 type CopyButtonProps = {
   copiedLabel: string;
   label: string;
+  onCopied?: () => void;
   text: string;
 };
 
-export const CopyButton = ({ copiedLabel, label, text }: CopyButtonProps) => {
+export const CopyButton = ({ copiedLabel, label, onCopied, text }: CopyButtonProps) => {
   const [copied, setCopied] = useState(false);
 
   const handleClick = () => {
@@ -18,6 +19,7 @@ export const CopyButton = ({ copiedLabel, label, text }: CopyButtonProps) => {
       .writeText(text)
       .then(() => {
         setCopied(true);
+        onCopied?.();
       })
       .catch((error: unknown) => {
         console.error(error);
