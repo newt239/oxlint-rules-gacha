@@ -44,8 +44,8 @@ export const createPersistedStore = <T>(
 
       try {
         localStorage.setItem(key, JSON.stringify(value));
-      } catch {
-        snapshot = value;
+      } catch (error) {
+        console.error(error);
       }
 
       for (const listener of listeners) {

@@ -3,7 +3,6 @@ import { describe, expect, it } from "vitest";
 import {
   EMPTY_COLLECTION,
   hasObtained,
-  obtainedCount,
   obtainedIds,
   recordDraw,
   reviveCollection,
@@ -122,21 +121,5 @@ describe("hasObtained", () => {
 
   it("prototype 由来のキーを所持扱いしない", () => {
     expect(hasObtained(EMPTY_COLLECTION, "toString")).toBe(false);
-  });
-});
-
-describe("obtainedCount", () => {
-  it("引いていないルールは 0 を返す", () => {
-    expect(obtainedCount(EMPTY_COLLECTION, "eslint/eqeqeq")).toBe(0);
-  });
-
-  it("同じルールを受け取るたびに数が増える", () => {
-    const first = recordDraw(EMPTY_COLLECTION, "eslint/eqeqeq", {
-      now: 1700,
-      rulesetVersion: "1.80.0",
-    });
-    const second = recordDraw(first, "eslint/eqeqeq", { now: 9900, rulesetVersion: "1.80.0" });
-
-    expect(obtainedCount(second, "eslint/eqeqeq")).toBe(2);
   });
 });

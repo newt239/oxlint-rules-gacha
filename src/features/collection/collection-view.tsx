@@ -3,7 +3,7 @@
 import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
-import { obtainedIds } from "#/lib/collection";
+import { hasObtained, obtainedIds } from "#/lib/collection";
 import { collectionProgress, obtainedEntries } from "#/lib/collection-progress";
 import { COLLECTION_DESCRIPTION } from "#/lib/site";
 import { useRuleIndex } from "#/lib/use-rule-index";
@@ -82,7 +82,7 @@ export const CollectionView = () => {
 
   const progress = collectionProgress(index.rules, collection);
   const entries = obtainedEntries(index.rules, collection);
-  const owned = index.rules.filter((rule) => Object.hasOwn(collection.obtained, rule.id));
+  const owned = index.rules.filter((rule) => hasObtained(collection, rule.id));
   const obtainedCount = obtainedIds(collection).length;
 
   return (
