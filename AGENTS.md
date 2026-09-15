@@ -30,6 +30,8 @@
 - `npm run typecheck` - TypeScript で型チェック
 - `npm run codecheck` - 型チェック・Lint・フォーマット・未使用コード検出をまとめて実行
 
+`scripts/` は Node の型ストリップでそのまま実行します（`node scripts/build-rules.mts`）。ランナーは入れないので、拡張子は `.mts` にし、相対 import には `.mts` まで書いてください。Node 22.18 以上が必要です。
+
 パッケージマネージャは **npm** です。ホスティング先の制約により npm のみを使用します。pnpm / yarn を使ってはなりません。
 
 ## アーキテクチャ
@@ -41,7 +43,7 @@
 - **スタイリング**: StyleX（`@stylexswc/nextjs-plugin` の `/turbopack` + `@stylexswc/postcss-plugin`）
 - **アニメーション**: `motion`（フェーズ 4 で導入）
 - **状態管理**: ライブラリなし。`useSyncExternalStore` + localStorage
-- **i18n**: 自前の辞書 + `[lang]` セグメント
+- **表示言語**: 英語のみ。i18n の仕組みは持ちません
 - **コード品質**: Oxlint / Oxfmt
 - **テスト**: Vitest のみ（純関数の単体テスト）
 - **Git hooks**: Lefthook
@@ -58,27 +60,31 @@
 ```bash
 src/
 ├── app/                    # Next.js App Router
-│   └── [lang]/             # en / ja
-│       ├── layout.tsx      # ルートレイアウト（html / body / フォント）
-│       └── page.tsx        # ガチャ（トップ）
+│   ├── layout.tsx          # ルートレイアウト（html / body / フォント）
+│   ├── page.tsx            # ガチャ（トップ）
+│   ├── about/              # About
+│   ├── collection/         # コレクション
+│   ├── rules/[plugin]/[rule]/  # ルール詳細
+│   └── api/random/         # 読み取り専用のランダム 1 件 API
 ├── features/               # 機能ベースのディレクトリ構成
-│   └── {feature-name}/
-├── components/             # 汎用的に使用するコンポーネント
-├── i18n/                   # en.ts / ja.ts / index.ts
+│   └── {feature-name}/     # about / collection / gacha / og / rule
+├── components/             # 複数の feature から使うコンポーネント
 ├── lib/                    # グローバルユーティリティ・設定
 ├── styles/
 │   ├── globals.css         # @stylex ディレクティブとリセット
 │   └── tokens.stylex.ts    # defineVars によるデザイントークン
 └── generated/              # rules:build の生成物（gitignore）
 scripts/
-├── build-rules.ts          # ルールデータ取得
-└── lib/                    # 純関数（テスト対象）
+├── build-rules.mts         # ルールデータ取得
+├── lib/                    # 純関数（テスト対象）
+└── oxlint/                 # 自作 oxlint ルール
 public/
 └── data/                   # rules:build の生成物（gitignore）
 ```
 
 - コンポーネントの名前は PascalCase で命名し、ディレクトリ名は kebab-case で命名してください。
 - コンポーネントごとにディレクトリを作らず、`{component-name}.tsx` として直接配置し、名前付きエクスポートしてください。`index.ts` による再エクスポートは行いません。
+- 参照元が 1 つの feature に閉じているものは `components/` や `lib/` ではなく、その feature の下に置いてください。`components/` は 2 つ以上の feature から使うものだけです。
 
 ### Feature 内モジュールの参照制限
 
