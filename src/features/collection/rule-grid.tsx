@@ -7,7 +7,7 @@ import { CategoryBadge } from "#/components/category-badge";
 import { ruleHref } from "#/lib/rules";
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
-import type { CollectionEntry } from "#/lib/collection-progress";
+import type { CollectionEntry } from "./collection-progress";
 
 const styles = stylex.create({
   count: {

@@ -6,7 +6,7 @@ import { CategoryBadge } from "#/components/category-badge";
 import { toCategory } from "#/lib/rules";
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
-import type { CollectionProgress } from "#/lib/collection-progress";
+import type { CollectionProgress } from "./collection-progress";
 
 const styles = stylex.create({
   bar: {

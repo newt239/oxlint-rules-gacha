@@ -1,6 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 
-import { codeBlockStyles } from "./code-block-styles";
+import { codeBlockStyles } from "#/components/code-block-styles";
 
 import type { CodeExample } from "#/lib/rules";
 

@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 
 import { collectionProgress, obtainedEntries } from "./collection-progress";
 
-import type { Collection } from "./collection";
-import type { RuleIndexEntry } from "./rules";
+import type { Collection } from "#/lib/collection";
+import type { RuleIndexEntry } from "#/lib/rules";
 
 const rule = (id: string, overrides: Partial<RuleIndexEntry> = {}): RuleIndexEntry => {
   const [plugin = "", name = ""] = id.split("/");

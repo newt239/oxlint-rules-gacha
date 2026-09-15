@@ -1,6 +1,6 @@
-import { CATEGORIES, type Category, type RuleIndexEntry } from "./rules";
+import { CATEGORIES, type Category, type RuleIndexEntry } from "#/lib/rules";
 
-import type { Collection } from "./collection";
+import type { Collection } from "#/lib/collection";
 
 type ProgressItem = {
   key: string;

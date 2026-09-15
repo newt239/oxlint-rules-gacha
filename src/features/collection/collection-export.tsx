@@ -2,11 +2,12 @@
 
 import * as stylex from "@stylexjs/stylex";
 
-import { CodeBlock } from "#/components/code-block";
 import { CopyButton } from "#/components/copy-button";
-import { buildOxlintrc } from "#/lib/oxlintrc";
 import { trackEvent } from "#/lib/track";
 import { color, text } from "#/styles/tokens.stylex";
+
+import { CodeBlock } from "./code-block";
+import { buildOxlintrc } from "./oxlintrc";
 
 import type { RuleIndexEntry } from "#/lib/rules";
 

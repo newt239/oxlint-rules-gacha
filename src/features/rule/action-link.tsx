@@ -3,7 +3,7 @@ import type { Route } from "next";
 import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
-import { actionStyles, type ActionVariant } from "./action-styles";
+import { actionStyles, type ActionVariant } from "#/components/action-styles";
 
 type ActionLinkProps = {
   children: React.ReactNode;

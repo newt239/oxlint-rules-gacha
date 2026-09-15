@@ -4,16 +4,16 @@ import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
 import { hasObtained, obtainedIds } from "#/lib/collection";
-import { collectionProgress, obtainedEntries } from "#/lib/collection-progress";
 import { COLLECTION_DESCRIPTION } from "#/lib/site";
-import { useRuleIndex } from "#/lib/use-rule-index";
 import { useCollection } from "#/lib/use-stores";
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 import { CollectionClear } from "./collection-clear";
 import { CollectionExport } from "./collection-export";
+import { collectionProgress, obtainedEntries } from "./collection-progress";
 import { ProgressSummary } from "./progress-summary";
 import { RuleGrid } from "./rule-grid";
+import { useRuleIndex } from "./use-rule-index";
 
 const styles = stylex.create({
   backLink: {

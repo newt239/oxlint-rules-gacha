@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
-import { ActionLink } from "#/components/action-link";
 import { requestAutoDraw } from "#/lib/auto-draw";
 import { hasObtained, obtainedIds, recordDraw } from "#/lib/collection";
 import { loadRuleIndex } from "#/lib/rules";
@@ -14,6 +13,7 @@ import { trackEvent } from "#/lib/track";
 import { useLoadedCollection } from "#/lib/use-stores";
 import { color, font, text } from "#/styles/tokens.stylex";
 
+import { ActionLink } from "./action-link";
 import { ShareButton } from "./share-button";
 
 const styles = stylex.create({

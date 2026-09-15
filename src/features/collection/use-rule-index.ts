@@ -2,7 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 
-import { loadRuleIndex, type RuleIndex } from "./rules";
+import { loadRuleIndex, type RuleIndex } from "#/lib/rules";
 
 const listeners = new Set<() => void>();
 

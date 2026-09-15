@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Anchor, Ellipse, Hemisphere, Illustration } from "zdog";
 
-import { cabinetColor, categoryColor, inkColor } from "#/lib/palette";
+import { cabinetColor, categoryColor, inkColor } from "./palette";
 
 import type { Category } from "#/lib/rules";
 
