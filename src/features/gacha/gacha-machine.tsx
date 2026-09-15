@@ -38,7 +38,6 @@ const styles = stylex.create({
     borderRadius: "28px",
     display: "flex",
     flexDirection: "column",
-    gap: "1.5rem",
     isolation: "isolate",
     marginBlockStart: "2.5rem",
     overflow: "hidden",
@@ -51,6 +50,13 @@ const styles = stylex.create({
     display: "inline-block",
     fontSize: "0.875rem",
     marginBlockStart: "2rem",
+  },
+  controls: {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.75rem",
+    marginBlockStart: "1.5rem",
   },
   flash: {
     backgroundColor: color.ink,
@@ -225,12 +231,14 @@ export const GachaMachine = () => {
               />
             )}
           </div>
-          <ActionButton busy={drawing} onClick={handleClick} variant="primary">
-            Draw a rule
-          </ActionButton>
-          <output {...stylex.props(styles.status)}>{status}</output>
           <div aria-hidden data-flash {...stylex.props(styles.flash)} />
         </div>
+      </div>
+      <div {...stylex.props(styles.controls)}>
+        <ActionButton busy={drawing} onClick={handleClick} variant="primary">
+          Draw a rule
+        </ActionButton>
+        <output {...stylex.props(styles.status)}>{status}</output>
       </div>
       {!skipHintSeen && (
         <p {...stylex.props(styles.hint)}>Tap, or press Esc or Space, to skip the animation.</p>
