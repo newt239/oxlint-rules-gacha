@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "build:deploy": "npm run rules:build && npm run test && npm run build",
     "codecheck": "npm run typecheck && npm run lint && npm run format && npm run knip",
     "dev": "next dev --turbopack",
     "format": "oxfmt --check",
