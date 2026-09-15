@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
-import { ABOUT_INTRO, OXC_LICENSE_URL, SITE_NAME } from "#/lib/site";
+import { ABOUT_INTRO, OXC_LICENSE_URL } from "#/lib/site";
 import { color, layout, text } from "#/styles/tokens.stylex";
 
 const AUTHOR_GITHUB_URL = "https://github.com/newt239";
@@ -69,10 +69,8 @@ export const AboutArticle = () => (
       <section {...stylex.props(styles.section)}>
         <h2 {...stylex.props(styles.heading)}>Unofficial</h2>
         <p {...stylex.props(styles.body)}>
-          <strong>
-            This is an unofficial fan site. It is not affiliated with, endorsed by, or maintained by
-            the oxc project.
-          </strong>
+          This is an unofficial fan site. It is not affiliated with, endorsed by, or maintained by
+          the oxc project.
         </p>
       </section>
       <section {...stylex.props(styles.section)}>
@@ -144,7 +142,6 @@ export const AboutArticle = () => (
           </li>
         </ul>
       </section>
-      <p {...stylex.props(styles.body)}>{SITE_NAME}</p>
     </article>
     <Link href="/" {...stylex.props(styles.backLink)}>
       Back to the gacha
