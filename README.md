@@ -12,7 +12,7 @@ npm run rules:build   # oxc.rs からルールデータを取得する
 npm run dev
 ```
 
-Node.js は 22.12.0 以上が必要です。パッケージマネージャは **npm** を使ってください（デプロイ先が npm のみ対応のため）。
+Node.js は 22.12.0 以上が必要です。パッケージマネージャは **npm** を使ってください（ホスティング先の制約）。
 
 初回の `npm install` では、インストールスクリプトを持つ依存（lefthook / @swc/core / esbuild）の承認が必要です。`package.json` の `allowScripts` にバージョン付きで記録してあるため通常は不要ですが、依存を更新して警告が出たら次を実行してください。
 
@@ -42,14 +42,13 @@ npm approve-scripts <pkg>
 
 ## デプロイ
 
-ロリポップ！デプロイナウにデプロイします。フレームワークに `next` を指定し、ビルドコマンドを次のように設定します。
+ホスティング先でビルドします。フレームワークは Next.js、ビルドコマンドは次の順で実行します。
 
 ```bash
-lolipop build-config update --project <id> \
-  --build "npm run rules:build && npm run test && npm run build"
+npm run rules:build && npm run test && npm run build
 ```
 
-ルールデータの取得はデプロイ時に行うため、生成物はコミットしません。取得に失敗した場合はビルドを失敗させ、古いデータが公開され続けないようにしています。
+出力は `.next/standalone` です。ルールデータの取得はビルド時に行うため、生成物はコミットしません。取得に失敗した場合はビルドを失敗させ、古いデータが公開され続けないようにしています。
 
 <!-- setup-repo:start -->
 
