@@ -10,6 +10,7 @@ const AUTHOR_WEBSITE_URL = "https://newt239.dev";
 const AUTHOR_X_URL = "https://x.com/newt239";
 const OXC_REPO_URL = "https://github.com/oxc-project/oxc";
 const OXC_RULES_URL = "https://oxc.rs/docs/guide/usage/linter/rules.html";
+const REPO_URL = "https://github.com/newt239/oxlint-rules-gacha";
 
 const styles = stylex.create({
   backLink: {
@@ -88,6 +89,19 @@ export const AboutArticle = () => (
           <li>
             <a href={OXC_REPO_URL} rel="noreferrer" target="_blank" {...stylex.props(styles.link)}>
               oxc-project/oxc
+            </a>
+          </li>
+        </ul>
+      </section>
+      <section {...stylex.props(styles.section)}>
+        <h2 {...stylex.props(styles.heading)}>Source code</h2>
+        <p {...stylex.props(styles.body)}>
+          This site is open source. Issues and pull requests are welcome.
+        </p>
+        <ul {...stylex.props(styles.linkList)}>
+          <li>
+            <a href={REPO_URL} rel="noreferrer" target="_blank" {...stylex.props(styles.link)}>
+              newt239/oxlint-rules-gacha
             </a>
           </li>
         </ul>
