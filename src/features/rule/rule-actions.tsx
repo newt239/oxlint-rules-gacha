@@ -110,7 +110,7 @@ export const RuleActions = ({ category, ruleId, shareUrl }: RuleActionsProps) =>
   const [opened, setOpened] = useState(false);
   const [announced, setAnnounced] = useState("");
   const owned = hasObtained(collection, ruleId);
-  const showCapsule = !owned || opened;
+  const showClaim = !owned || opened;
 
   const handleClaim = () => {
     setClaiming(true);
@@ -131,29 +131,29 @@ export const RuleActions = ({ category, ruleId, shareUrl }: RuleActionsProps) =>
 
   return (
     <div {...stylex.props(styles.group)}>
-      <section {...stylex.props(styles.claim)}>
-        {showCapsule && (
+      {showClaim && (
+        <section {...stylex.props(styles.claim)}>
           <div aria-hidden {...stylex.props(styles.stage)}>
             <CapsuleCanvas category={category} open={opened} spinning={claiming && !opened} />
           </div>
-        )}
-        {owned ? (
-          <>
-            <p {...stylex.props(styles.lead)}>Already in your collection.</p>
-            <p {...stylex.props(styles.meta)}>{drawnLabel(obtainedCount(collection, ruleId))}</p>
-          </>
-        ) : (
-          <>
-            <p {...stylex.props(styles.lead)}>Someone shared this rule with you.</p>
-            <div {...stylex.props(styles.claimAction)}>
-              <ActionButton busy={claiming} onClick={handleClaim} variant="tonal">
-                Add to my collection
-              </ActionButton>
-            </div>
-          </>
-        )}
-        <output {...stylex.props(styles.meta)}>{announced}</output>
-      </section>
+          {owned ? (
+            <>
+              <p {...stylex.props(styles.lead)}>Added to your collection.</p>
+              <p {...stylex.props(styles.meta)}>{drawnLabel(obtainedCount(collection, ruleId))}</p>
+            </>
+          ) : (
+            <>
+              <p {...stylex.props(styles.lead)}>Someone shared this rule with you.</p>
+              <div {...stylex.props(styles.claimAction)}>
+                <ActionButton busy={claiming} onClick={handleClaim} variant="tonal">
+                  Add to my collection
+                </ActionButton>
+              </div>
+            </>
+          )}
+          <output {...stylex.props(styles.meta)}>{announced}</output>
+        </section>
+      )}
       <div {...stylex.props(styles.footer)}>
         <div {...stylex.props(styles.buttons)}>
           <ShareButton title={ruleId} url={shareUrl} />
