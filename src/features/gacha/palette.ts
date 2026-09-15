@@ -1,5 +1,3 @@
-"use client";
-
 import { color } from "#/styles/tokens.stylex";
 
 import type { Category } from "#/lib/rules";

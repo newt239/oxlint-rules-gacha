@@ -3,8 +3,11 @@ import path from "node:path";
 import process from "node:process";
 
 import { parseRuleDoc } from "./lib/parse-rule-doc.mts";
-import { extractThemeChunkPath, parseRuleMetadata } from "./lib/parse-rule-metadata.mts";
-import { toPluginId } from "./lib/plugin-id.mts";
+import {
+  extractThemeChunkPath,
+  parseRuleMetadata,
+  toPluginId,
+} from "./lib/parse-rule-metadata.mts";
 import { ruleDetailSchema, toFixStatus, type RuleDetail } from "./lib/rule-schema.mts";
 
 const DOCS_ORIGIN = "https://oxc.rs";

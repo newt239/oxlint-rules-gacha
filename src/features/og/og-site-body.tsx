@@ -1,6 +1,6 @@
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "#/lib/site";
 
-import { CABINET, CATEGORY_COLORS, CATEGORY_SPECTRUM, INK, INK_DIM } from "./og-colors";
+import { CABINET, CATEGORY_COLORS, CATEGORY_SPECTRUM, INK, INK_DIM } from "./og-image";
 
 export const OgSiteBody = () => (
   <div

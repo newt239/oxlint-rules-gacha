@@ -1,5 +1,3 @@
-"use client";
-
 import { sendGAEvent } from "@next/third-parties/google";
 
 import { GA_MEASUREMENT_ID } from "./analytics";

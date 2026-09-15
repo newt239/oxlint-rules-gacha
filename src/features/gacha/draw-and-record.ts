@@ -1,5 +1,3 @@
-"use client";
-
 import { type Collection, hasObtained, obtainedIds, recordDraw } from "#/lib/collection";
 import { applyFilter, draw, type Filter } from "#/lib/draw";
 import { loadRuleIndex, type RuleIndexEntry } from "#/lib/rules";

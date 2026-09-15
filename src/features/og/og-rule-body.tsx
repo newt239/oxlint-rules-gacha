@@ -1,6 +1,6 @@
 import { SITE_URL } from "#/lib/site";
 
-import { CABINET, CATEGORY_COLORS, ON_TINT } from "./og-colors";
+import { CABINET, CATEGORY_COLORS, ON_TINT } from "./og-image";
 
 import type { Category } from "#/lib/rules";
 

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { extractThemeChunkPath, parseRuleMetadata } from "./parse-rule-metadata.mts";
+import { extractThemeChunkPath, parseRuleMetadata, toPluginId } from "./parse-rule-metadata.mts";
 
 const RULE_OBJECT = [
   '{"scope":"eslint","value":"no-debugger","category":"correctness","version":"0.0.3",',
@@ -42,5 +42,17 @@ describe("parseRuleMetadata", () => {
 
   it("知らないカテゴリが来た場合は例外を投げる", () => {
     expect(() => parseRuleMetadata(RULE_OBJECT.replace("correctness", "unknown"))).toThrow();
+  });
+});
+
+describe("toPluginId", () => {
+  it("アンダースコアのディレクトリ名を oxlint のプラグイン ID に変換する", () => {
+    expect(toPluginId("jsx_a11y")).toBe("jsx-a11y");
+    expect(toPluginId("react_perf")).toBe("react-perf");
+  });
+
+  it("変換が不要なプラグインはそのまま返す", () => {
+    expect(toPluginId("eslint")).toBe("eslint");
+    expect(toPluginId("typescript")).toBe("typescript");
   });
 });

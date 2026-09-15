@@ -1,5 +1,3 @@
-"use client";
-
 export const burstConfetti = async (colors: string[]): Promise<void> => {
   const { confetti } = await import("@tsparticles/confetti");
 

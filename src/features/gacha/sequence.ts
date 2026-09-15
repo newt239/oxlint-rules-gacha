@@ -1,5 +1,3 @@
-"use client";
-
 import { burstConfetti } from "./confetti";
 import { categoryColor, inkColor } from "./palette";
 
