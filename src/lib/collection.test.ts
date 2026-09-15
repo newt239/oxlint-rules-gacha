@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest";
 
-import { EMPTY_COLLECTION, obtainedIds, recordDraw, reviveCollection } from "./collection";
+import {
+  EMPTY_COLLECTION,
+  hasObtained,
+  obtainedCount,
+  obtainedIds,
+  recordDraw,
+  reviveCollection,
+} from "./collection";
 
 describe("reviveCollection", () => {
   it("旧形式の文字列配列を所持データとして取り込む", () => {
@@ -96,5 +103,40 @@ describe("recordDraw", () => {
     recordDraw(EMPTY_COLLECTION, "eslint/eqeqeq", { now: 1700, rulesetVersion: "1.80.0" });
 
     expect(obtainedIds(EMPTY_COLLECTION)).toStrictEqual([]);
+  });
+});
+
+describe("hasObtained", () => {
+  it("引いていないルールは所持していないと判定する", () => {
+    expect(hasObtained(EMPTY_COLLECTION, "eslint/eqeqeq")).toBe(false);
+  });
+
+  it("記録済みのルールは所持していると判定する", () => {
+    const next = recordDraw(EMPTY_COLLECTION, "eslint/eqeqeq", {
+      now: 1700,
+      rulesetVersion: "1.80.0",
+    });
+
+    expect(hasObtained(next, "eslint/eqeqeq")).toBe(true);
+  });
+
+  it("prototype 由来のキーを所持扱いしない", () => {
+    expect(hasObtained(EMPTY_COLLECTION, "toString")).toBe(false);
+  });
+});
+
+describe("obtainedCount", () => {
+  it("引いていないルールは 0 を返す", () => {
+    expect(obtainedCount(EMPTY_COLLECTION, "eslint/eqeqeq")).toBe(0);
+  });
+
+  it("同じルールを受け取るたびに数が増える", () => {
+    const first = recordDraw(EMPTY_COLLECTION, "eslint/eqeqeq", {
+      now: 1700,
+      rulesetVersion: "1.80.0",
+    });
+    const second = recordDraw(first, "eslint/eqeqeq", { now: 9900, rulesetVersion: "1.80.0" });
+
+    expect(obtainedCount(second, "eslint/eqeqeq")).toBe(2);
   });
 });

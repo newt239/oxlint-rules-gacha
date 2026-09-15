@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import { SiteHeader } from "#/components/site-header";
 import { RuleArticle } from "#/features/rule/rule-article";
 import { findRuleDetail, RULE_IDS } from "#/lib/rule-catalog";
-import { SITE_NAME } from "#/lib/site";
+import { ruleHref } from "#/lib/rule-href";
+import { SITE_NAME, SITE_URL } from "#/lib/site";
 
 export const dynamicParams = false;
 
@@ -54,7 +55,10 @@ const RulePage = async ({ params }: RulePageProps) => {
   return (
     <>
       <SiteHeader />
-      <RuleArticle detail={detail} />
+      <RuleArticle
+        detail={detail}
+        shareUrl={new URL(ruleHref(plugin, rule), SITE_URL).toString()}
+      />
     </>
   );
 };

@@ -72,6 +72,12 @@ export const reviveCollection = (value: unknown): Collection | null => {
 
 export const obtainedIds = (collection: Collection): string[] => Object.keys(collection.obtained);
 
+export const hasObtained = (collection: Collection, ruleId: string): boolean =>
+  Object.hasOwn(collection.obtained, ruleId);
+
+export const obtainedCount = (collection: Collection, ruleId: string): number =>
+  hasObtained(collection, ruleId) ? collection.obtained[ruleId].count : 0;
+
 export type DrawContext = {
   now: number;
   rulesetVersion: string;

@@ -60,9 +60,10 @@ const titleTint = stylex.create({
 
 type RuleArticleProps = {
   detail: RuleDetail;
+  shareUrl: string;
 };
 
-export const RuleArticle = ({ detail }: RuleArticleProps) => (
+export const RuleArticle = ({ detail, shareUrl }: RuleArticleProps) => (
   <main {...stylex.props(styles.main)}>
     <article>
       <ViewTransition name="rule-title" share="morph" default="none">
@@ -86,6 +87,6 @@ export const RuleArticle = ({ detail }: RuleArticleProps) => (
         Read the original docs on oxc.rs
       </a>
     </article>
-    <RuleActions />
+    <RuleActions ruleId={detail.id} shareUrl={shareUrl} />
   </main>
 );
