@@ -17,7 +17,7 @@ const styles = stylex.create({
   text: {
     fontFamily: font.mono,
     fontSize: text.reveal,
-    fontWeight: 700,
+    fontWeight: 500,
     lineHeight: 1.3,
     marginBlock: "1.5rem 0",
     marginInline: 0,
