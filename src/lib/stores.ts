@@ -42,3 +42,9 @@ export const filterStore = createPersistedStore<Filter>(
   DEFAULT_FILTER,
   reviveFilter,
 );
+
+export const skipHintStore = createPersistedStore<boolean>(
+  "oxlint-gacha:skip-hint-seen",
+  false,
+  (value) => (typeof value === "boolean" ? value : null),
+);

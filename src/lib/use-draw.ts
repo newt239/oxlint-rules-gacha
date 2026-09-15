@@ -5,13 +5,20 @@ import { useSyncExternalStore } from "react";
 import { applyFilter, draw, type Filter } from "./draw";
 import { ruleHref, type RuleHref } from "./rule-href";
 import { loadRuleIndex } from "./rule-index-cache";
-import { collectionStore, filterStore } from "./stores";
+import { collectionStore, filterStore, skipHintStore } from "./stores";
 
 export const useCollection = (): string[] =>
   useSyncExternalStore(
     collectionStore.subscribe,
     collectionStore.getSnapshot,
     collectionStore.getServerSnapshot,
+  );
+
+export const useSkipHintSeen = (): boolean =>
+  useSyncExternalStore(
+    skipHintStore.subscribe,
+    skipHintStore.getSnapshot,
+    skipHintStore.getServerSnapshot,
   );
 
 export const useFilter = (): Filter =>
