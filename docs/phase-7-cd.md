@@ -20,12 +20,6 @@ GitHub Actions
 
 テストが落ちればビルドが失敗し、デプロイされません。デプロイのゲートとしては機能します。
 
-## 済んだこと
-
-- [x] ビルドコマンドを 1 つにまとめた。`package.json` の `build:deploy` が `npm run rules:build && npm run test && npm run build` を実行する
-- [x] 週次のルール更新を GitHub Actions の `schedule` から起動する（`.github/workflows/refresh-rules.yml`。毎週月曜 08:00 JST = `cron: "0 23 * * 0"`）
-- [x] 取得に失敗したときにビルドが**失敗する**ことを確認した。`fetch` を失敗させて `scripts/build-rules.ts` を実行すると終了コード 1 になり、`&&` 連結のため `next build` へ到達しない
-
 ## 残っていること（リポジトリだけでは完了できない）
 
 - [ ] GitHub リポジトリを作成し `git remote` を設定する（**現在このリポジトリに remote がありません**）
