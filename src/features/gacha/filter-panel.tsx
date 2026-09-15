@@ -25,7 +25,11 @@ const styles = stylex.create({
     flexWrap: "wrap",
     gap: "0.5rem 1rem",
     margin: 0,
-    padding: "0.5rem 0 0",
+    marginBlockStart: "0.75rem",
+    padding: 0,
+  },
+  fieldsetGap: {
+    marginBlockStart: "1.5rem",
   },
   label: {
     alignItems: "center",
@@ -39,6 +43,7 @@ const styles = stylex.create({
     color: color.inkDim,
     fontSize: "0.75rem",
     letterSpacing: "0.08em",
+    marginBlockEnd: "0.5rem",
     padding: 0,
     textTransform: "uppercase",
   },
@@ -97,7 +102,7 @@ export const FilterPanel = () => {
           </label>
         ))}
       </fieldset>
-      <fieldset {...stylex.props(styles.fieldset)}>
+      <fieldset {...stylex.props(styles.fieldset, styles.fieldsetGap)}>
         <legend {...stylex.props(styles.legend)}>Plugins</legend>
         {plugins.map((plugin) => (
           <label key={plugin} {...stylex.props(styles.label)}>
