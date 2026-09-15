@@ -16,6 +16,13 @@ export const useCollection = (): Collection =>
     collectionStore.getServerSnapshot,
   );
 
+export const useLoadedCollection = (): Collection | null =>
+  useSyncExternalStore<Collection | null>(
+    collectionStore.subscribe,
+    collectionStore.getSnapshot,
+    () => null,
+  );
+
 export const useSkipHintSeen = (): boolean =>
   useSyncExternalStore(
     skipHintStore.subscribe,

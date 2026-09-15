@@ -3,13 +3,14 @@
 import { useEffect } from "react";
 
 import * as stylex from "@stylexjs/stylex";
+import Link from "next/link";
 
 import { ActionLink } from "#/components/action-link";
 import { requestAutoDraw } from "#/lib/auto-draw";
 import { hasObtained, obtainedIds, recordDraw } from "#/lib/collection";
 import { loadRuleIndex } from "#/lib/rule-index-cache";
 import { collectionStore } from "#/lib/stores";
-import { useCollection } from "#/lib/use-draw";
+import { useLoadedCollection } from "#/lib/use-draw";
 import { color, font, text } from "#/styles/tokens.stylex";
 
 import { ShareButton } from "./share-button";
@@ -23,16 +24,18 @@ const styles = stylex.create({
     justifyContent: "space-between",
   },
   group: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.75rem",
     marginBlockStart: "2.5rem",
   },
-  meta: {
+  total: {
     color: color.inkDim,
     fontFamily: font.mono,
     fontSize: text.md,
-    margin: 0,
+    marginBlock: "3rem 0",
+    minHeight: "1.5em",
+    textAlign: "center",
+  },
+  totalLink: {
+    color: color.ink,
   },
 });
 
@@ -45,7 +48,7 @@ type RuleActionsProps = {
 };
 
 export const RuleActions = ({ ruleId, shareUrl }: RuleActionsProps) => {
-  const collection = useCollection();
+  const collection = useLoadedCollection();
 
   // 共有リンクから開いたルールも入手扱いにする。localStorage は描画後しか読めない
   useEffect(() => {
@@ -78,7 +81,16 @@ export const RuleActions = ({ ruleId, shareUrl }: RuleActionsProps) => {
           Draw again
         </ActionLink>
       </div>
-      <p {...stylex.props(styles.meta)}>{totalLabel(obtainedIds(collection).length)}</p>
+      <p {...stylex.props(styles.total)}>
+        {collection !== null && (
+          <>
+            {totalLabel(obtainedIds(collection).length)}.{" "}
+            <Link href="/collection" {...stylex.props(styles.totalLink)}>
+              Check your collection
+            </Link>
+          </>
+        )}
+      </p>
     </div>
   );
 };
