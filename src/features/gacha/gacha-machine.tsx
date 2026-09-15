@@ -5,7 +5,6 @@ import { useEffect, useEffectEvent, useRef, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { useAnimate, useReducedMotion } from "motion/react";
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { ActionButton } from "#/components/action-button";
@@ -43,12 +42,6 @@ const styles = stylex.create({
     paddingInline: layout.gutter,
     position: "relative",
   },
-  collectionLink: {
-    color: color.inkDim,
-    display: "inline-block",
-    fontSize: text.md,
-    marginBlockStart: "2rem",
-  },
   controls: {
     alignItems: "center",
     display: "flex",
@@ -73,7 +66,7 @@ const styles = stylex.create({
   main: {
     marginInline: "auto",
     maxWidth: layout.maxWidth,
-    paddingBlock: "3rem 4rem",
+    paddingBlock: "3rem 2rem",
     paddingInline: layout.gutter,
   },
   stage: {
@@ -250,9 +243,6 @@ export const GachaMachine = () => {
         <p {...stylex.props(styles.hint)}>Tap, or press Esc or Space, to skip the animation.</p>
       )}
       <FilterPanel />
-      <Link href="/collection" {...stylex.props(styles.collectionLink)}>
-        See your collection
-      </Link>
     </main>
   );
 };

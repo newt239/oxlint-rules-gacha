@@ -12,24 +12,10 @@ const styles = stylex.create({
     textDecoration: "none",
   },
   header: {
-    alignItems: "center",
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "0.75rem 1rem",
-    justifyContent: "space-between",
     marginInline: "auto",
     maxWidth: layout.maxWidth,
     paddingBlock: "1.25rem 0",
     paddingInline: layout.gutter,
-  },
-  link: {
-    color: color.inkDim,
-    fontSize: text.md,
-  },
-  right: {
-    alignItems: "center",
-    display: "flex",
-    gap: "1rem",
   },
 });
 
@@ -38,13 +24,5 @@ export const SiteHeader = () => (
     <Link href="/" {...stylex.props(styles.brand)}>
       {SITE_NAME}
     </Link>
-    <div {...stylex.props(styles.right)}>
-      <Link href="/collection" {...stylex.props(styles.link)}>
-        Collection
-      </Link>
-      <Link href="/about" {...stylex.props(styles.link)}>
-        About
-      </Link>
-    </div>
   </header>
 );
