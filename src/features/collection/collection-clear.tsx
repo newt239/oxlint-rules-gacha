@@ -50,15 +50,19 @@ type CollectionClearProps = {
 
 export const CollectionClear = ({ count }: CollectionClearProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
 
   const handleDelete = () => {
     collectionStore.set(EMPTY_COLLECTION);
     dialogRef.current?.close();
+    headingRef.current?.focus();
   };
 
   return (
     <section {...stylex.props(styles.section)}>
-      <h2 {...stylex.props(styles.heading)}>Clear collection</h2>
+      <h2 ref={headingRef} tabIndex={-1} {...stylex.props(styles.heading)}>
+        Clear collection
+      </h2>
       <p {...stylex.props(styles.note)}>
         Your collection lives in this browser only. Clearing it cannot be undone.
       </p>
