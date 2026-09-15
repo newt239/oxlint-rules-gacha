@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import * as stylex from "@stylexjs/stylex";
 import ShuffleText from "shuffle-text";
 
-import { color, font } from "#/styles/tokens.stylex";
+import { font } from "#/styles/tokens.stylex";
 
 import { categoryColor } from "./palette";
 
@@ -23,7 +23,6 @@ const styles = stylex.create({
     opacity: 0,
     overflowWrap: "anywhere",
     textAlign: "center",
-    textShadow: `0 1px 0 ${color.inkDim}, 0 2px 0 ${color.inkDim}, 0 3px 0 ${color.cabinet2}, 0 6px 16px ${color.cabinet}`,
   },
   tint: (value: string) => ({ color: value }),
 });
