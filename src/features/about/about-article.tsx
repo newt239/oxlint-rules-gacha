@@ -2,7 +2,7 @@ import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
 import { ABOUT_INTRO, OXC_LICENSE_URL, SITE_NAME } from "#/lib/site";
-import { color, layout } from "#/styles/tokens.stylex";
+import { color, layout, text } from "#/styles/tokens.stylex";
 
 const OXC_REPO_URL = "https://github.com/oxc-project/oxc";
 const OXC_RULES_URL = "https://oxc.rs/docs/guide/usage/linter/rules.html";
@@ -11,7 +11,7 @@ const styles = stylex.create({
   backLink: {
     color: color.inkDim,
     display: "inline-block",
-    fontSize: "0.75rem",
+    fontSize: text.md,
     marginBlockStart: "3rem",
   },
   body: {
@@ -21,7 +21,7 @@ const styles = stylex.create({
   },
   heading: {
     color: color.inkDim,
-    fontSize: "0.75rem",
+    fontSize: text.md,
     letterSpacing: "0.08em",
     marginBlock: "0 0.5rem",
     textTransform: "uppercase",
@@ -52,7 +52,7 @@ const styles = stylex.create({
     marginBlockStart: "2.5rem",
   },
   title: {
-    fontSize: "clamp(1.5rem, 6vw, 2rem)",
+    fontSize: text.display,
     marginBlock: "0 0.5rem",
   },
 });

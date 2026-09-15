@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { RuleBadges } from "#/components/rule-badges";
-import { color, font, layout } from "#/styles/tokens.stylex";
+import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 import { HighlightedCode } from "./highlighted-code";
 import { RuleActions } from "./rule-actions";
@@ -12,12 +12,12 @@ const styles = stylex.create({
   docsLink: {
     color: color.catStyle,
     display: "inline-block",
-    fontSize: "0.75rem",
+    fontSize: text.md,
     marginBlockStart: "1.5rem",
   },
   heading: {
     color: color.inkDim,
-    fontSize: "0.75rem",
+    fontSize: text.md,
     letterSpacing: "0.08em",
     marginBlock: "0 0.5rem",
     textTransform: "uppercase",
@@ -32,14 +32,14 @@ const styles = stylex.create({
     marginBlockStart: "2rem",
   },
   summary: {
-    fontSize: "1rem",
+    fontSize: text.md,
     lineHeight: 1.8,
     marginBlock: "1.5rem 0",
     maxWidth: "70ch",
   },
   title: {
     fontFamily: font.mono,
-    fontSize: "clamp(1.5rem, 7vw, 2.25rem)",
+    fontSize: text.ruleId,
     fontWeight: 500,
     lineHeight: 1.3,
     marginBlock: "0 1rem",

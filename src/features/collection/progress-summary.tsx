@@ -4,7 +4,7 @@ import * as stylex from "@stylexjs/stylex";
 
 import { CategoryBadge } from "#/components/category-badge";
 import { toCategory } from "#/lib/rules";
-import { color, font, layout } from "#/styles/tokens.stylex";
+import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 import type { CollectionProgress } from "#/lib/collection-progress";
 
@@ -22,7 +22,7 @@ const styles = stylex.create({
     borderRadius: layout.radius,
     display: "flex",
     fontFamily: font.mono,
-    fontSize: "0.75rem",
+    fontSize: text.md,
     gap: "0.25rem",
     paddingBlock: "0.25rem",
     paddingInline: "0.75rem",
@@ -36,7 +36,7 @@ const styles = stylex.create({
   },
   heading: {
     color: color.inkDim,
-    fontSize: "0.75rem",
+    fontSize: text.md,
     letterSpacing: "0.08em",
     marginBlock: "1.5rem 0.5rem",
     textTransform: "uppercase",
@@ -54,7 +54,7 @@ const styles = stylex.create({
   },
   total: {
     fontFamily: font.mono,
-    fontSize: "1rem",
+    fontSize: text.md,
     margin: 0,
   },
   width: (ratio: number) => ({ width: `${ratio}%` }),

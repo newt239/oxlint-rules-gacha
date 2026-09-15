@@ -2,12 +2,12 @@ import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
 import { SITE_NAME } from "#/lib/site";
-import { color, layout } from "#/styles/tokens.stylex";
+import { color, layout, text } from "#/styles/tokens.stylex";
 
 const styles = stylex.create({
   brand: {
     color: color.ink,
-    fontSize: "0.75rem",
+    fontSize: text.lg,
     fontWeight: 700,
     textDecoration: "none",
   },
@@ -24,7 +24,7 @@ const styles = stylex.create({
   },
   link: {
     color: color.inkDim,
-    fontSize: "0.75rem",
+    fontSize: text.md,
   },
   right: {
     alignItems: "center",

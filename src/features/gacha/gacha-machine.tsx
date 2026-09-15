@@ -13,7 +13,7 @@ import { consumeAutoDraw } from "#/lib/auto-draw";
 import { ruleHref } from "#/lib/rule-href";
 import { skipHintStore } from "#/lib/stores";
 import { drawAndRecord, useCollection, useFilter, useSkipHintSeen } from "#/lib/use-draw";
-import { color, font, layout } from "#/styles/tokens.stylex";
+import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 import { FilterPanel } from "./filter-panel";
 import { RevealText } from "./reveal-text";
@@ -48,7 +48,7 @@ const styles = stylex.create({
   collectionLink: {
     color: color.inkDim,
     display: "inline-block",
-    fontSize: "0.75rem",
+    fontSize: text.md,
     marginBlockStart: "2rem",
   },
   controls: {
@@ -67,7 +67,7 @@ const styles = stylex.create({
   },
   hint: {
     color: color.inkDim,
-    fontSize: "0.75rem",
+    fontSize: text.md,
     margin: 0,
     textAlign: "center",
   },
@@ -88,13 +88,13 @@ const styles = stylex.create({
   status: {
     color: color.inkDim,
     fontFamily: font.mono,
-    fontSize: "0.75rem",
+    fontSize: text.md,
     minHeight: "1.5em",
     overflowWrap: "anywhere",
     textAlign: "center",
   },
   tagline: {
-    fontSize: "clamp(1.5rem, 6vw, 2rem)",
+    fontSize: text.display,
     lineHeight: 1.4,
     margin: 0,
     textAlign: "center",

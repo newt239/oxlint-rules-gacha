@@ -7,7 +7,7 @@ import * as stylex from "@stylexjs/stylex";
 import { ActionButton } from "#/components/action-button";
 import { EMPTY_COLLECTION } from "#/lib/collection";
 import { collectionStore } from "#/lib/stores";
-import { color, layout } from "#/styles/tokens.stylex";
+import { color, layout, text } from "#/styles/tokens.stylex";
 
 const styles = stylex.create({
   buttons: {
@@ -26,12 +26,12 @@ const styles = stylex.create({
     padding: "1.5rem",
   },
   heading: {
-    fontSize: "1.25rem",
+    fontSize: text.lg,
     marginBlock: "0 0.75rem",
   },
   note: {
     color: color.inkDim,
-    fontSize: "0.75rem",
+    fontSize: text.md,
     margin: 0,
   },
   section: {

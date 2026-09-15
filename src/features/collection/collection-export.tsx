@@ -5,18 +5,18 @@ import * as stylex from "@stylexjs/stylex";
 import { CodeBlock } from "#/components/code-block";
 import { CopyButton } from "#/components/copy-button";
 import { buildOxlintrc } from "#/lib/oxlintrc";
-import { color } from "#/styles/tokens.stylex";
+import { color, text } from "#/styles/tokens.stylex";
 
 import type { RuleIndexEntry } from "#/lib/rules";
 
 const styles = stylex.create({
   heading: {
-    fontSize: "1.25rem",
+    fontSize: text.lg,
     marginBlock: "0 1rem",
   },
   note: {
     color: color.inkDim,
-    fontSize: "0.75rem",
+    fontSize: text.md,
   },
   section: {
     marginBlockStart: "3rem",
@@ -24,7 +24,7 @@ const styles = stylex.create({
   summary: {
     color: color.inkDim,
     cursor: "pointer",
-    fontSize: "0.75rem",
+    fontSize: text.md,
     marginBlockStart: "1rem",
   },
 });

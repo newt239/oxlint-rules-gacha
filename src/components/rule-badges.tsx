@@ -1,7 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { CategoryBadge } from "#/components/category-badge";
-import { color, font, layout } from "#/styles/tokens.stylex";
+import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 import type { FixStatus, RuleDetail } from "#/lib/rules";
 
@@ -22,7 +22,7 @@ const styles = stylex.create({
     borderWidth: "1px",
     color: color.inkDim,
     fontFamily: font.mono,
-    fontSize: "0.75rem",
+    fontSize: text.md,
     lineHeight: 1.8,
     paddingInline: "0.7em",
   },

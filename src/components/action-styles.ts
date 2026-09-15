@@ -1,6 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 
-import { color, font, layout } from "#/styles/tokens.stylex";
+import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 export const actionStyles = stylex.create({
   base: {
@@ -17,7 +17,7 @@ export const actionStyles = stylex.create({
     },
     cursor: { ":disabled": "progress", default: "pointer" },
     fontFamily: font.display,
-    fontSize: "1rem",
+    fontSize: text.md,
     fontWeight: 700,
     padding: "0.75rem 1.5rem",
   },
@@ -27,7 +27,7 @@ export const actionStyles = stylex.create({
     textDecoration: "none",
   },
   primary: {
-    fontSize: "1.25rem",
+    fontSize: text.lg,
     padding: "1rem 2.5rem",
   },
   secondary: {

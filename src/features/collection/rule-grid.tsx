@@ -5,19 +5,19 @@ import Link from "next/link";
 
 import { CategoryBadge } from "#/components/category-badge";
 import { ruleHref } from "#/lib/rule-href";
-import { color, font, layout } from "#/styles/tokens.stylex";
+import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 import type { CollectionSection } from "#/lib/collection-progress";
 
 const styles = stylex.create({
   count: {
     color: color.inkDim,
-    fontSize: "0.75rem",
+    fontSize: text.md,
   },
   heading: {
     color: color.inkDim,
     fontFamily: font.mono,
-    fontSize: "0.75rem",
+    fontSize: text.md,
     marginBlock: "0 0.75rem",
   },
   item: {
@@ -36,7 +36,7 @@ const styles = stylex.create({
     display: "flex",
     flexWrap: "wrap",
     fontFamily: font.mono,
-    fontSize: "0.75rem",
+    fontSize: text.md,
     gap: "0.25rem",
     textDecoration: "none",
   },

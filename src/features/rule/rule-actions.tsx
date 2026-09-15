@@ -6,13 +6,13 @@ import { ActionLink } from "#/components/action-link";
 import { requestAutoDraw } from "#/lib/auto-draw";
 import { obtainedIds } from "#/lib/collection";
 import { useCollection } from "#/lib/use-draw";
-import { color, font } from "#/styles/tokens.stylex";
+import { color, font, text } from "#/styles/tokens.stylex";
 
 const styles = stylex.create({
   count: {
     color: color.inkDim,
     fontFamily: font.mono,
-    fontSize: "0.75rem",
+    fontSize: text.md,
     margin: 0,
   },
   group: {

@@ -1,6 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 
-import { color, layout } from "#/styles/tokens.stylex";
+import { color, layout, text } from "#/styles/tokens.stylex";
 
 import type { Category } from "#/lib/rules";
 
@@ -9,7 +9,7 @@ const styles = stylex.create({
     borderRadius: layout.radius,
     color: color.cabinet,
     display: "inline-block",
-    fontSize: "0.75rem",
+    fontSize: text.md,
     fontWeight: 700,
     lineHeight: 1.6,
     paddingInline: "0.75em",

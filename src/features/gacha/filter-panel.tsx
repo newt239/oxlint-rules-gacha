@@ -8,7 +8,7 @@ import { loadRuleIndex } from "#/lib/rule-index-cache";
 import { CATEGORIES, type Category } from "#/lib/rules";
 import { filterStore } from "#/lib/stores";
 import { useFilter } from "#/lib/use-draw";
-import { color, font, layout } from "#/styles/tokens.stylex";
+import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 const styles = stylex.create({
   details: {
@@ -36,12 +36,12 @@ const styles = stylex.create({
     color: color.ink,
     display: "flex",
     fontFamily: font.mono,
-    fontSize: "0.75rem",
+    fontSize: text.md,
     gap: "0.25rem",
   },
   legend: {
     color: color.inkDim,
-    fontSize: "0.75rem",
+    fontSize: text.md,
     letterSpacing: "0.08em",
     marginBlockEnd: "0.5rem",
     padding: 0,
@@ -50,7 +50,7 @@ const styles = stylex.create({
   summary: {
     color: color.inkDim,
     cursor: "pointer",
-    fontSize: "0.75rem",
+    fontSize: text.md,
   },
 });
 

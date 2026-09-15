@@ -1,11 +1,11 @@
 import * as stylex from "@stylexjs/stylex";
 
-import { color, font, layout } from "#/styles/tokens.stylex";
+import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 export const codeBlockStyles = stylex.create({
   code: {
     fontFamily: font.mono,
-    fontSize: "0.75rem",
+    fontSize: text.md,
     lineHeight: 1.7,
   },
   pre: {

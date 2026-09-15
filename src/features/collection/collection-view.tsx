@@ -15,7 +15,7 @@ import {
 import { COLLECTION_DESCRIPTION } from "#/lib/site";
 import { useCollection } from "#/lib/use-draw";
 import { useRuleIndex } from "#/lib/use-rule-index";
-import { color, font, layout } from "#/styles/tokens.stylex";
+import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 import { CollectionClear } from "./collection-clear";
 import { CollectionExport } from "./collection-export";
@@ -32,12 +32,12 @@ const styles = stylex.create({
   backLink: {
     color: color.inkDim,
     display: "inline-block",
-    fontSize: "0.75rem",
+    fontSize: text.md,
     marginBlockStart: "3rem",
   },
   empty: {
     color: color.inkDim,
-    fontSize: "0.75rem",
+    fontSize: text.md,
     marginBlockStart: "2rem",
   },
   fieldset: {
@@ -49,19 +49,19 @@ const styles = stylex.create({
     padding: "0.5rem 0 0",
   },
   heading: {
-    fontSize: "1.25rem",
+    fontSize: text.lg,
     marginBlock: "0 0.5rem",
   },
   label: {
     alignItems: "center",
     color: color.ink,
     display: "flex",
-    fontSize: "0.75rem",
+    fontSize: text.md,
     gap: "0.25rem",
   },
   legend: {
     color: color.inkDim,
-    fontSize: "0.75rem",
+    fontSize: text.md,
     letterSpacing: "0.08em",
     padding: 0,
     textTransform: "uppercase",
@@ -74,12 +74,12 @@ const styles = stylex.create({
   },
   note: {
     color: color.inkDim,
-    fontSize: "0.75rem",
+    fontSize: text.md,
   },
   retiredItem: {
     color: color.inkDim,
     fontFamily: font.mono,
-    fontSize: "0.75rem",
+    fontSize: text.md,
   },
   retiredList: {
     display: "flex",
@@ -96,7 +96,7 @@ const styles = stylex.create({
     marginBlockStart: "2rem",
   },
   title: {
-    fontSize: "clamp(1.5rem, 6vw, 2rem)",
+    fontSize: text.display,
     marginBlock: "0 0.5rem",
   },
 });

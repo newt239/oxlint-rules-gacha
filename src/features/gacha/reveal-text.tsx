@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import * as stylex from "@stylexjs/stylex";
 import ShuffleText from "shuffle-text";
 
-import { font } from "#/styles/tokens.stylex";
+import { font, text } from "#/styles/tokens.stylex";
 
 import { categoryColor } from "./palette";
 
@@ -16,7 +16,7 @@ const SHUFFLE_DURATION_MS = 620;
 const styles = stylex.create({
   text: {
     fontFamily: font.mono,
-    fontSize: "clamp(1rem, 4.6vw, 1.5rem)",
+    fontSize: text.reveal,
     fontWeight: 700,
     lineHeight: 1.3,
     margin: 0,

@@ -4,7 +4,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Baloo_2, Geist_Mono } from "next/font/google";
 
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "#/lib/site";
-import { color, font } from "#/styles/tokens.stylex";
+import { color, font, text } from "#/styles/tokens.stylex";
 import "#/styles/globals.css";
 
 const baloo2 = Baloo_2({
@@ -38,7 +38,7 @@ const styles = stylex.create({
     backgroundColor: color.cabinet,
     color: color.ink,
     fontFamily: font.display,
-    fontSize: "1rem",
+    fontSize: text.md,
     lineHeight: 1.7,
   },
 });

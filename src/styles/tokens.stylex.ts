@@ -25,3 +25,11 @@ export const layout = stylex.defineVars({
   maxWidth: "640px",
   radius: "14px",
 });
+
+export const text = stylex.defineVars({
+  display: "clamp(1.5rem, 6vw, 2rem)",
+  lg: "1.25rem",
+  md: "1rem",
+  reveal: "clamp(1.25rem, 4.6vw, 1.5rem)",
+  ruleId: "clamp(1.5rem, 7vw, 2.25rem)",
+});
