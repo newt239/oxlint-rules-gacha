@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
+import { linkStyles } from "#/components/link-styles";
 import { SiteHeader } from "#/components/site-header";
 import { GachaMachine } from "#/features/gacha/gacha-machine";
 import { color, text } from "#/styles/tokens.stylex";
@@ -29,10 +30,10 @@ const Home = () => (
     <SiteHeader />
     <GachaMachine />
     <footer {...stylex.props(styles.footer)}>
-      <Link href="/collection" {...stylex.props(styles.link)}>
+      <Link href="/collection" {...stylex.props(linkStyles.underline, styles.link)}>
         Collection
       </Link>
-      <Link href="/about" {...stylex.props(styles.link)}>
+      <Link href="/about" {...stylex.props(linkStyles.underline, styles.link)}>
         About
       </Link>
     </footer>

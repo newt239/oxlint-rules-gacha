@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
+import { linkStyles } from "#/components/link-styles";
 import { requestAutoDraw } from "#/lib/auto-draw";
 import { hasObtained, obtainedIds, recordDraw } from "#/lib/collection";
 import { loadRuleIndex } from "#/lib/rules";
@@ -92,7 +93,7 @@ export const RuleActions = ({ ruleId, shareUrl }: RuleActionsProps) => {
         {collection !== null && (
           <>
             {totalLabel(obtainedIds(collection).length)}.{" "}
-            <Link href="/collection" {...stylex.props(styles.totalLink)}>
+            <Link href="/collection" {...stylex.props(linkStyles.underline, styles.totalLink)}>
               Check your collection
             </Link>
           </>

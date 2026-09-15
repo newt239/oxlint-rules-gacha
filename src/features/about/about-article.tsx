@@ -1,6 +1,7 @@
 import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
+import { linkStyles } from "#/components/link-styles";
 import { ABOUT_INTRO } from "#/lib/site";
 import { color, layout, text } from "#/styles/tokens.stylex";
 
@@ -85,12 +86,22 @@ export const AboutArticle = () => (
         </p>
         <ul {...stylex.props(styles.linkList)}>
           <li>
-            <a href={OXC_RULES_URL} rel="noreferrer" target="_blank" {...stylex.props(styles.link)}>
+            <a
+              href={OXC_RULES_URL}
+              rel="noreferrer"
+              target="_blank"
+              {...stylex.props(linkStyles.underline, styles.link)}
+            >
               Read the original docs on oxc.rs
             </a>
           </li>
           <li>
-            <a href={OXC_REPO_URL} rel="noreferrer" target="_blank" {...stylex.props(styles.link)}>
+            <a
+              href={OXC_REPO_URL}
+              rel="noreferrer"
+              target="_blank"
+              {...stylex.props(linkStyles.underline, styles.link)}
+            >
               oxc-project/oxc
             </a>
           </li>
@@ -103,7 +114,12 @@ export const AboutArticle = () => (
         </p>
         <ul {...stylex.props(styles.linkList)}>
           <li>
-            <a href={REPO_URL} rel="noreferrer" target="_blank" {...stylex.props(styles.link)}>
+            <a
+              href={REPO_URL}
+              rel="noreferrer"
+              target="_blank"
+              {...stylex.props(linkStyles.underline, styles.link)}
+            >
               newt239/oxlint-rules-gacha
             </a>
           </li>
@@ -121,7 +137,7 @@ export const AboutArticle = () => (
               href={OXC_LICENSE_URL}
               rel="noreferrer"
               target="_blank"
-              {...stylex.props(styles.link)}
+              {...stylex.props(linkStyles.underline, styles.link)}
             >
               Source: the oxc project (MIT)
             </a>
@@ -137,7 +153,7 @@ export const AboutArticle = () => (
               href={AUTHOR_WEBSITE_URL}
               rel="noreferrer"
               target="_blank"
-              {...stylex.props(styles.link)}
+              {...stylex.props(linkStyles.underline, styles.link)}
             >
               Website
             </a>
@@ -147,20 +163,25 @@ export const AboutArticle = () => (
               href={AUTHOR_GITHUB_URL}
               rel="noreferrer"
               target="_blank"
-              {...stylex.props(styles.link)}
+              {...stylex.props(linkStyles.underline, styles.link)}
             >
               GitHub
             </a>
           </li>
           <li>
-            <a href={AUTHOR_X_URL} rel="noreferrer" target="_blank" {...stylex.props(styles.link)}>
+            <a
+              href={AUTHOR_X_URL}
+              rel="noreferrer"
+              target="_blank"
+              {...stylex.props(linkStyles.underline, styles.link)}
+            >
               X
             </a>
           </li>
         </ul>
       </section>
     </article>
-    <Link href="/" {...stylex.props(styles.backLink)}>
+    <Link href="/" {...stylex.props(linkStyles.underline, styles.backLink)}>
       Back to the gacha
     </Link>
   </main>

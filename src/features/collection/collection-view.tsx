@@ -3,6 +3,7 @@
 import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
+import { linkStyles } from "#/components/link-styles";
 import { hasObtained, obtainedIds } from "#/lib/collection";
 import { COLLECTION_DESCRIPTION } from "#/lib/site";
 import { collectionStore, usePersistedStore } from "#/lib/stores";
@@ -114,7 +115,7 @@ export const CollectionView = () => {
       )}
       <CollectionExport rules={owned} />
       <CollectionClear count={obtainedCount} />
-      <Link href="/" {...stylex.props(styles.backLink)}>
+      <Link href="/" {...stylex.props(linkStyles.underline, styles.backLink)}>
         Back to the gacha
       </Link>
     </main>
