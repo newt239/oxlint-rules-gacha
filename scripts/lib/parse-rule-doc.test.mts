@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { parseRuleDoc } from "./parse-rule-doc";
+import { parseRuleDoc } from "./parse-rule-doc.mts";
 
 const noDebugger = [
   "---",

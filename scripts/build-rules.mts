@@ -2,10 +2,10 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 
-import { parseRuleDoc } from "./lib/parse-rule-doc";
-import { extractThemeChunkPath, parseRuleMetadata } from "./lib/parse-rule-metadata";
-import { toPluginId } from "./lib/plugin-id";
-import { ruleDetailSchema, toFixStatus, type RuleDetail } from "./lib/rule-schema";
+import { parseRuleDoc } from "./lib/parse-rule-doc.mts";
+import { extractThemeChunkPath, parseRuleMetadata } from "./lib/parse-rule-metadata.mts";
+import { toPluginId } from "./lib/plugin-id.mts";
+import { ruleDetailSchema, toFixStatus, type RuleDetail } from "./lib/rule-schema.mts";
 
 const DOCS_ORIGIN = "https://oxc.rs";
 const RULES_PAGE_URL = `${DOCS_ORIGIN}/docs/guide/usage/linter/rules.html`;

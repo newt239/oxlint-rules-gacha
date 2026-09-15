@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { extractThemeChunkPath, parseRuleMetadata } from "./parse-rule-metadata";
+import { extractThemeChunkPath, parseRuleMetadata } from "./parse-rule-metadata.mts";
 
 const RULE_OBJECT = [
   '{"scope":"eslint","value":"no-debugger","category":"correctness","version":"0.0.3",',

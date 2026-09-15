@@ -17,6 +17,7 @@
     "noImplicitOverride": true,
     "noUncheckedSideEffectImports": true,
     "erasableSyntaxOnly": true,
+    "allowImportingTsExtensions": true,
     "noEmit": true,
     "esModuleInterop": true,
     "isolatedModules": true,

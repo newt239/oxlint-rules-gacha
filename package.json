@@ -12,7 +12,7 @@
     "knip": "knip",
     "lint": "oxlint --type-aware --deny-warnings",
     "lint:fix": "oxlint --fix",
-    "rules:build": "tsx scripts/build-rules.ts",
+    "rules:build": "node scripts/build-rules.mts",
     "start": "next start",
     "test": "vitest run",
     "typecheck": "next typegen && tsc --noEmit"
@@ -44,13 +44,12 @@
     "oxlint": "1.80.0",
     "oxlint-tsgolint": "7.0.2001",
     "postcss": "8.5.26",
-    "tsx": "4.23.13",
     "typescript": "7.0.2",
     "vitest": "5.0.0",
     "zod": "4.6.5"
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.18.0"
   },
   "allowScripts": {
     "lefthook@2.1.10": true,

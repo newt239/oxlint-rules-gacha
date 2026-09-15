@@ -1,4 +1,4 @@
-import { rawRuleMetadataSchema, type RawRuleMetadata } from "./rule-schema";
+import { rawRuleMetadataSchema, type RawRuleMetadata } from "./rule-schema.mts";
 
 const THEME_CHUNK_PATTERN = /["'](?<path>\/assets\/chunks\/theme\.[\w-]+\.js)["']/u;
 

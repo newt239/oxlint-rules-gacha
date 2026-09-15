@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { toDocSegment, toPluginId } from "./plugin-id";
+import { toDocSegment, toPluginId } from "./plugin-id.mts";
 
 describe("toPluginId", () => {
   it("アンダースコアのディレクトリ名を oxlint のプラグイン ID に変換する", () => {

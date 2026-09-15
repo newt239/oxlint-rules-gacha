@@ -1,4 +1,4 @@
-import type { CodeExample } from "./rule-schema";
+import type { CodeExample } from "./rule-schema.mts";
 
 const FRONTMATTER_PATTERN = /^---\r?\n[\s\S]*?\r?\n---\r?\n/u;
 const SECOND_LEVEL_HEADING_PATTERN = /^## /mu;
