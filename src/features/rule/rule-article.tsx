@@ -92,7 +92,7 @@ export const RuleArticle = ({ detail }: RuleArticleProps) => (
       <p {...stylex.props(styles.note)}>Source: the oxc project (MIT)</p>
     </article>
     <div {...stylex.props(styles.actions)}>
-      <RuleActions detail={detail} />
+      <RuleActions />
       <Link href="/" {...stylex.props(styles.backLink)}>
         Back to the gacha
       </Link>

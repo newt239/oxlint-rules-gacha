@@ -33,19 +33,15 @@ type RuleBadgesProps = {
 };
 
 const fixLabel = (fix: FixStatus): string => {
-  if (fix === "fix") {
-    return "auto-fix";
+  if (fix === "fix" || fix === "dangerous") {
+    return "Auto-fixable";
   }
 
   if (fix === "suggestion") {
-    return "suggestion";
+    return "Suggestion only";
   }
 
-  if (fix === "dangerous") {
-    return "dangerous fix";
-  }
-
-  return "no fix";
+  return "No autofix";
 };
 
 export const RuleBadges = ({ detail }: RuleBadgesProps) => (
@@ -53,7 +49,6 @@ export const RuleBadges = ({ detail }: RuleBadgesProps) => (
     <li>
       <CategoryBadge category={detail.category} />
     </li>
-    <li {...stylex.props(styles.meta)}>{detail.plugin}</li>
     <li {...stylex.props(styles.meta)}>{fixLabel(detail.fix)}</li>
     <li {...stylex.props(styles.meta)}>{detail.default ? "on by default" : "off by default"}</li>
     {detail.typeAware && <li {...stylex.props(styles.meta)}>needs type information</li>}

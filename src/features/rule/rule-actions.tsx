@@ -6,12 +6,8 @@ import * as stylex from "@stylexjs/stylex";
 import { useRouter } from "next/navigation";
 
 import { ActionButton } from "#/components/action-button";
-import { CopyButton } from "#/components/copy-button";
-import { buildOxlintrc } from "#/lib/oxlintrc";
 import { ruleHref } from "#/lib/rule-href";
 import { drawAndRecord, useCollection, useFilter } from "#/lib/use-draw";
-
-import type { RuleDetail } from "#/lib/rules";
 
 const styles = stylex.create({
   group: {
@@ -21,11 +17,7 @@ const styles = stylex.create({
   },
 });
 
-type RuleActionsProps = {
-  detail: RuleDetail;
-};
-
-export const RuleActions = ({ detail }: RuleActionsProps) => {
+export const RuleActions = () => {
   const router = useRouter();
   const collection = useCollection();
   const filter = useFilter();
@@ -54,7 +46,6 @@ export const RuleActions = ({ detail }: RuleActionsProps) => {
       <ActionButton busy={drawing} onClick={handleDraw} variant="primary">
         Draw again
       </ActionButton>
-      <CopyButton copiedLabel="Copied" label="Copy config" text={buildOxlintrc([detail])} />
     </div>
   );
 };
