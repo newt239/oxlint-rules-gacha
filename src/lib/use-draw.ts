@@ -34,7 +34,7 @@ export const drawAndRecord = async (
   filter: Filter,
 ): Promise<RuleHref | null> => {
   const index = await loadRuleIndex();
-  const picked = draw(applyFilter(index, filter), new Set(collection), Math.random);
+  const picked = draw(applyFilter(index.rules, filter), new Set(collection), Math.random);
 
   if (picked === null) {
     return null;

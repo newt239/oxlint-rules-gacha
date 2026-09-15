@@ -1,8 +1,8 @@
-import { fetchRuleIndex, type RuleIndexEntry } from "./rules";
+import { fetchRuleIndex, type RuleIndex } from "./rules";
 
-let cached: Promise<RuleIndexEntry[]> | null = null;
+let cached: Promise<RuleIndex> | null = null;
 
-export const loadRuleIndex = async (): Promise<RuleIndexEntry[]> => {
+export const loadRuleIndex = async (): Promise<RuleIndex> => {
   cached ??= fetchRuleIndex();
   const index = await cached;
 

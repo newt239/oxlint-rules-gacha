@@ -69,7 +69,7 @@ export const FilterPanel = ({ dictionary }: FilterPanelProps) => {
 
     loadRuleIndex()
       .then((index) => {
-        setPlugins([...new Set(index.map((rule) => rule.plugin))].toSorted());
+        setPlugins([...new Set(index.rules.map((rule) => rule.plugin))].toSorted());
       })
       .catch((error: unknown) => {
         console.error(error);

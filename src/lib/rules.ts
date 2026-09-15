@@ -43,6 +43,11 @@ export type RuleIndexEntry = {
   plugin: string;
 };
 
+export type RuleIndex = {
+  rules: RuleIndexEntry[];
+  rulesetVersion: string;
+};
+
 const RULE_INDEX_URL = "/data/rules.index.json";
 
 export const toCategory = (value: unknown): Category | undefined =>
@@ -70,7 +75,7 @@ const toRuleIndexEntry = (row: unknown): RuleIndexEntry | null => {
   return { category, enabledByDefault: rawDefault === 1, fix, id, name, plugin };
 };
 
-export const fetchRuleIndex = async (): Promise<RuleIndexEntry[]> => {
+export const fetchRuleIndex = async (): Promise<RuleIndex> => {
   const response = await fetch(RULE_INDEX_URL);
 
   if (!response.ok) {
@@ -78,23 +83,24 @@ export const fetchRuleIndex = async (): Promise<RuleIndexEntry[]> => {
   }
 
   const payload: unknown = await response.json();
-  const rows =
-    typeof payload === "object" && payload !== null && "rules" in payload ? payload.rules : null;
+  const isObject = typeof payload === "object" && payload !== null;
+  const rows = isObject && "rules" in payload ? payload.rules : null;
+  const rawVersion = isObject && "rulesetVersion" in payload ? payload.rulesetVersion : null;
 
   if (!Array.isArray(rows)) {
     throw new TypeError("ルールインデックスの形式が不正です。");
   }
 
   const list: unknown[] = rows;
-  const entries: RuleIndexEntry[] = [];
+  const rules: RuleIndexEntry[] = [];
 
   for (const row of list) {
     const entry = toRuleIndexEntry(row);
 
     if (entry !== null) {
-      entries.push(entry);
+      rules.push(entry);
     }
   }
 
-  return entries;
+  return { rules, rulesetVersion: typeof rawVersion === "string" ? rawVersion : "" };
 };
