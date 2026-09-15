@@ -12,6 +12,7 @@ export const color = stylex.defineVars({
   catSuspicious: "#FFC53D",
   ink: "#FFF6E8",
   inkDim: "#A8A2C4",
+  scrim: "#14131FCC",
 });
 
 export const font = stylex.defineVars({

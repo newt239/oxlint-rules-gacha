@@ -5,6 +5,7 @@ import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
+import { obtainedIds } from "#/lib/collection";
 import {
   COLLECTION_SORTS,
   type CollectionSort,
@@ -16,6 +17,7 @@ import { useCollection } from "#/lib/use-draw";
 import { useRuleIndex } from "#/lib/use-rule-index";
 import { color, font, layout } from "#/styles/tokens.stylex";
 
+import { CollectionClear } from "./collection-clear";
 import { CollectionExport } from "./collection-export";
 import { ProgressSummary } from "./progress-summary";
 import { RuleGrid } from "./rule-grid";
@@ -116,6 +118,7 @@ export const CollectionView = () => {
   const progress = collectionProgress(index.rules, collection);
   const sections = collectionSections(index.rules, collection, sort);
   const owned = index.rules.filter((rule) => Object.hasOwn(collection.obtained, rule.id));
+  const obtainedCount = obtainedIds(collection).length;
 
   return (
     <main {...stylex.props(styles.main)}>
@@ -159,6 +162,7 @@ export const CollectionView = () => {
         </section>
       )}
       <CollectionExport rules={owned} />
+      {obtainedCount > 0 && <CollectionClear count={obtainedCount} />}
       <Link href="/" {...stylex.props(styles.backLink)}>
         Back to the gacha
       </Link>
