@@ -6,6 +6,7 @@ export const color = stylex.defineVars({
   catCorrectness: "#FF4D5E",
   catNursery: "#7A8CA8",
   catPedantic: "#9B6DFF",
+  catPerf: "#4ADE80",
   catRestriction: "#F5C14E",
   catStyle: "#35D0D6",
   catSuspicious: "#FFC53D",
@@ -21,4 +22,5 @@ export const font = stylex.defineVars({
 export const layout = stylex.defineVars({
   gutter: "16px",
   maxWidth: "640px",
+  radius: "14px",
 });

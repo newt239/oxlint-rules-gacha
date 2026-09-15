@@ -38,6 +38,8 @@ const styles = stylex.create({
     backgroundColor: color.cabinet,
     color: color.ink,
     fontFamily: font.display,
+    fontSize: "1rem",
+    lineHeight: 1.7,
   },
 });
 
