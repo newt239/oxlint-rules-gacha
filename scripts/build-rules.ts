@@ -1,4 +1,4 @@
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 
@@ -16,8 +16,7 @@ const MISSING_INCORRECT_THRESHOLD = 40;
 const OXLINT_DIR = path.join(process.cwd(), "node_modules", "oxlint");
 const INDEX_PATH = path.join(process.cwd(), "public", "data", "rules.index.json");
 const GENERATED_DIR = path.join(process.cwd(), "src", "generated");
-const RULE_IDS_PATH = path.join(GENERATED_DIR, "rule-ids.json");
-const RULES_DIR = path.join(GENERATED_DIR, "rules");
+const RULES_PATH = path.join(GENERATED_DIR, "rules.json");
 
 const fetchText = async (url: string): Promise<string> => {
   const response = await fetch(url);
@@ -178,21 +177,8 @@ const main = async () => {
     );
   }
 
-  await rm(RULES_DIR, { force: true, recursive: true });
   await mkdir(path.dirname(INDEX_PATH), { recursive: true });
   await mkdir(GENERATED_DIR, { recursive: true });
-
-  await Promise.all(
-    [...new Set(details.map((rule) => rule.plugin))].map(async (plugin) => {
-      await mkdir(path.join(RULES_DIR, plugin), { recursive: true });
-    }),
-  );
-  await mapWithConcurrency(details, 32, async (rule) => {
-    await writeFile(
-      path.join(RULES_DIR, rule.plugin, `${rule.name}.json`),
-      `${JSON.stringify(rule)}\n`,
-    );
-  });
 
   await writeFile(
     INDEX_PATH,
@@ -201,9 +187,10 @@ const main = async () => {
       rulesetVersion,
     })}\n`,
   );
-  await writeFile(RULE_IDS_PATH, `${JSON.stringify(details.map((rule) => rule.id))}\n`);
+  const catalog = Object.fromEntries(details.map((rule) => [rule.id, rule]));
+  await writeFile(RULES_PATH, `${JSON.stringify(catalog)}\n`);
 
-  console.log(`${details.length} 件のルールを ${INDEX_PATH} と ${RULES_DIR} に書き出しました`);
+  console.log(`${details.length} 件のルールを ${INDEX_PATH} と ${RULES_PATH} に書き出しました`);
 };
 
 main().catch((error: unknown) => {
