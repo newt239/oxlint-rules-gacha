@@ -77,7 +77,7 @@ const sectionTitle = (section: CollectionSection): React.ReactNode => {
   }
 
   if (section.kind === "category") {
-    return <CategoryBadge category={section.category} />;
+    return <CategoryBadge category={section.category} size="sm" />;
   }
 
   return "Recently collected";
@@ -93,7 +93,7 @@ export const RuleGrid = ({ sections }: RuleGridProps) => (
             <li key={entry.id} {...stylex.props(styles.item)}>
               <Link href={ruleHref(entry.plugin, entry.name)} {...stylex.props(styles.link)}>
                 {entry.name}
-                <CategoryBadge category={entry.category} />
+                <CategoryBadge category={entry.category} size="sm" />
                 {entry.count > 1 && (
                   <span {...stylex.props(styles.count)}>drawn {entry.count} times</span>
                 )}

@@ -22,9 +22,9 @@ const styles = stylex.create({
     borderWidth: "1px",
     color: color.inkDim,
     fontFamily: font.mono,
-    fontSize: text.sm,
-    lineHeight: 1.8,
-    paddingInline: "0.7em",
+    fontSize: text.md,
+    lineHeight: 1.6,
+    paddingInline: "0.75em",
   },
 });
 

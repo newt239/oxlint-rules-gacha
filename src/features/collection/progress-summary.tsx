@@ -93,7 +93,7 @@ export const ProgressSummary = ({ progress }: ProgressSummaryProps) => (
 
         return (
           <li key={item.key} {...stylex.props(styles.chip)}>
-            {category === undefined ? item.key : <CategoryBadge category={category} />}
+            {category === undefined ? item.key : <CategoryBadge category={category} size="sm" />}
             <span {...stylex.props(styles.count)}>
               {item.obtained}/{item.total}
             </span>
