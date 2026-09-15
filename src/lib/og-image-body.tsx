@@ -1,61 +1,61 @@
-import { SITE_NAME } from "#/lib/site";
+import { CABINET, CATEGORY_COLORS, ON_TINT } from "#/lib/og-colors";
+import { SITE_URL } from "#/lib/site";
 
 import type { Category } from "#/lib/rules";
 
-const CABINET = "#14131F";
-const CABINET_2 = "#201E33";
-const INK = "#FFF6E8";
-const INK_DIM = "#A8A2C4";
+const SHORT_NAME_LENGTH = 18;
 
-const CATEGORY_COLORS: Record<Category, string> = {
-  correctness: "#FF4D5E",
-  nursery: "#7A8CA8",
-  pedantic: "#9B6DFF",
-  perf: "#4ADE80",
-  restriction: "#F5C14E",
-  style: "#35D0D6",
-  suspicious: "#FFC53D",
+const CTA = "Tap to add this rule to your collection.";
+
+type OgRuleBodyProps = {
+  category: Category;
+  name: string;
+  plugin: string;
 };
 
-type OgImageBodyProps = {
-  category?: Category;
-  title: string;
-};
-
-export const OgImageBody = ({ category, title }: OgImageBodyProps) => (
+export const OgRuleBody = ({ category, name, plugin }: OgRuleBodyProps) => (
   <div
     style={{
-      backgroundColor: CABINET,
-      backgroundImage: `radial-gradient(circle at 85% 12%, ${CABINET_2} 0%, ${CABINET} 60%)`,
-      color: INK,
+      backgroundColor: CATEGORY_COLORS[category],
+      color: CABINET,
       display: "flex",
       flexDirection: "column",
       fontFamily: "Baloo 2",
       height: "100%",
       justifyContent: "center",
-      padding: 88,
+      padding: "60px 70px",
+      position: "relative",
       width: "100%",
     }}
   >
-    <div style={{ color: INK_DIM, fontSize: 30, fontWeight: 400, letterSpacing: 4 }}>
-      {SITE_NAME.toUpperCase()}
-    </div>
-    <div style={{ fontSize: 72, fontWeight: 700, lineHeight: 1.2, marginTop: 28 }}>{title}</div>
-    {category !== undefined && (
-      <div style={{ display: "flex", marginTop: 36 }}>
-        <div
-          style={{
-            backgroundColor: CATEGORY_COLORS[category],
-            borderRadius: 999,
-            color: CABINET,
-            fontSize: 32,
-            fontWeight: 700,
-            padding: "8px 28px",
-          }}
-        >
-          {category}
-        </div>
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{ color: ON_TINT, fontSize: 32, fontWeight: 700, letterSpacing: 2 }}>
+        {plugin}
       </div>
-    )}
+      <div
+        style={{
+          fontSize: name.length <= SHORT_NAME_LENGTH ? 104 : 72,
+          fontWeight: 700,
+          letterSpacing: -2,
+          lineHeight: 1,
+          marginTop: 16,
+        }}
+      >
+        {name}
+      </div>
+      <div style={{ color: ON_TINT, fontSize: 34, marginTop: 22 }}>{CTA}</div>
+    </div>
+    <div
+      style={{
+        bottom: 60,
+        color: ON_TINT,
+        fontSize: 28,
+        left: 70,
+        letterSpacing: 1,
+        position: "absolute",
+      }}
+    >
+      {SITE_URL.host}
+    </div>
   </div>
 );
