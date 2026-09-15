@@ -87,6 +87,6 @@ export const RuleArticle = ({ detail, shareUrl }: RuleArticleProps) => (
         Read the original docs on oxc.rs
       </a>
     </article>
-    <RuleActions ruleId={detail.id} shareUrl={shareUrl} />
+    <RuleActions category={detail.category} ruleId={detail.id} shareUrl={shareUrl} />
   </main>
 );
