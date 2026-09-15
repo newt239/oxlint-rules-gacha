@@ -50,7 +50,7 @@
     "new-cap": [
       "warn",
       {
-        "capIsNewExceptions": ["Baloo_2", "Geist_Mono"]
+        "capIsNewExceptions": ["Baloo_2", "Geist_Mono", "Zen_Maru_Gothic"]
       }
     ],
     "no-magic-numbers": "off",
