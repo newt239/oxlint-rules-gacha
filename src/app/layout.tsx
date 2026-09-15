@@ -24,6 +24,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   metadataBase: SITE_URL,
+  openGraph: {
+    locale: "en_US",
+    siteName: SITE_NAME,
+    type: "website",
+  },
   robots: { follow: true, index: true },
   title: { default: SITE_NAME, template: `%s | ${SITE_NAME}` },
 };

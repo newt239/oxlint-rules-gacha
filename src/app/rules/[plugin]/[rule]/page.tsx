@@ -33,6 +33,7 @@ export const generateMetadata = async ({ params }: RulePageProps): Promise<Metad
     description: detail.summary,
     openGraph: {
       description: detail.summary,
+      locale: "en_US",
       siteName: SITE_NAME,
       title: detail.id,
       type: "article",
