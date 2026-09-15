@@ -30,37 +30,42 @@ OGP 画像は `generateStaticParams` を書いても `dynamic = "force-static"` 
 - URL のプラグイン名は oxlint のルール ID 側（`jsx-a11y`）に揃えてある
 - `opengraph-image.tsx` でルール名とカテゴリバッジを描画する
 
-## 残りのタスク
+## 済んだこと（フェーズ 6 の残タスク）
 
 ### i18n
 
-- [ ] 言語スイッチャーをヘッダに置き、`hreflang` 付きのリンクにする
-- [ ] 選択を localStorage に保存して初期表示に反映する
-- [ ] **言語の自動判定は行わない**。既定は英語
-- [ ] `generateMetadata` に `alternates.languages` を足す
+- [x] 言語スイッチャーをヘッダに置き、`hreflang` 付きのリンクにする — `src/components/site-header.tsx`。**Server Component の素の `<a hreflang>`** にしたので、ルール詳細ページにクライアント JS が増えない。現在の言語には `aria-current="true"` を付ける
+- [x] 選択を localStorage に保存して初期表示に反映する — 下記「言語の記憶」を参照
+- [x] **言語の自動判定は行わない**。既定は英語
+- [x] `generateMetadata` に `alternates.languages` を足す — `src/lib/alternates.ts`。`canonical` も出す
+
+#### 言語の記憶
+
+「保存値と現在の言語が違えば飛ばす」を全ページでやると、スイッチャーで切り替えた直後に元の言語へ引き戻されて操作が成立しません。そこで**復元は `/` でだけ行います**。
+
+- `next.config.ts` の `/` → `/en` リダイレクトを外し、`src/app/(root)/` を**もう 1 つのルートレイアウト**（Next.js 16 のルートグループごとの複数ルートレイアウト）として追加した
+- `/` は記憶した言語へ `router.replace` する。JS が無い環境では両言語へのリンクを見せる
+- 保存はトップページのクライアント島が行う。`/en` または `/ja` のトップを開いた時点でその言語を記憶する
+- `/` も静的生成される（`npm run build` の出力で確認済み）
 
 ### 日本語フォント
 
-フェーズ 0 では Baloo 2 + Geist Mono のみ接続しています。Zen Maru Gothic は next/font のメタデータ上 `japanese` サブセットを持たないため、`subsets: ["latin"]` では日本語グリフが配信されない可能性があります。
+- [x] Zen Maru Gothic を接続し、**実際に日本語が表示されるか確認する** → **表示される**
+- [x] `new-cap` の `capIsNewExceptions` に `Zen_Maru_Gothic` を追加
+- [x] `[lang]/layout.tsx` で言語に応じて body のフォント変数を切り替える — `lang === "ja"` のときだけ `font.displayJa` に差し替える
 
-- [ ] Zen Maru Gothic を接続し、**実際に日本語が表示されるか確認する**
-- [ ] 配信されない場合の代替案
-  - 別の日本語フォントを使う
-  - `next/font/local` でサブセット化した woff2 を同梱する
-  - 日本語 UI はシステムフォントに任せる
-- [ ] `new-cap` の `capIsNewExceptions` にフォント関数名を追加する（`.oxlintrc.json`）
-- [ ] `[lang]/layout.tsx` で言語に応じて body のフォント変数を切り替える
+`next/font` は Google Fonts の CSS を `subset` パラメータなしで取得し、CSS に含まれる全 woff2 をダウンロードして自己ホストします。`subsets` オプションは preload 対象の選択にしか使われないため、メタデータ上 `japanese` サブセットが無くても日本語グリフは配信されます。ビルド後の CSS で Zen Maru Gothic の `@font-face` 245 件を解析し、ひらがな・カタカナ・常用漢字が `unicode-range` に含まれることを実測しました。代償は自己ホストする woff2 が 244 ファイル・約 3.2MB 増えることと、日本語グリフが preload されないこと（`display: swap` で吸収）です。
 
 ### ルール詳細ページの残り
 
-- [ ] 「出典: oxc プロジェクト（MIT）」と原典へのリンクを明記する
-- [ ] 悪い例 / 良い例を 1 つずつではなく全件出すか決める（現在は先頭 1 つのみ）
+- [x] 「出典: oxc プロジェクト（MIT）」と原典へのリンクを明記する — `src/features/rule/rule-article.tsx` の `sourceCredit`、および About ページ
+- [x] 悪い例 / 良い例を全件出すか決める → **先頭 1 つのままにする**。`src/generated/rules.json` はビルド時にサーバー側で読むためクライアント JS には響かないが、全件出すと HTML が肥大して LCP に効く。全件は原典リンクに委ねる
 
 ### About ページ
 
-- [ ] サイト説明・データ出典
-- [ ] MIT ライセンス表記
-- [ ] **本サイトが非公式である旨**
+- [x] サイト説明・データ出典 — `src/app/[lang]/about/page.tsx` + `src/features/about/about-article.tsx`
+- [x] MIT ライセンス表記
+- [x] **本サイトが非公式である旨**
 
 ## 注意点
 

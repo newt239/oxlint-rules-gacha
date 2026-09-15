@@ -42,13 +42,30 @@ npm approve-scripts <pkg>
 
 ## デプロイ
 
-ホスティング先でビルドします。フレームワークは Next.js、ビルドコマンドは次の順で実行します。
+[ロリポップ！デプロイナウ](https://deploy.lolipop.jp/docs) にデプロイします。フレームワークは Next.js、ビルドコマンドは `npm run build:deploy` です。
 
 ```bash
-npm run rules:build && npm run test && npm run build
+npm run build:deploy   # rules:build → test → build
 ```
 
-出力は `.next/standalone` です。ルールデータの取得はビルド時に行うため、生成物はコミットしません。取得に失敗した場合はビルドを失敗させ、古いデータが公開され続けないようにしています。
+出力ディレクトリはデプロイナウの既定値 `.next/standalone` のままでよく、`--output` の指定は要りません。ルールデータの取得はビルド時に行うため生成物はコミットせず、取得に失敗した場合はビルドを失敗させて古いデータが公開され続けないようにしています。
+
+### 初回の設定
+
+```bash
+npm i -g lolipop
+lolipop login
+lolipop build-config update --build "npm run build:deploy"
+lolipop env create NEXT_PUBLIC_SITE_URL https://<発行されたドメイン>
+```
+
+- `.env` は読まれません。環境変数はダッシュボードか `lolipop env` で設定します
+- `NEXT_PUBLIC_SITE_URL` が未設定だと `metadataBase` が `http://localhost:3000` になり、OGP と `canonical` の絶対 URL が壊れます
+- GitHub 連携の「デプロイするブランチ」を `main` にします。`main` への push で自動デプロイされます
+
+### 週次のルール更新
+
+デプロイナウに Deploy Hook は無いため、`.github/workflows/refresh-rules.yml` が毎週月曜 08:00 JST に `main` へ空コミットを push し、GitHub 連携の自動デプロイを起こします。
 
 <!-- setup-repo:start -->
 
