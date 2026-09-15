@@ -1,6 +1,18 @@
 import type { Dictionary } from "./en";
 
 export const ja: Dictionary = {
+  about: "このサイトについて",
+  aboutDataSource:
+    "ルール名・カテゴリ・説明は oxc.rs の oxc ドキュメントから取得し、毎週作り直しています。",
+  aboutDataSourceHeading: "データの出典",
+  aboutIntro:
+    "oxlint のルール集をガチャにしたサイトです。1 回 1 件ずつ引いて、何をするルールかを読み、集めたルールを .oxlintrc.json として持ち帰れます。",
+  aboutLicense:
+    "ルールの文面は oxc プロジェクトのもので、MIT ライセンスで提供されています。本サイトも MIT ライセンスです。",
+  aboutLicenseHeading: "ライセンス",
+  aboutUnofficial:
+    "本サイトは非公式のファンサイトです。oxc プロジェクトとは関係がなく、公認も運営もされていません。",
+  aboutUnofficialHeading: "非公式",
   backToGacha: "ガチャに戻る",
   categoryLabel: "カテゴリ",
   collection: "コレクション",
@@ -41,6 +53,7 @@ export const ja: Dictionary = {
   sortByObtained: "入手順",
   sortByPlugin: "プラグイン順",
   sortLabel: "並び替え",
+  sourceCredit: "出典: oxc プロジェクト（MIT）",
   tagline: "oxlint のルールを 1 回 1 件ずつ引く。",
   typeAware: "型情報が必要",
   viewCollection: "コレクションを見る",

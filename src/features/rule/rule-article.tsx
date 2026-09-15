@@ -93,6 +93,7 @@ export const RuleArticle = ({ detail, dictionary, lang }: RuleArticleProps) => (
         {dictionary.originalDocs}
       </a>
       <p {...stylex.props(styles.note)}>{dictionary.ruleTextInEnglish}</p>
+      <p {...stylex.props(styles.note)}>{dictionary.sourceCredit}</p>
     </article>
     <div {...stylex.props(styles.actions)}>
       <RuleActions detail={detail} dictionary={dictionary} lang={lang} />

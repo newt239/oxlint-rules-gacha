@@ -1,4 +1,16 @@
 export const en = {
+  about: "About",
+  aboutDataSource:
+    "Rule names, categories and descriptions are fetched from the oxc documentation at oxc.rs and rebuilt every week.",
+  aboutDataSourceHeading: "Data source",
+  aboutIntro:
+    "A gacha machine for the oxlint rule set. Draw one rule at a time, learn what it does, and take the rules you collected home as an .oxlintrc.json.",
+  aboutLicense:
+    "Rule text belongs to the oxc project and is licensed under MIT. This site is licensed under MIT as well.",
+  aboutLicenseHeading: "License",
+  aboutUnofficial:
+    "This is an unofficial fan site. It is not affiliated with, endorsed by, or maintained by the oxc project.",
+  aboutUnofficialHeading: "Unofficial",
   backToGacha: "Back to the gacha",
   categoryLabel: "Category",
   collection: "Collection",
@@ -39,6 +51,7 @@ export const en = {
   sortByObtained: "Newest first",
   sortByPlugin: "By plugin",
   sortLabel: "Sort",
+  sourceCredit: "Source: the oxc project (MIT)",
   tagline: "Draw one oxlint rule at a time.",
   typeAware: "needs type information",
   viewCollection: "See your collection",

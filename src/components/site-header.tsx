@@ -58,6 +58,9 @@ export const SiteHeader = ({ dictionary, lang, path }: SiteHeaderProps) => (
       <Link href={`/${lang}/collection`} {...stylex.props(styles.link)}>
         {dictionary.collection}
       </Link>
+      <Link href={`/${lang}/about`} {...stylex.props(styles.link)}>
+        {dictionary.about}
+      </Link>
       <nav aria-label={dictionary.languageLabel} {...stylex.props(styles.langs)}>
         {LANGS.map((value) => (
           <a
