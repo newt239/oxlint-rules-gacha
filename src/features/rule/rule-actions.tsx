@@ -8,9 +8,8 @@ import Link from "next/link";
 import { requestAutoDraw } from "#/lib/auto-draw";
 import { hasObtained, obtainedIds, recordDraw } from "#/lib/collection";
 import { loadRuleIndex } from "#/lib/rules";
-import { collectionStore } from "#/lib/stores";
+import { collectionStore, useLoadedCollection } from "#/lib/stores";
 import { trackEvent } from "#/lib/track";
-import { useLoadedCollection } from "#/lib/use-stores";
 import { color, font, text } from "#/styles/tokens.stylex";
 
 import { ActionLink } from "./action-link";

@@ -1,6 +1,8 @@
+import { useSyncExternalStore } from "react";
+
 import { type Collection, EMPTY_COLLECTION, reviveCollection } from "./collection";
 import { DEFAULT_FILTER, type Filter } from "./draw";
-import { createPersistedStore } from "./persisted-store";
+import { createPersistedStore, type PersistedStore } from "./persisted-store";
 import { CATEGORIES } from "./rules";
 
 const toStringArray = (value: unknown): string[] | null => {
@@ -49,3 +51,13 @@ export const skipHintStore = createPersistedStore<boolean>(
   false,
   (value) => (typeof value === "boolean" ? value : null),
 );
+
+export const usePersistedStore = <T>(store: PersistedStore<T>): T =>
+  useSyncExternalStore(store.subscribe, store.getSnapshot, store.getServerSnapshot);
+
+export const useLoadedCollection = (): Collection | null =>
+  useSyncExternalStore<Collection | null>(
+    collectionStore.subscribe,
+    collectionStore.getSnapshot,
+    () => null,
+  );

@@ -5,9 +5,8 @@ import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 
 import { CATEGORIES, type Category, loadRuleIndex } from "#/lib/rules";
-import { filterStore } from "#/lib/stores";
+import { filterStore, usePersistedStore } from "#/lib/stores";
 import { trackEvent } from "#/lib/track";
-import { useFilter } from "#/lib/use-stores";
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 const styles = stylex.create({
@@ -56,7 +55,7 @@ const toggle = (values: string[], value: string): string[] =>
   values.includes(value) ? values.filter((entry) => entry !== value) : [...values, value];
 
 export const FilterPanel = () => {
-  const filter = useFilter();
+  const filter = usePersistedStore(filterStore);
   const [plugins, setPlugins] = useState<string[]>([]);
 
   const handleToggleOpen = () => {

@@ -11,8 +11,7 @@ import { useRouter } from "next/navigation";
 import { ActionButton } from "#/components/action-button";
 import { consumeAutoDraw } from "#/lib/auto-draw";
 import { ruleHref, type RuleIndexEntry } from "#/lib/rules";
-import { skipHintStore } from "#/lib/stores";
-import { useCollection, useFilter, useSkipHintSeen } from "#/lib/use-stores";
+import { collectionStore, filterStore, skipHintStore, usePersistedStore } from "#/lib/stores";
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 import { drawAndRecord, type DrawTrigger } from "./draw-and-record";
@@ -104,9 +103,9 @@ const styles = stylex.create({
 
 export const GachaMachine = () => {
   const router = useRouter();
-  const collection = useCollection();
-  const filter = useFilter();
-  const skipHintSeen = useSkipHintSeen();
+  const collection = usePersistedStore(collectionStore);
+  const filter = usePersistedStore(filterStore);
+  const skipHintSeen = usePersistedStore(skipHintStore);
   const reducedMotion = useReducedMotion() ?? false;
   const [scope, animate] = useAnimate();
   const [drawing, setDrawing] = useState(false);

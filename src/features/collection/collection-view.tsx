@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { hasObtained, obtainedIds } from "#/lib/collection";
 import { COLLECTION_DESCRIPTION } from "#/lib/site";
-import { useCollection } from "#/lib/use-stores";
+import { collectionStore, usePersistedStore } from "#/lib/stores";
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 import { CollectionClear } from "./collection-clear";
@@ -68,7 +68,7 @@ const styles = stylex.create({
 });
 
 export const CollectionView = () => {
-  const collection = useCollection();
+  const collection = usePersistedStore(collectionStore);
   const index = useRuleIndex();
 
   if (index === null) {

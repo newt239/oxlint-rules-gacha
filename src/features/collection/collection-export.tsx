@@ -62,7 +62,7 @@ export const CollectionExport = ({ rules }: CollectionExportProps) => {
       />
       <details>
         <summary {...stylex.props(styles.summary)}>Preview</summary>
-        <CodeBlock example={{ code: config, lang: "json" }} />
+        <CodeBlock code={config} />
       </details>
     </section>
   );

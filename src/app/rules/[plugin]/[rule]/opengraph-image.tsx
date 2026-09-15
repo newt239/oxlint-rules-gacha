@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 import { OG_ALT, OG_CONTENT_TYPE, OG_IMAGE_OPTIONS, OG_SIZE } from "#/features/og/og-image";
 import { OgRuleBody } from "#/features/og/og-rule-body";
 import { OgSiteBody } from "#/features/og/og-site-body";
-import { findRuleDetail, RULE_IDS } from "#/lib/rule-catalog";
+import { findRuleDetail, ruleParams } from "#/lib/rule-catalog";
 
 export const alt = OG_ALT;
 
@@ -11,12 +11,7 @@ export const contentType = OG_CONTENT_TYPE;
 
 export const size = OG_SIZE;
 
-export const generateStaticParams = () =>
-  RULE_IDS.map((id) => {
-    const [plugin = "", rule = ""] = id.split("/");
-
-    return { plugin, rule };
-  });
+export const generateStaticParams = ruleParams;
 
 type OpengraphImageProps = {
   params: Promise<{ plugin: string; rule: string }>;

@@ -8,6 +8,13 @@ const CATALOG: Record<string, RawRuleDetail> = rules;
 
 export const RULE_IDS = Object.keys(CATALOG);
 
+export const ruleParams = (): { plugin: string; rule: string }[] =>
+  RULE_IDS.map((id) => {
+    const [plugin = "", rule = ""] = id.split("/");
+
+    return { plugin, rule };
+  });
+
 export const findRuleDetail = (plugin: string, name: string): RuleDetail | undefined => {
   const id = `${plugin}/${name}`;
 

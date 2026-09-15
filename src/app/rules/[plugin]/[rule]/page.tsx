@@ -4,18 +4,13 @@ import { notFound } from "next/navigation";
 
 import { SiteHeader } from "#/components/site-header";
 import { RuleArticle } from "#/features/rule/rule-article";
-import { findRuleDetail, RULE_IDS } from "#/lib/rule-catalog";
+import { findRuleDetail, ruleParams } from "#/lib/rule-catalog";
 import { ruleHref } from "#/lib/rules";
 import { SITE_NAME, SITE_URL } from "#/lib/site";
 
 export const dynamicParams = false;
 
-export const generateStaticParams = () =>
-  RULE_IDS.map((id) => {
-    const [plugin = "", rule = ""] = id.split("/");
-
-    return { plugin, rule };
-  });
+export const generateStaticParams = ruleParams;
 
 type RulePageProps = {
   params: Promise<{ plugin: string; rule: string }>;
