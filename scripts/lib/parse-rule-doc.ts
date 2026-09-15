@@ -27,6 +27,16 @@ const extractDescription = (content: string): string => {
   return sliceBefore(start === -1 ? content : content.slice(start), SECOND_LEVEL_HEADING_PATTERN);
 };
 
+const INLINE_LINK_PATTERN = /\[(?<text>[^\]]+)\]\([^)]*\)/gu;
+const INLINE_CODE_PATTERN = /`(?<code>[^`]+)`/gu;
+const INLINE_EMPHASIS_PATTERN = /\*{1,2}(?<text>[^*]+)\*{1,2}/gu;
+
+const toPlainText = (markdown: string): string =>
+  markdown
+    .replaceAll(INLINE_LINK_PATTERN, "$<text>")
+    .replaceAll(INLINE_CODE_PATTERN, "$<code>")
+    .replaceAll(INLINE_EMPHASIS_PATTERN, "$<text>");
+
 const extractSummary = (description: string): string => {
   if (!description.startsWith(WHAT_IT_DOES_HEADING)) {
     return "";
@@ -37,7 +47,7 @@ const extractSummary = (description: string): string => {
     .trimStart()
     .split(/\r?\n\r?\n/u);
 
-  return firstParagraph.replaceAll(/\r?\n/gu, " ").trim();
+  return toPlainText(firstParagraph.replaceAll(/\r?\n/gu, " ")).trim();
 };
 
 const extractFences = (segment: string): CodeExample[] =>

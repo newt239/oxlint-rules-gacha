@@ -147,7 +147,7 @@ describe("parseRuleDoc", () => {
   it("要約・悪い例・良い例を取り出す", () => {
     const doc = parseRuleDoc(noDebugger);
 
-    expect(doc.summary).toBe("Checks for usage of the `debugger` statement.");
+    expect(doc.summary).toBe("Checks for usage of the debugger statement.");
     expect(doc.incorrect).toStrictEqual([{ code: "debugger;", lang: "javascript" }]);
     expect(doc.correct).toStrictEqual([{ code: "const x = 1;", lang: "javascript" }]);
   });
@@ -199,5 +199,22 @@ describe("parseRuleDoc", () => {
 
     expect(doc.incorrect).toStrictEqual([{ code: 'it("foo", () => {});', lang: "javascript" }]);
     expect(doc.description).not.toContain("## Configuration");
+  });
+});
+
+describe("parseRuleDoc の要約", () => {
+  it("リンク・コード・強調の記法を落として平文にする", () => {
+    const markdown = [
+      "---",
+      "url: /x.md",
+      "---",
+      "",
+      "### What it does",
+      "",
+      "Disallows confusing uses of [`Array#with()`](https://example.com/with).",
+      "",
+    ].join("\n");
+
+    expect(parseRuleDoc(markdown).summary).toBe("Disallows confusing uses of Array#with().");
   });
 });
