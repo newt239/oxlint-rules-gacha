@@ -66,7 +66,3 @@ curl https://oxlint-gacha.newt239.dev/api/random
   "version": "0.0.3"
 }
 ```
-
-## License
-
-MIT
