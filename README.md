@@ -25,7 +25,7 @@ npm approve-scripts <pkg>
 | コマンド              | 内容                                                                                        |
 | --------------------- | ------------------------------------------------------------------------------------------- |
 | `npm run dev`         | 開発サーバー                                                                                |
-| `npm run build`       | 本番ビルド（`.next/standalone` を出力）                                                     |
+| `npm run build`       | ルールデータを取得してから本番ビルド（`.next/standalone` を出力）                           |
 | `npm run start`       | 本番サーバー                                                                                |
 | `npm run rules:build` | oxc.rs からルールデータを取得して `public/data/` と `src/generated/` に書き出す（約 25 秒） |
 | `npm run test`        | Vitest                                                                                      |
@@ -45,8 +45,10 @@ npm approve-scripts <pkg>
 [ロリポップ！デプロイナウ](https://deploy.lolipop.jp/docs) にデプロイします。フレームワークは Next.js、ビルドコマンドは `npm run build:deploy` です。
 
 ```bash
-npm run build:deploy   # rules:build → test → build
+npm run build:deploy   # test → rules:build → build
 ```
+
+ルールデータの取得は `npm run build` 自体に組み込んであるため、ビルドコマンドが既定の `npm run build` のままでもビルドは通ります（テストは走りません）。
 
 出力ディレクトリはデプロイナウの既定値 `.next/standalone` のままでよく、`--output` の指定は要りません。ルールデータの取得はビルド時に行うため生成物はコミットせず、取得に失敗した場合はビルドを失敗させて古いデータが公開され続けないようにしています。
 

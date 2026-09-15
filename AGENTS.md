@@ -23,7 +23,7 @@
 ## 開発コマンド
 
 - `npm run dev` - 開発サーバーを起動
-- `npm run build` - 本番アプリケーションをビルド（`.next/standalone` を出力）
+- `npm run build` - ルールデータを取得してから本番アプリケーションをビルド（`.next/standalone` を出力）
 - `npm run start` - 本番サーバーを開始
 - `npm run rules:build` - oxc.rs からルールデータを取得して生成物を書き出す
 - `npm run test` - Vitest で単体テストを実行
