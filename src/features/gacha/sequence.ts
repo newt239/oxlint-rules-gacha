@@ -25,7 +25,8 @@ export const SPEED_LINES = "[data-speed-lines]";
 
 const REDUCED_CROSSFADE_SECONDS = 0.15;
 const REDUCED_TIMEOUT_MS = 600;
-const SEQUENCE_TIMEOUT_MS = 5000;
+const REVEAL_HOLD_MS = 2000;
+const SEQUENCE_TIMEOUT_MS = 7000;
 
 type PlaySequenceOptions = {
   animate: Animate;
@@ -166,7 +167,7 @@ const runSequence = async ({
     return entry;
   }
 
-  await Promise.race([wait(750), skipped]);
+  await Promise.race([wait(REVEAL_HOLD_MS), skipped]);
 
   return entry;
 };
