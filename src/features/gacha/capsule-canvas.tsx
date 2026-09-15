@@ -55,6 +55,10 @@ export const CapsuleCanvas = ({ category, open, spinning }: CapsuleCanvasProps) 
     let frame = 0;
 
     if (element !== null) {
+      // 再実行に備え、zdog が書き換えた canvas のサイズを戻す
+      element.width = WIDTH;
+      element.height = HEIGHT;
+
       const shell = cabinetColor();
       const illustration = new Illustration({ element, zoom: ZOOM });
       const capsule = new Anchor({
