@@ -38,6 +38,7 @@ export const generateMetadata = async ({ params }: RulePageProps): Promise<Metad
       title: detail.id,
       type: "article",
     },
+    robots: { follow: true, index: false },
     title: detail.id,
   };
 };
