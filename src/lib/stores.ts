@@ -49,7 +49,7 @@ export const filterStore = createPersistedStore<Filter>(
 export const usePersistedStore = <T>(store: PersistedStore<T>): T =>
   useSyncExternalStore(store.subscribe, store.getSnapshot, store.getServerSnapshot);
 
-export const useLoadedCollection = (): Collection | null =>
+export const useHydratedCollection = (): Collection | null =>
   useSyncExternalStore<Collection | null>(
     collectionStore.subscribe,
     collectionStore.getSnapshot,

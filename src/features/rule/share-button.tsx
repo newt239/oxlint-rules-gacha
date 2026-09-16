@@ -3,8 +3,8 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { actionStyles } from "#/components/action-styles";
+import { trackEvent } from "#/lib/analytics";
 import { SITE_NAME } from "#/lib/site";
-import { trackEvent } from "#/lib/track";
 
 type ShareButtonProps = {
   title: string;

@@ -2,7 +2,8 @@ import { ViewTransition } from "react";
 
 import * as stylex from "@stylexjs/stylex";
 
-import { color, font, layout, text } from "#/styles/tokens.stylex";
+import { pageStyles } from "#/components/page-styles";
+import { color, font, text } from "#/styles/tokens.stylex";
 
 import { DocsLink } from "./docs-link";
 import { HighlightedCode } from "./highlighted-code";
@@ -16,12 +17,6 @@ const styles = stylex.create({
     color: color.inkDim,
     fontSize: text.lg,
     marginBlock: "0 0.5rem",
-  },
-  main: {
-    marginInline: "auto",
-    maxWidth: layout.maxWidth,
-    paddingBlock: "2.5rem 4rem",
-    paddingInline: layout.gutter,
   },
   section: {
     marginBlockStart: "2rem",
@@ -59,7 +54,7 @@ type RuleArticleProps = {
 };
 
 export const RuleArticle = ({ detail, shareUrl }: RuleArticleProps) => (
-  <main {...stylex.props(styles.main)}>
+  <main {...stylex.props(pageStyles.main, pageStyles.article)}>
     <article>
       <ViewTransition name="rule-title" share="morph" default="none">
         <h1 {...stylex.props(styles.title, titleTint[detail.category])}>{detail.id}</h1>

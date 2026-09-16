@@ -1,5 +1,7 @@
+import { color } from "#/styles/tokens.stylex";
+
 import { burstConfetti } from "./confetti";
-import { categoryColor, inkColor } from "./palette";
+import { categoryColor, resolveColor } from "./palette";
 
 import type { RuleIndexEntry } from "#/lib/rules";
 
@@ -12,7 +14,7 @@ type Controls = {
   then: (onResolve: VoidFunction) => Promise<void>;
 };
 
-export type Phase = "idle" | "lever" | "drop" | "rattle" | "open" | "reveal";
+export type Phase = "idle" | "rattle" | "open" | "reveal";
 
 const CABINET = "[data-cabinet]";
 const FLASH = "[data-flash]";
@@ -69,13 +71,10 @@ const runSequence = async ({
   skipped,
 }: PlaySequenceOptions): Promise<RuleIndexEntry | null> => {
   if (reducedMotion) {
-    setPhase("drop");
     await animate(CAPSULE, { opacity: [0, 1] }, { duration: REDUCED_CROSSFADE_SECONDS });
 
     return picked;
   }
-
-  setPhase("lever");
 
   if (
     await race(
@@ -89,7 +88,6 @@ const runSequence = async ({
     return picked;
   }
 
-  setPhase("drop");
   animate(SPEED_LINES, { opacity: [0, 0.28], scale: [0.65, 1] }, { duration: 0.2 });
 
   if (
@@ -133,11 +131,13 @@ const runSequence = async ({
   setPicked(entry);
   setPhase("open");
 
-  burstConfetti([categoryColor(entry.category), inkColor(), categoryColor("perf")]).catch(
-    (error: unknown) => {
-      console.error(error);
-    },
-  );
+  burstConfetti([
+    categoryColor(entry.category),
+    resolveColor(color.ink),
+    categoryColor("perf"),
+  ]).catch((error: unknown) => {
+    console.error(error);
+  });
 
   if (
     await race(

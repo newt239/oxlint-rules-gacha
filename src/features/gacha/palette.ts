@@ -14,7 +14,7 @@ const CATEGORY_TOKENS: Record<Category, string> = {
 
 const CUSTOM_PROPERTY = /^var\((?<name>--[\w-]+)\)$/u;
 
-const resolve = (token: string): string => {
+export const resolveColor = (token: string): string => {
   const name = CUSTOM_PROPERTY.exec(token)?.groups?.name;
 
   if (name === undefined) {
@@ -26,8 +26,5 @@ const resolve = (token: string): string => {
   return value === "" ? token : value;
 };
 
-export const categoryColor = (category: Category): string => resolve(CATEGORY_TOKENS[category]);
-
-export const inkColor = (): string => resolve(color.ink);
-
-export const cabinetColor = (): string => resolve(color.cabinet2);
+export const categoryColor = (category: Category): string =>
+  resolveColor(CATEGORY_TOKENS[category]);

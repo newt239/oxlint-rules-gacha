@@ -27,19 +27,6 @@ const toObtainedEntry = (value: unknown): ObtainedEntry | null => {
 };
 
 export const reviveCollection = (value: unknown): Collection | null => {
-  if (Array.isArray(value)) {
-    const ids: unknown[] = value;
-    const restored: Record<string, ObtainedEntry> = {};
-
-    for (const id of ids) {
-      if (typeof id === "string") {
-        restored[id] = { count: 1, firstAt: 0 };
-      }
-    }
-
-    return { obtained: restored, rulesetVersion: "", version: 1 };
-  }
-
   if (typeof value !== "object" || value === null) {
     return null;
   }

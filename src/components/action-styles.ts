@@ -24,9 +24,6 @@ export const actionStyles = stylex.create({
     fontWeight: 700,
     padding: "0.75rem 1.5rem",
   },
-  busy: {
-    cursor: "progress",
-  },
   danger: {
     backgroundColor: { ":disabled": color.cabinet2, default: "transparent" },
     borderColor: { ":disabled": color.inkDim, default: color.danger },

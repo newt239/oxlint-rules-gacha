@@ -3,7 +3,7 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { linkStyles } from "#/components/link-styles";
-import { trackEvent } from "#/lib/track";
+import { trackEvent } from "#/lib/analytics";
 import { color, text } from "#/styles/tokens.stylex";
 
 const styles = stylex.create({

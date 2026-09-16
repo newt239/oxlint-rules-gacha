@@ -1,6 +1,7 @@
+import { CATEGORIES } from "#/lib/rules";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "#/lib/site";
 
-import { CABINET, CATEGORY_COLORS, CATEGORY_SPECTRUM, INK, INK_DIM } from "./og-image";
+import { CABINET, CATEGORY_COLORS, INK, INK_DIM } from "./og-image";
 
 export const OgSiteBody = () => (
   <div
@@ -15,7 +16,7 @@ export const OgSiteBody = () => (
     }}
   >
     <div style={{ display: "flex", height: 8, width: "100%" }}>
-      {CATEGORY_SPECTRUM.map((category) => (
+      {CATEGORIES.map((category) => (
         <div
           key={category}
           style={{ backgroundColor: CATEGORY_COLORS[category], flexGrow: 1, height: "100%" }}

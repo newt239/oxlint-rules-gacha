@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { offScaleRems } from "./rem-scale.mjs";
+import { offScaleRems } from "./rem-scale.mts";
 
 describe("offScaleRems", () => {
   it("0.25 刻みの値は返さない", () => {

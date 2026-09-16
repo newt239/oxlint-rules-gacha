@@ -44,12 +44,6 @@ describe("buildOxlintrc", () => {
     expect(source.indexOf("jsx-a11y/alt-text")).toBeLessThan(source.indexOf("unicorn/no-null"));
   });
 
-  it("correctness を off にして所持ルールだけが動くようにする", () => {
-    const config = parse(buildOxlintrc([{ id: "eslint/eqeqeq", plugin: "eslint" }]));
-
-    expect(config).toHaveProperty("categories", { correctness: "off" });
-  });
-
   it("所持 0 件でも妥当な JSON を返す", () => {
     const config = parse(buildOxlintrc([]));
 

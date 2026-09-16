@@ -5,7 +5,9 @@ import { useEffect, useRef } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { Anchor, Ellipse, Hemisphere, Illustration } from "zdog";
 
-import { cabinetColor, categoryColor, inkColor } from "./palette";
+import { color } from "#/styles/tokens.stylex";
+
+import { categoryColor, resolveColor } from "./palette";
 
 import type { Category } from "#/lib/rules";
 
@@ -59,7 +61,7 @@ export const CapsuleCanvas = ({ category, open, spinning }: CapsuleCanvasProps) 
       element.width = WIDTH;
       element.height = HEIGHT;
 
-      const shell = cabinetColor();
+      const shell = resolveColor(color.cabinet2);
       const illustration = new Illustration({ element, zoom: ZOOM });
       const capsule = new Anchor({
         addTo: illustration,
@@ -77,7 +79,7 @@ export const CapsuleCanvas = ({ category, open, spinning }: CapsuleCanvasProps) 
       });
       const bowl = new Hemisphere({
         addTo: bottom,
-        color: inkColor(),
+        color: resolveColor(color.ink),
         diameter: RADIUS * 2,
         rotate: { x: -Math.PI / 2 },
         stroke: 4,

@@ -37,6 +37,7 @@ export const INK_DIM = "#A8A2C4";
 
 export const ON_TINT = "rgba(20, 19, 31, 0.7)";
 
+// OG 画像を描く satori は CSS 変数を解決できないため、tokens.stylex.ts と同じ値を直接持つ
 export const CATEGORY_COLORS: Record<Category, string> = {
   correctness: "#FF4D5E",
   nursery: "#7A8CA8",
@@ -46,13 +47,3 @@ export const CATEGORY_COLORS: Record<Category, string> = {
   style: "#35D0D6",
   suspicious: "#FFC53D",
 };
-
-export const CATEGORY_SPECTRUM: Category[] = [
-  "correctness",
-  "suspicious",
-  "restriction",
-  "perf",
-  "style",
-  "pedantic",
-  "nursery",
-];

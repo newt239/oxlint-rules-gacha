@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 
 import { ActionButton } from "#/components/action-button";
+import { pageStyles } from "#/components/page-styles";
 import { consumeAutoDraw } from "#/lib/auto-draw";
 import { ruleHref, type RuleIndexEntry } from "#/lib/rules";
 import { collectionStore, filterStore, usePersistedStore } from "#/lib/stores";
@@ -68,10 +69,7 @@ const styles = stylex.create({
     visibility: "hidden",
   },
   main: {
-    marginInline: "auto",
-    maxWidth: layout.maxWidth,
     paddingBlock: "3rem 2rem",
-    paddingInline: layout.gutter,
   },
   srOnly: {
     borderWidth: 0,
@@ -144,45 +142,47 @@ export const GachaMachine = () => {
 
     const pick = drawAndRecord(collection, filter, trigger);
 
-    const run = async (): Promise<RuleIndexEntry | null> => {
-      const entry = await pick;
-
-      if (entry !== null) {
-        router.prefetch(ruleHref(entry.plugin, entry.name));
-      }
-
-      return playSequence({
-        animate,
-        picked: pick,
-        reducedMotion,
-        setPhase,
-        setPicked,
-        skipped: skip.promise,
-      });
+    const reset = () => {
+      skipRef.current = null;
+      animate([
+        [CAPSULE, { opacity: 1, scale: 1, y: 0 }, { duration: 0.25 }],
+        [SPEED_LINES, { opacity: 0 }, { at: 0, duration: 0.25 }],
+      ]);
+      setDrawing(false);
+      setPhase("idle");
     };
 
-    run()
+    pick
       .then((entry) => {
-        skipRef.current = null;
+        if (entry !== null) {
+          router.prefetch(ruleHref(entry.plugin, entry.name));
+        }
+      })
+      .catch((error: unknown) => {
+        console.error(error);
+      });
 
+    playSequence({
+      animate,
+      picked: pick,
+      reducedMotion,
+      setPhase,
+      setPicked,
+      skipped: skip.promise,
+    })
+      .then((entry) => {
         if (entry === null) {
-          animate([
-            [CAPSULE, { opacity: 1, scale: 1, y: 0 }, { duration: 0.25 }],
-            [SPEED_LINES, { opacity: 0 }, { at: 0, duration: 0.25 }],
-          ]);
-          setDrawing(false);
-          setPhase("idle");
+          reset();
 
           return;
         }
 
+        skipRef.current = null;
         setAnnounced(entry.id);
         router.push(ruleHref(entry.plugin, entry.name));
       })
       .catch((error: unknown) => {
-        skipRef.current = null;
-        setDrawing(false);
-        setPhase("idle");
+        reset();
         console.error(error);
       });
   };
@@ -205,7 +205,7 @@ export const GachaMachine = () => {
   }, []);
 
   return (
-    <main {...stylex.props(styles.main)}>
+    <main {...stylex.props(pageStyles.main, styles.main)}>
       <h1 {...stylex.props(styles.tagline)}>Draw one oxlint rule at a time.</h1>
       <div ref={scope}>
         <div data-cabinet {...stylex.props(styles.cabinet)}>

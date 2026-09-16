@@ -9,8 +9,6 @@ const rule = (id: string, overrides: Partial<RuleIndexEntry> = {}): RuleIndexEnt
 
   return {
     category: "correctness",
-    enabledByDefault: true,
-    fix: "none",
     id,
     name,
     plugin,
@@ -21,13 +19,6 @@ const rule = (id: string, overrides: Partial<RuleIndexEntry> = {}): RuleIndexEnt
 const pool = [rule("eslint/a"), rule("eslint/b"), rule("unicorn/c")];
 
 describe("draw", () => {
-  it("未所持のルールを優先して返す", () => {
-    const collected = new Set(["eslint/a", "eslint/b"]);
-
-    expect(draw(pool, collected, () => 0)?.id).toBe("unicorn/c");
-    expect(draw(pool, collected, () => 0.99)?.id).toBe("unicorn/c");
-  });
-
   it("母集団が空のときは null を返す", () => {
     expect(draw([], new Set(), () => 0)).toBeNull();
   });

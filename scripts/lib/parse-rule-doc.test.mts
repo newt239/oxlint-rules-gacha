@@ -152,14 +152,6 @@ describe("parseRuleDoc", () => {
     expect(doc.correct).toStrictEqual([{ code: "const x = 1;", lang: "javascript" }]);
   });
 
-  it("説明は 2 見出し以降を含まない Markdown 原文にする", () => {
-    const doc = parseRuleDoc(noDebugger);
-
-    expect(doc.description.startsWith("### What it does")).toBe(true);
-    expect(doc.description).not.toContain("## Configuration");
-    expect(doc.description).not.toContain("This rule was added in");
-  });
-
   it("折り返された要約を 1 行にまとめる", () => {
     expect(parseRuleDoc(noCycle).summary).toBe(
       "Disallow cyclic dependencies. The rule ensures that there is no resolvable path back to this module via its dependencies.",
@@ -194,11 +186,11 @@ describe("parseRuleDoc", () => {
     expect(doc.correct).toStrictEqual([{ code: '<a href="/home">Home</a>', lang: "jsx" }]);
   });
 
-  it("Configuration 配下の見出し形式の例も拾うが、説明には含めない", () => {
+  it("Configuration 配下の見出し形式の例も拾うが、要約には含めない", () => {
     const doc = parseRuleDoc(consistentTestIt);
 
     expect(doc.incorrect).toStrictEqual([{ code: 'it("foo", () => {});', lang: "javascript" }]);
-    expect(doc.description).not.toContain("## Configuration");
+    expect(doc.summary).toBe("Enforce a consistent test function.");
   });
 });
 

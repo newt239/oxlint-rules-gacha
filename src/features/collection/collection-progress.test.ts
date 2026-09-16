@@ -10,8 +10,6 @@ const rule = (id: string, overrides: Partial<RuleIndexEntry> = {}): RuleIndexEnt
 
   return {
     category: "correctness",
-    enabledByDefault: true,
-    fix: "none",
     id,
     name,
     plugin,

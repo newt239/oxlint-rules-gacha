@@ -24,7 +24,6 @@ export type RuleDetail = {
   category: Category;
   correct: CodeExample[];
   default: boolean;
-  description: string;
   docsUrl: string;
   fix: FixStatus;
   id: string;
@@ -38,8 +37,6 @@ export type RuleDetail = {
 
 export type RuleIndexEntry = {
   category: Category;
-  enabledByDefault: boolean;
-  fix: FixStatus;
   id: string;
   name: string;
   plugin: string;
@@ -64,17 +61,16 @@ const toRuleIndexEntry = (row: unknown): RuleIndexEntry | null => {
   }
 
   const cells: unknown[] = row;
-  const [id, rawCategory, rawFix, rawDefault] = cells;
+  const [id, rawCategory] = cells;
   const category = toCategory(rawCategory);
-  const fix = toFixStatus(rawFix);
 
-  if (typeof id !== "string" || category === undefined || fix === undefined) {
+  if (typeof id !== "string" || category === undefined) {
     return null;
   }
 
   const [plugin = "", name = ""] = id.split("/");
 
-  return { category, enabledByDefault: rawDefault === 1, fix, id, name, plugin };
+  return { category, id, name, plugin };
 };
 
 export const ruleHref = (plugin: string, name: string): Route<`/rules/${string}/${string}`> =>

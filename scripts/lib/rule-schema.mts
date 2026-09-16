@@ -48,7 +48,6 @@ export const ruleDetailSchema = z.object({
   category: z.enum(CATEGORIES),
   correct: z.array(codeExampleSchema),
   default: z.boolean(),
-  description: z.string().min(1),
   docsUrl: z.url(),
   fix: z.enum(FIX_STATUSES),
   id: z.string().min(1),

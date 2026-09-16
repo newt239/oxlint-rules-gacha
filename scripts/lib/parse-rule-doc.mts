@@ -10,7 +10,6 @@ const FENCE_PATTERN = /^```(?<lang>[\w-]*)\r?\n(?<code>[\s\S]*?)\r?\n```$/gmu;
 
 export type RuleDoc = {
   correct: CodeExample[];
-  description: string;
   incorrect: CodeExample[];
   summary: string;
 };
@@ -19,12 +18,6 @@ const sliceBefore = (source: string, pattern: RegExp): string => {
   const end = pattern.exec(source)?.index;
 
   return (end === undefined ? source : source.slice(0, end)).trim();
-};
-
-const extractDescription = (content: string): string => {
-  const start = content.indexOf(WHAT_IT_DOES_HEADING);
-
-  return sliceBefore(start === -1 ? content : content.slice(start), SECOND_LEVEL_HEADING_PATTERN);
 };
 
 const INLINE_LINK_PATTERN = /\[(?<text>[^\]]+)\]\([^)]*\)/gu;
@@ -37,15 +30,17 @@ const toPlainText = (markdown: string): string =>
     .replaceAll(INLINE_CODE_PATTERN, "$<code>")
     .replaceAll(INLINE_EMPHASIS_PATTERN, "$<text>");
 
-const extractSummary = (description: string): string => {
-  if (!description.startsWith(WHAT_IT_DOES_HEADING)) {
+const extractSummary = (content: string): string => {
+  const start = content.indexOf(WHAT_IT_DOES_HEADING);
+
+  if (start === -1) {
     return "";
   }
 
-  const [firstParagraph = ""] = description
-    .slice(WHAT_IT_DOES_HEADING.length)
-    .trimStart()
-    .split(/\r?\n\r?\n/u);
+  const [firstParagraph = ""] = sliceBefore(
+    content.slice(start + WHAT_IT_DOES_HEADING.length),
+    SECOND_LEVEL_HEADING_PATTERN,
+  ).split(/\r?\n\r?\n/u);
 
   return toPlainText(firstParagraph.replaceAll(/\r?\n/gu, " ")).trim();
 };
@@ -58,7 +53,6 @@ const extractFences = (segment: string): CodeExample[] =>
 
 export const parseRuleDoc = (markdown: string): RuleDoc => {
   const content = markdown.replace(FRONTMATTER_PATTERN, "");
-  const description = extractDescription(content);
   const examplesSource = sliceBefore(content, BOILERPLATE_HEADING_PATTERN);
   const markers = [...examplesSource.matchAll(EXAMPLE_MARKER_PATTERN)];
   const correct: CodeExample[] = [];
@@ -73,5 +67,5 @@ export const parseRuleDoc = (markdown: string): RuleDoc => {
     (isCorrect ? correct : incorrect).push(...fences);
   }
 
-  return { correct, description, incorrect, summary: extractSummary(description) };
+  return { correct, incorrect, summary: extractSummary(content) };
 };

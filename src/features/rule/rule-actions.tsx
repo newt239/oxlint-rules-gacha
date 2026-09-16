@@ -5,15 +5,15 @@ import { useEffect } from "react";
 import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
+import { actionStyles } from "#/components/action-styles";
 import { linkStyles } from "#/components/link-styles";
+import { trackEvent } from "#/lib/analytics";
 import { requestAutoDraw } from "#/lib/auto-draw";
 import { hasObtained, obtainedIds, recordDraw } from "#/lib/collection";
 import { loadRuleIndex } from "#/lib/rules";
-import { collectionStore, useLoadedCollection } from "#/lib/stores";
-import { trackEvent } from "#/lib/track";
+import { collectionStore, useHydratedCollection } from "#/lib/stores";
 import { color, font, text } from "#/styles/tokens.stylex";
 
-import { ActionLink } from "./action-link";
 import { ShareButton } from "./share-button";
 
 const styles = stylex.create({
@@ -49,7 +49,7 @@ type RuleActionsProps = {
 };
 
 export const RuleActions = ({ ruleId, shareUrl }: RuleActionsProps) => {
-  const collection = useLoadedCollection();
+  const collection = useHydratedCollection();
 
   // 共有リンクから開いたルールも入手扱いにする。localStorage は描画後しか読めない
   useEffect(() => {
@@ -79,15 +79,16 @@ export const RuleActions = ({ ruleId, shareUrl }: RuleActionsProps) => {
     <div {...stylex.props(styles.group)}>
       <div {...stylex.props(styles.buttons)}>
         <ShareButton title={ruleId} url={shareUrl} />
-        <ActionLink
+        <Link
           href="/"
           onClick={() => {
             trackEvent("rule_draw_again", { rule_id: ruleId });
             requestAutoDraw();
           }}
+          {...stylex.props(actionStyles.base, actionStyles.link)}
         >
           Draw again
-        </ActionLink>
+        </Link>
       </div>
       <p {...stylex.props(styles.total)}>
         {collection !== null && (

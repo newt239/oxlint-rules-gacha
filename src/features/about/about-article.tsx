@@ -2,8 +2,9 @@ import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
 import { linkStyles } from "#/components/link-styles";
+import { pageStyles } from "#/components/page-styles";
 import { ABOUT_INTRO } from "#/lib/site";
-import { color, layout, text } from "#/styles/tokens.stylex";
+import { color, text } from "#/styles/tokens.stylex";
 
 const AUTHOR_GITHUB_URL = "https://github.com/newt239";
 const AUTHOR_NAME = "newt239";
@@ -15,17 +16,9 @@ const OXC_RULES_URL = "https://oxc.rs/docs/guide/usage/linter/rules.html";
 const REPO_URL = "https://github.com/newt239/oxlint-rules-gacha";
 
 const styles = stylex.create({
-  backLink: {
-    color: color.inkDim,
-    display: "block",
-    fontSize: text.md,
-    marginBlockStart: "3rem",
-    marginInline: "auto",
-    width: "fit-content",
-  },
   body: {
     lineHeight: 1.9,
-    margin: 0,
+    marginBlock: 0,
     maxWidth: "70ch",
     textWrap: "pretty",
   },
@@ -35,10 +28,7 @@ const styles = stylex.create({
     marginBlock: "0 0.5rem",
   },
   intro: {
-    lineHeight: 1.9,
-    marginBlock: "1.5rem 0",
-    maxWidth: "70ch",
-    textWrap: "pretty",
+    marginBlockStart: "1.5rem",
   },
   link: {
     color: color.catStyle,
@@ -51,12 +41,6 @@ const styles = stylex.create({
     marginBlock: "1rem 0",
     padding: 0,
   },
-  main: {
-    marginInline: "auto",
-    maxWidth: layout.maxWidth,
-    paddingBlock: "2.5rem 4rem",
-    paddingInline: layout.gutter,
-  },
   section: {
     marginBlockStart: "2.5rem",
   },
@@ -67,10 +51,10 @@ const styles = stylex.create({
 });
 
 export const AboutArticle = () => (
-  <main {...stylex.props(styles.main)}>
+  <main {...stylex.props(pageStyles.main, pageStyles.article)}>
     <article>
       <h1 {...stylex.props(styles.title)}>About</h1>
-      <p {...stylex.props(styles.intro)}>{ABOUT_INTRO}</p>
+      <p {...stylex.props(styles.body, styles.intro)}>{ABOUT_INTRO}</p>
       <section {...stylex.props(styles.section)}>
         <h2 {...stylex.props(styles.heading)}>Unofficial</h2>
         <p {...stylex.props(styles.body)}>
@@ -181,7 +165,7 @@ export const AboutArticle = () => (
         </ul>
       </section>
     </article>
-    <Link href="/" {...stylex.props(linkStyles.underline, styles.backLink)}>
+    <Link href="/" {...stylex.props(linkStyles.underline, pageStyles.backLink)}>
       Back to the gacha
     </Link>
   </main>

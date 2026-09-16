@@ -5,9 +5,9 @@ import { useRef } from "react";
 import * as stylex from "@stylexjs/stylex";
 
 import { ActionButton } from "#/components/action-button";
+import { trackEvent } from "#/lib/analytics";
 import { EMPTY_COLLECTION } from "#/lib/collection";
 import { collectionStore } from "#/lib/stores";
-import { trackEvent } from "#/lib/track";
 import { color, layout, text } from "#/styles/tokens.stylex";
 
 const styles = stylex.create({

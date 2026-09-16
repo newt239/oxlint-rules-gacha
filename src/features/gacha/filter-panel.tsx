@@ -4,9 +4,9 @@ import { useState } from "react";
 
 import * as stylex from "@stylexjs/stylex";
 
+import { trackEvent } from "#/lib/analytics";
 import { CATEGORIES, type Category, loadRuleIndex } from "#/lib/rules";
 import { filterStore, usePersistedStore } from "#/lib/stores";
-import { trackEvent } from "#/lib/track";
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 const styles = stylex.create({
@@ -79,11 +79,11 @@ export const FilterPanel = () => {
       filter_value: category,
     });
 
+    const excluded = toggle(filter.excludedCategories, category);
+
     filterStore.set({
       ...filter,
-      excludedCategories: CATEGORIES.filter((value) =>
-        toggle(filter.excludedCategories, category).includes(value),
-      ),
+      excludedCategories: CATEGORIES.filter((value) => excluded.includes(value)),
     });
   };
 

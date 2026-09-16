@@ -4,10 +4,11 @@ import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
 import { linkStyles } from "#/components/link-styles";
-import { hasObtained, obtainedIds } from "#/lib/collection";
+import { pageStyles } from "#/components/page-styles";
+import { obtainedIds } from "#/lib/collection";
 import { COLLECTION_DESCRIPTION } from "#/lib/site";
 import { collectionStore, usePersistedStore } from "#/lib/stores";
-import { color, font, layout, text } from "#/styles/tokens.stylex";
+import { color, font, text } from "#/styles/tokens.stylex";
 
 import { CollectionClear } from "./collection-clear";
 import { CollectionExport } from "./collection-export";
@@ -17,14 +18,6 @@ import { RuleGrid } from "./rule-grid";
 import { useRuleIndex } from "./use-rule-index";
 
 const styles = stylex.create({
-  backLink: {
-    color: color.inkDim,
-    display: "block",
-    fontSize: text.md,
-    marginBlockStart: "3rem",
-    marginInline: "auto",
-    width: "fit-content",
-  },
   empty: {
     color: color.inkDim,
     fontSize: text.md,
@@ -35,12 +28,6 @@ const styles = stylex.create({
     fontSize: text.xl,
     marginBlock: "0 0.5rem",
     textWrap: "balance",
-  },
-  main: {
-    marginInline: "auto",
-    maxWidth: layout.maxWidth,
-    paddingBlock: "2.5rem 4rem",
-    paddingInline: layout.gutter,
   },
   note: {
     color: color.inkDim,
@@ -76,7 +63,7 @@ export const CollectionView = () => {
 
   if (index === null) {
     return (
-      <main {...stylex.props(styles.main)}>
+      <main {...stylex.props(pageStyles.main, pageStyles.article)}>
         <h1 {...stylex.props(styles.title)}>Collection</h1>
         <output {...stylex.props(styles.note)}>Loading rules</output>
       </main>
@@ -85,11 +72,10 @@ export const CollectionView = () => {
 
   const progress = collectionProgress(index.rules, collection);
   const entries = obtainedEntries(index.rules, collection);
-  const owned = index.rules.filter((rule) => hasObtained(collection, rule.id));
   const obtainedCount = obtainedIds(collection).length;
 
   return (
-    <main {...stylex.props(styles.main)}>
+    <main {...stylex.props(pageStyles.main, pageStyles.article)}>
       <h1 {...stylex.props(styles.title)}>Collection</h1>
       <p {...stylex.props(styles.note)}>{COLLECTION_DESCRIPTION}</p>
       <ProgressSummary progress={progress} />
@@ -113,9 +99,9 @@ export const CollectionView = () => {
           </ul>
         </section>
       )}
-      <CollectionExport rules={owned} />
+      <CollectionExport rules={entries} />
       <CollectionClear count={obtainedCount} />
-      <Link href="/" {...stylex.props(linkStyles.underline, styles.backLink)}>
+      <Link href="/" {...stylex.props(linkStyles.underline, pageStyles.backLink)}>
         Back to the gacha
       </Link>
     </main>

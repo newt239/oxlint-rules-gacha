@@ -110,11 +110,7 @@ const mapWithConcurrency = async <T, R>(
     }
 
     cursor += 1;
-    const item = items[index];
-
-    if (item !== undefined) {
-      results[index] = await worker(item);
-    }
+    results[index] = await worker(items[index]);
 
     return run();
   };
@@ -153,7 +149,6 @@ const main = async () => {
         category: rule.category,
         correct: doc.correct,
         default: rule.default,
-        description: doc.description,
         docsUrl: rule.docs_url,
         fix: toFixStatus(rule.fix),
         id: `${plugin}/${rule.value}`,
@@ -186,7 +181,7 @@ const main = async () => {
   await writeFile(
     INDEX_PATH,
     `${JSON.stringify({
-      rules: details.map((rule) => [rule.id, rule.category, rule.fix, rule.default ? 1 : 0]),
+      rules: details.map((rule) => [rule.id, rule.category]),
       rulesetVersion,
     })}\n`,
   );

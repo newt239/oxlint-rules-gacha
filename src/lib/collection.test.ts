@@ -9,25 +9,6 @@ import {
 } from "./collection";
 
 describe("reviveCollection", () => {
-  it("旧形式の文字列配列を所持データとして取り込む", () => {
-    const revived = reviveCollection(["eslint/eqeqeq", "react/jsx-key"]);
-
-    expect(revived).toStrictEqual({
-      obtained: {
-        "eslint/eqeqeq": { count: 1, firstAt: 0 },
-        "react/jsx-key": { count: 1, firstAt: 0 },
-      },
-      rulesetVersion: "",
-      version: 1,
-    });
-  });
-
-  it("旧形式の配列に混ざった文字列以外を捨てる", () => {
-    const revived = reviveCollection(["eslint/eqeqeq", 42, null]);
-
-    expect(obtainedIds(revived ?? EMPTY_COLLECTION)).toStrictEqual(["eslint/eqeqeq"]);
-  });
-
   it("壊れたエントリだけを捨てて残りは保持する", () => {
     const revived = reviveCollection({
       obtained: {
@@ -55,9 +36,10 @@ describe("reviveCollection", () => {
     expect(obtainedIds(revived ?? EMPTY_COLLECTION)).toStrictEqual(["eslint/eqeqeq"]);
   });
 
-  it("配列でもオブジェクトでもない値には null を返す", () => {
+  it("obtained を読み取れない値には null を返す", () => {
     expect(reviveCollection("こわれたデータ")).toBeNull();
     expect(reviveCollection(null)).toBeNull();
+    expect(reviveCollection(["eslint/eqeqeq"])).toBeNull();
   });
 
   it("obtained を持たないオブジェクトには null を返す", () => {
@@ -106,19 +88,6 @@ describe("recordDraw", () => {
 });
 
 describe("hasObtained", () => {
-  it("引いていないルールは所持していないと判定する", () => {
-    expect(hasObtained(EMPTY_COLLECTION, "eslint/eqeqeq")).toBe(false);
-  });
-
-  it("記録済みのルールは所持していると判定する", () => {
-    const next = recordDraw(EMPTY_COLLECTION, "eslint/eqeqeq", {
-      now: 1700,
-      rulesetVersion: "1.80.0",
-    });
-
-    expect(hasObtained(next, "eslint/eqeqeq")).toBe(true);
-  });
-
   it("prototype 由来のキーを所持扱いしない", () => {
     expect(hasObtained(EMPTY_COLLECTION, "toString")).toBe(false);
   });

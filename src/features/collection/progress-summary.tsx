@@ -3,7 +3,6 @@
 import * as stylex from "@stylexjs/stylex";
 
 import { CategoryBadge } from "#/components/category-badge";
-import { toCategory } from "#/lib/rules";
 import { color, font, layout, text } from "#/styles/tokens.stylex";
 
 import type { CollectionProgress } from "./collection-progress";
@@ -88,18 +87,14 @@ export const ProgressSummary = ({ progress }: ProgressSummaryProps) => (
     </ul>
     <h2 {...stylex.props(styles.heading)}>Category</h2>
     <ul {...stylex.props(styles.list)}>
-      {progress.byCategory.map((item) => {
-        const category = toCategory(item.key);
-
-        return (
-          <li key={item.key} {...stylex.props(styles.chip)}>
-            {category === undefined ? item.key : <CategoryBadge category={category} size="sm" />}
-            <span {...stylex.props(styles.count)}>
-              {item.obtained}/{item.total}
-            </span>
-          </li>
-        );
-      })}
+      {progress.byCategory.map((item) => (
+        <li key={item.key} {...stylex.props(styles.chip)}>
+          <CategoryBadge category={item.key} size="sm" />
+          <span {...stylex.props(styles.count)}>
+            {item.obtained}/{item.total}
+          </span>
+        </li>
+      ))}
     </ul>
   </section>
 );
