@@ -48,10 +48,13 @@ describe("draw", () => {
 });
 
 describe("applyFilter", () => {
-  it("既定では nursery を除外する", () => {
+  it("既定では何も除外しない", () => {
     const rules = [rule("eslint/a"), rule("oxc/b", { category: "nursery" })];
 
-    expect(applyFilter(rules, DEFAULT_FILTER).map((entry) => entry.id)).toStrictEqual(["eslint/a"]);
+    expect(applyFilter(rules, DEFAULT_FILTER).map((entry) => entry.id)).toStrictEqual([
+      "eslint/a",
+      "oxc/b",
+    ]);
   });
 
   it("除外したプラグインを母集団から外す", () => {

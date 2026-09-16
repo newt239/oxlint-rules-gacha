@@ -5,7 +5,7 @@ export type Filter = {
   excludedPlugins: string[];
 };
 
-export const DEFAULT_FILTER: Filter = { excludedCategories: ["nursery"], excludedPlugins: [] };
+export const DEFAULT_FILTER: Filter = { excludedCategories: [], excludedPlugins: [] };
 
 export const applyFilter = (rules: readonly RuleIndexEntry[], filter: Filter): RuleIndexEntry[] =>
   rules.filter(
