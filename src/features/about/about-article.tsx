@@ -65,8 +65,7 @@ export const AboutArticle = () => (
       <section {...stylex.props(styles.section)}>
         <h2 {...stylex.props(styles.heading)}>Data source</h2>
         <p {...stylex.props(styles.body)}>
-          Rule names, categories and descriptions are fetched from the oxc documentation at oxc.rs
-          and rebuilt every week.
+          Rule names, categories and descriptions are fetched from the oxc documentation at oxc.rs.
         </p>
         <ul {...stylex.props(styles.linkList)}>
           <li>

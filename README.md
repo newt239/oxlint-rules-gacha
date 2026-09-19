@@ -33,7 +33,7 @@ See `.env.example` for the environment variables. `NEXT_PUBLIC_*` values are inl
 
 ## API
 
-`GET /api/random` returns one random rule as JSON. It is read-only, sends `Access-Control-Allow-Origin: *`, and is never cached.
+`GET /api/random` returns one random rule as JSON.
 
 ```bash
 curl https://oxlint-gacha.newt239.dev/api/random
