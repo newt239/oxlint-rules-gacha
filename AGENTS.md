@@ -112,6 +112,12 @@ public/
 - ガチャ本体・コレクション・フィルタ設定のみ Client Component。
 - ルールインデックスは RSC ペイロードに載せず、`public/data/rules.index.json` を fetch します。props で渡してはなりません。
 
+### GA4 と同意管理
+
+- GA は Google Consent Mode v2 で動かします。`src/app/layout.tsx` の `beforeInteractive` な inline script (`GA_CONSENT_BOOTSTRAP_SCRIPT`) が `analytics_storage` を `denied` で初期化し、保存済みの同意が `granted` なら同期的に `update` します。この順序を崩すと同意前に Cookie が作られるため、`<GoogleAnalytics>` より前に実行される構成を維持してください。
+- 同意状態は `src/lib/consent.ts` と `consentStore`（`src/lib/stores.ts`）で持ち、変更は `src/features/privacy/set-consent.ts` の `setConsent()` だけを通します。
+- プライバシーポリシー (`/privacy`) の記述と実装は対応しています。計測項目・保存キー・Cookie を変えたら `src/features/privacy/privacy-article.tsx` も更新してください。
+
 ## コーディングガイドライン
 
 ### `any` の禁止
