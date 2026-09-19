@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { linkStyles } from "#/components/link-styles";
 import { pageStyles } from "#/components/page-styles";
+import { GA_MEASUREMENT_ID } from "#/lib/analytics";
 import { color, font, text } from "#/styles/tokens.stylex";
 
 import { ConsentControls } from "./consent-controls";
@@ -216,15 +217,17 @@ export const PrivacyArticle = () => (
         </ul>
       </section>
 
-      <section {...stylex.props(styles.section)}>
-        <h2 {...stylex.props(styles.heading)}>Your choice</h2>
-        <p {...stylex.props(styles.body)}>
-          Withdrawing consent is as easy as giving it. Turning analytics off here also deletes the
-          Google Analytics cookies this browser already holds. It does not delete data Google has
-          already collected; for that, get in touch through the issue tracker above.
-        </p>
-        <ConsentControls />
-      </section>
+      {GA_MEASUREMENT_ID !== "" && (
+        <section {...stylex.props(styles.section)}>
+          <h2 {...stylex.props(styles.heading)}>Your choice</h2>
+          <p {...stylex.props(styles.body)}>
+            Withdrawing consent is as easy as giving it. Turning analytics off here also deletes the
+            Google Analytics cookies this browser already holds. It does not delete data Google has
+            already collected; for that, get in touch through the issue tracker above.
+          </p>
+          <ConsentControls />
+        </section>
+      )}
 
       <section {...stylex.props(styles.section)}>
         <h2 {...stylex.props(styles.heading)}>Hosting</h2>

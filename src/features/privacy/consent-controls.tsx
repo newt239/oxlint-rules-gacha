@@ -5,7 +5,6 @@ import { useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 
 import { ActionButton } from "#/components/action-button";
-import { GA_MEASUREMENT_ID } from "#/lib/analytics";
 import { useHydratedConsent } from "#/lib/stores";
 import { color, text } from "#/styles/tokens.stylex";
 
@@ -41,16 +40,13 @@ const styles = stylex.create({
   status: {
     fontWeight: 700,
     margin: 0,
+    minHeight: "1.75rem",
   },
 });
 
 export const ConsentControls = () => {
   const consent = useHydratedConsent();
   const [result, setResult] = useState("");
-
-  if (GA_MEASUREMENT_ID === "" || consent === null) {
-    return null;
-  }
 
   const choose = (choice: ConsentChoice) => {
     setConsent(choice);
@@ -59,10 +55,10 @@ export const ConsentControls = () => {
 
   return (
     <div>
-      <p {...stylex.props(styles.status)}>{STATUS_TEXT[consent]}</p>
+      <p {...stylex.props(styles.status)}>{consent === null ? "" : STATUS_TEXT[consent]}</p>
       <div {...stylex.props(styles.actions)}>
         <ActionButton
-          disabled={consent === "granted"}
+          disabled={consent === null || consent === "granted"}
           onClick={() => {
             choose("granted");
           }}
@@ -70,7 +66,7 @@ export const ConsentControls = () => {
           Allow analytics
         </ActionButton>
         <ActionButton
-          disabled={consent === "denied"}
+          disabled={consent === null || consent === "denied"}
           onClick={() => {
             choose("denied");
           }}
