@@ -128,6 +128,19 @@ export const AboutArticle = () => (
         </ul>
       </section>
       <section {...stylex.props(styles.section)}>
+        <h2 {...stylex.props(styles.heading)}>Privacy</h2>
+        <p {...stylex.props(styles.body)}>
+          Analytics only runs if you accept it, and you can change that choice at any time.
+        </p>
+        <ul {...stylex.props(styles.linkList)}>
+          <li>
+            <Link href="/privacy" {...stylex.props(linkStyles.underline, styles.link)}>
+              Privacy policy
+            </Link>
+          </li>
+        </ul>
+      </section>
+      <section {...stylex.props(styles.section)}>
         <h2 {...stylex.props(styles.heading)}>Author</h2>
         <p {...stylex.props(styles.body)}>Built by {AUTHOR_NAME}.</p>
         <ul {...stylex.props(styles.linkList)}>

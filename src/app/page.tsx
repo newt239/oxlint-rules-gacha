@@ -36,6 +36,9 @@ const Home = () => (
       <Link href="/about" {...stylex.props(linkStyles.underline, styles.link)}>
         About
       </Link>
+      <Link href="/privacy" {...stylex.props(linkStyles.underline, styles.link)}>
+        Privacy
+      </Link>
     </footer>
   </>
 );

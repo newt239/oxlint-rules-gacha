@@ -5,7 +5,12 @@ import * as stylex from "@stylexjs/stylex";
 import { Baloo_2, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 
-import { GA_LOCAL_DISABLE_SCRIPT, GA_MEASUREMENT_ID } from "#/lib/analytics";
+import { ConsentBanner } from "#/features/privacy/consent-banner";
+import {
+  GA_CONSENT_BOOTSTRAP_SCRIPT,
+  GA_LOCAL_DISABLE_SCRIPT,
+  GA_MEASUREMENT_ID,
+} from "#/lib/analytics";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "#/lib/site";
 import { color, font, text } from "#/styles/tokens.stylex";
 import "#/styles/globals.css";
@@ -54,6 +59,11 @@ const RootLayout = ({ children }: Readonly<RootLayoutProps>) => (
   <html lang="en" className={`${baloo2.variable} ${geistMono.variable}`}>
     <head>
       {GA_MEASUREMENT_ID !== "" && (
+        <Script id="ga-consent-default" strategy="beforeInteractive">
+          {GA_CONSENT_BOOTSTRAP_SCRIPT}
+        </Script>
+      )}
+      {GA_MEASUREMENT_ID !== "" && (
         <Script id="ga-disable-local" strategy="beforeInteractive">
           {GA_LOCAL_DISABLE_SCRIPT}
         </Script>
@@ -61,6 +71,7 @@ const RootLayout = ({ children }: Readonly<RootLayoutProps>) => (
     </head>
     <body {...stylex.props(styles.body)}>
       {children}
+      <ConsentBanner />
       {GA_MEASUREMENT_ID !== "" && <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />}
     </body>
   </html>

@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from "react";
 
 import { type Collection, EMPTY_COLLECTION, reviveCollection } from "./collection";
+import { CONSENT_STORAGE_KEY, type ConsentState, DEFAULT_CONSENT, reviveConsent } from "./consent";
 import { DEFAULT_FILTER, type Filter } from "./draw";
 import { createPersistedStore, type PersistedStore } from "./persisted-store";
 import { CATEGORIES } from "./rules";
@@ -40,6 +41,12 @@ export const collectionStore = createPersistedStore<Collection>(
   reviveCollection,
 );
 
+export const consentStore = createPersistedStore<ConsentState>(
+  CONSENT_STORAGE_KEY,
+  DEFAULT_CONSENT,
+  reviveConsent,
+);
+
 export const filterStore = createPersistedStore<Filter>(
   "oxlint-gacha:filter",
   DEFAULT_FILTER,
@@ -53,5 +60,12 @@ export const useHydratedCollection = (): Collection | null =>
   useSyncExternalStore<Collection | null>(
     collectionStore.subscribe,
     collectionStore.getSnapshot,
+    () => null,
+  );
+
+export const useHydratedConsent = (): ConsentState | null =>
+  useSyncExternalStore<ConsentState | null>(
+    consentStore.subscribe,
+    consentStore.getSnapshot,
     () => null,
   );
