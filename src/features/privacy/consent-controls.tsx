@@ -62,6 +62,7 @@ export const ConsentControls = () => {
           onClick={() => {
             choose("granted");
           }}
+          variant="secondary"
         >
           Allow analytics
         </ActionButton>
@@ -70,6 +71,7 @@ export const ConsentControls = () => {
           onClick={() => {
             choose("denied");
           }}
+          variant="secondary"
         >
           Turn analytics off
         </ActionButton>

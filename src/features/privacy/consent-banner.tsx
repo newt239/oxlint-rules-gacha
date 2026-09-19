@@ -16,6 +16,7 @@ const styles = stylex.create({
     display: "flex",
     flexWrap: "wrap",
     gap: "0.75rem",
+    justifyContent: "flex-end",
     marginBlockStart: "1.25rem",
   },
   banner: {
@@ -74,6 +75,7 @@ export const ConsentBanner = () => {
             onClick={() => {
               setConsent("granted");
             }}
+            variant="secondary"
           >
             Accept
           </ActionButton>
@@ -81,6 +83,7 @@ export const ConsentBanner = () => {
             onClick={() => {
               setConsent("denied");
             }}
+            variant="secondary"
           >
             Decline
           </ActionButton>
