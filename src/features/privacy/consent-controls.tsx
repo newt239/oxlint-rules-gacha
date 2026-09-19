@@ -1,26 +1,17 @@
 "use client";
 
-import { useState } from "react";
-
 import * as stylex from "@stylexjs/stylex";
 
 import { ActionButton } from "#/components/action-button";
 import { useHydratedConsent } from "#/lib/stores";
-import { color, text } from "#/styles/tokens.stylex";
+import { text } from "#/styles/tokens.stylex";
 
 import { setConsent } from "./set-consent";
-
-import type { ConsentChoice } from "#/lib/consent";
 
 const STATUS_TEXT = {
   denied: "Analytics is off in this browser.",
   granted: "Analytics is on in this browser.",
-  unset: "You have not chosen yet, so analytics is off.",
-};
-
-const RESULT_TEXT = {
-  denied: "Analytics is now off, and the Google Analytics cookies have been removed.",
-  granted: "Analytics is now on.",
+  unset: "Analytics is off until you allow it.",
 };
 
 const styles = stylex.create({
@@ -30,37 +21,28 @@ const styles = stylex.create({
     gap: "0.75rem",
     marginBlockStart: "1rem",
   },
-  result: {
-    color: color.catPerf,
+  status: {
     display: "block",
     fontSize: text.md,
-    marginBlock: "1rem 0",
-    minHeight: "1.75rem",
-  },
-  status: {
     fontWeight: 700,
-    margin: 0,
+    marginBlockStart: "1rem",
     minHeight: "1.75rem",
   },
 });
 
 export const ConsentControls = () => {
   const consent = useHydratedConsent();
-  const [result, setResult] = useState("");
-
-  const choose = (choice: ConsentChoice) => {
-    setConsent(choice);
-    setResult(RESULT_TEXT[choice]);
-  };
 
   return (
     <div>
-      <p {...stylex.props(styles.status)}>{consent === null ? "" : STATUS_TEXT[consent]}</p>
+      <output {...stylex.props(styles.status)}>
+        {consent === null ? "" : STATUS_TEXT[consent]}
+      </output>
       <div {...stylex.props(styles.actions)}>
         <ActionButton
           disabled={consent === null || consent === "granted"}
           onClick={() => {
-            choose("granted");
+            setConsent("granted");
           }}
           variant="secondary"
         >
@@ -69,14 +51,13 @@ export const ConsentControls = () => {
         <ActionButton
           disabled={consent === null || consent === "denied"}
           onClick={() => {
-            choose("denied");
+            setConsent("denied");
           }}
           variant="secondary"
         >
           Turn analytics off
         </ActionButton>
       </div>
-      <output {...stylex.props(styles.result)}>{result}</output>
     </div>
   );
 };
