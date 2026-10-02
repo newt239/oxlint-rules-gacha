@@ -13,10 +13,6 @@ updates:
       all-dependencies:
         patterns:
           - "*"
-        exclude-patterns:
-          - "next"
-          - "@stylexjs/*"
-          - "@stylexswc/*"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
