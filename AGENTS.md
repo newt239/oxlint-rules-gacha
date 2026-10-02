@@ -103,7 +103,7 @@ public/
 - `rem` は 0.25 刻みの値だけを使います。自作の oxlint ルール `stylex/rem-scale`（`scripts/oxlint/rem-scale.mts`）が違反を検出します。
 - Turbopack ではローダーが変換のみを行い、**CSS の抽出は `postcss.config.mjs` の `@stylexswc/postcss-plugin` が担当** します。`postcss.config.mjs` を消すとスタイルが一切当たりません。
 - `postcss.config.mjs` を置いた時点で Next.js 組み込みの PostCSS 設定は無効になります。必要な既定プラグインは自分で書き戻してください（現在は `autoprefixer`）。
-- `@stylexswc/*` は非公式プラグインです。バージョンは固定し、Dependabot のまとめ更新から除外しています。`next` も同様です。
+- `@stylexswc/*` は非公式プラグインです。バージョンは固定しています。
 - Motion が触るプロパティは `transform` / `opacity` / `filter` に限定し、StyleX 側で同じプロパティを指定してはなりません。
 
 ### レンダリング方針

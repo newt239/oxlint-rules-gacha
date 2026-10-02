@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "quarterly"
       timezone: "Asia/Tokyo"
       time: "08:00"
     target-branch: "main"
@@ -13,14 +13,10 @@ updates:
       all-dependencies:
         patterns:
           - "*"
-        exclude-patterns:
-          - "next"
-          - "@stylexjs/*"
-          - "@stylexswc/*"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "quarterly"
       timezone: "Asia/Tokyo"
       time: "08:00"
     target-branch: "main"
